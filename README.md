@@ -1,10 +1,19 @@
 # sveltekit-cookie-mananger
 
-# create-svelte
+## Features
+
+Sveltekit Cookie Manager reduces the workload of keeping multiple websites cookie consents up to date by centralizing them into this package. 
+Enables cookie management of
+- Google Analytics Universal
+
+## How to use
+## Documentation
+
+## create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Creating a project
+### Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!
 
@@ -18,7 +27,7 @@ npm init svelte@next my-app
 
 > Note: the `@next` is temporary
 
-## Developing
+### Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
@@ -29,7 +38,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+### Building
 
 To create a production version of your app:
 
