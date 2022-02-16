@@ -1,10 +1,10 @@
 import type { Writable } from 'svelte/store';
 import { get, writable } from 'svelte/store';
-import { SuportedService, SupportedCookieTracking } from './types';
+import { Service, SuportedService, SupportedCookieTracking } from './types';
 import { getCookie } from './utils';
 
 export const showCookieDisclaimer: Writable<boolean> = writable(false);
-export const configuredServices: Writable<{ type: SuportedService; id?: string, enabled?: boolean }[]> = writable([]);
+export const configuredServices: Writable<Service[]> = writable([]);
 
 export function initConfiguredServices(googleAnalyticsUniversalId: string, googleAnalytics4Id: string): void {
     const _configuredServices = []
@@ -13,7 +13,7 @@ export function initConfiguredServices(googleAnalyticsUniversalId: string, googl
             {
                 type: SuportedService.GoogleAnalyticsUniversal,
                 id: googleAnalyticsUniversalId,
-                enabled: false
+                enabled: getCookie(SupportedCookieTracking[SuportedService.GoogleAnalyticsUniversal]) === 'true'
             }
         );
     }
@@ -22,24 +22,9 @@ export function initConfiguredServices(googleAnalyticsUniversalId: string, googl
             {
                 type: SuportedService.GoogleAnalytics4,
                 id: googleAnalytics4Id,
-                enabled: false
+                enabled: getCookie(SupportedCookieTracking[SuportedService.GoogleAnalytics4]) === 'true'
             }
         );
     }
-    configuredServices.set(_configuredServices)
-}
-
-// Update configuration store with the current cookie values
-export function updateConfiguredServices(): void {
-    let _configuredServices = get(configuredServices)
-    _configuredServices = _configuredServices.map(
-        (service: { type: SuportedService; id?: string, enabled?: boolean }) => {
-            const _previouslyEnabled = getCookie(SupportedCookieTracking[service.type]) === 'true';
-            return {
-                ...service,
-                enabled: _previouslyEnabled
-            };
-        }
-    );
     configuredServices.set(_configuredServices)
 }
