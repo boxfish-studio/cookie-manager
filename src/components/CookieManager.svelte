@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { getCookie, setCookie } from '$lib/utils';
-	import { GoogleAnalyticsUniversal } from '$components';
+	import { page } from '$app/stores';
+	import { getCookie, setCookie, loadGoogleAnalytics, updatePathGA } from '$lib/utils';
+
+	export let googleAnalyticsUniversalId: string = '';
 
 	let COOKIES = {
 		googleAnalyticsUniversal: { name: 'ga_universal', enabled: false },
@@ -9,18 +11,22 @@
 	};
 
 	let showCookieDisclaimer: boolean = false;
-
-	let googleAnalyticsUniversal;
+	let mounted: boolean = false;
 
 	onMount(() => {
-		showCookieDisclaimer = anyUnkownCookie() ? true : false;
+		showCookieDisclaimer = anyUnkownCookie();
 		//update status of each cookie to load or not each service
 		for (const service in COOKIES) {
 			COOKIES[service].enabled = getCookie(COOKIES[service].name) === 'true';
 		}
+
+		if (COOKIES['googleAnalyticsUniversal'].enabled && googleAnalyticsUniversalId) {
+			loadGoogleAnalytics(googleAnalyticsUniversalId as string);
+		}
+		mounted = true;
 	});
 
-    //Check user has accepted/rejected all our cookies
+	//Check user has accepted/rejected all our cookies
 	const anyUnkownCookie = (): boolean => {
 		for (const service in COOKIES) {
 			if (!getCookie(COOKIES[service].name)?.length) {
@@ -35,7 +41,9 @@
 			setCookie(COOKIES[service].name, 'true', 30);
 		}
 		showCookieDisclaimer = false;
-		googleAnalyticsUniversal.load();
+		if (googleAnalyticsUniversalId) {
+			loadGoogleAnalytics(googleAnalyticsUniversalId as string);
+		}
 	};
 
 	const declineCookies = (): void => {
@@ -44,6 +52,10 @@
 		}
 		showCookieDisclaimer = false;
 	};
+
+	$: if ($page.url.pathname && mounted) {
+		updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
+	}
 </script>
 
 {#if showCookieDisclaimer}
@@ -57,9 +69,3 @@
 		</div>
 	</div>
 {/if}
-
-<GoogleAnalyticsUniversal
-	googleAnalyticsId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVERSAL_ID}
-	bind:this={googleAnalyticsUniversal}
-	enabled={COOKIES['googleAnalyticsUniversal'].enabled}
-/>

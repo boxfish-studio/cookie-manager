@@ -10,4 +10,4 @@
 	<slot />
 </main>
 
-<CookieManager />
+<CookieManager googleAnalyticsUniversalId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVERSAL_ID}/>
