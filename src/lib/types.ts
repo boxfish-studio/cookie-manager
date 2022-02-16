@@ -3,7 +3,7 @@ export enum SuportedService {
     GoogleAnalytics4 = 'googleAnalytics4',
 }
 
-export const SupportedCookieTracking = {
+export const SupportedNecessaryCookies = {
     [SuportedService.GoogleAnalyticsUniversal]: 'skcm-ga-universal',
     [SuportedService.GoogleAnalytics4]: 'skcm-ga-4',
 }

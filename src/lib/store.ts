@@ -1,6 +1,6 @@
 import type { Writable } from 'svelte/store';
 import { get, writable } from 'svelte/store';
-import { Service, SuportedService, SupportedCookieTracking } from './types';
+import { Service, SuportedService, SupportedNecessaryCookies } from './types';
 import { getCookie } from './utils';
 
 export const showCookieDisclaimer: Writable<boolean> = writable(false);
@@ -13,7 +13,7 @@ export function initConfiguredServices(googleAnalyticsUniversalId: string, googl
             {
                 type: SuportedService.GoogleAnalyticsUniversal,
                 id: googleAnalyticsUniversalId,
-                enabled: getCookie(SupportedCookieTracking[SuportedService.GoogleAnalyticsUniversal]) === 'true'
+                enabled: getCookie(SupportedNecessaryCookies[SuportedService.GoogleAnalyticsUniversal]) === 'true'
             }
         );
     }
@@ -22,7 +22,7 @@ export function initConfiguredServices(googleAnalyticsUniversalId: string, googl
             {
                 type: SuportedService.GoogleAnalytics4,
                 id: googleAnalytics4Id,
-                enabled: getCookie(SupportedCookieTracking[SuportedService.GoogleAnalytics4]) === 'true'
+                enabled: getCookie(SupportedNecessaryCookies[SuportedService.GoogleAnalytics4]) === 'true'
             }
         );
     }
