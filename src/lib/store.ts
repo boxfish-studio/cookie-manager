@@ -1,5 +1,5 @@
 import type { Writable } from 'svelte/store';
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { Service, SuportedService, SupportedNecessaryCookies } from './types';
 import { getCookie } from './utils';
 
