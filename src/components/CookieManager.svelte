@@ -17,7 +17,7 @@
 	onMount(() => {
 		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id);
 		if (hasAllNecessaryCookies()) {
-			initializeServices(googleAnalyticsUniversalId);
+			initializeServices();
 		} else {
 			showCookieDisclaimer.set(true);
 		}
@@ -26,7 +26,7 @@
 	const _submitNecessaryCookies = (value: 'true' | 'false'): void => {
 		submitNecessaryCookies(value);
 		if (value === 'true') {
-			initializeServices(googleAnalyticsUniversalId);
+			initializeServices();
 		}
 		showCookieDisclaimer.set(false);
 	};

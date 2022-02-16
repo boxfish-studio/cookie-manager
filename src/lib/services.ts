@@ -3,9 +3,10 @@ import { get } from 'svelte/store';
 import { configuredServices } from './store';
 import { SuportedService } from './types';
 
-export const initializeServices = (googleAnalyticsUniversalId): void => {
-    if (get(configuredServices)?.find(({ type }) => type === SuportedService.GoogleAnalyticsUniversal)?.enabled) {
-        loadGoogleAnalytics(googleAnalyticsUniversalId);
+export const initializeServices = (): void => {
+    const googleAnalyticsUniversalConfig = get(configuredServices)?.find(({ type }) => type === SuportedService.GoogleAnalyticsUniversal)
+    if (googleAnalyticsUniversalConfig?.enabled) {
+        loadGoogleAnalytics(googleAnalyticsUniversalConfig.id);
     }
 }
 
