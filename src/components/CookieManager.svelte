@@ -59,7 +59,7 @@
 {/if}
 
 <GoogleAnalyticsUniversal
-	googleAnalyticsId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVESAL_ID}
+	googleAnalyticsId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVERSAL_ID}
 	bind:this={googleAnalyticsUniversal}
 	enabled={COOKIES['googleAnalyticsUniversal'].enabled}
 />
