@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoogleAnalyticsUniversal } from '$components';
+	import { CookieManager } from '$components';
 </script>
 
 <svelte:head />
@@ -9,4 +9,5 @@
 <main>
 	<slot />
 </main>
-<GoogleAnalyticsUniversal googleAnalyticsId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVESAL_ID} />
+
+<CookieManager />

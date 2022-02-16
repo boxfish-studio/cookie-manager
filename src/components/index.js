@@ -1,1 +1,2 @@
-export { default as GoogleAnalyticsUniversal } from './google-analytics-universal.svelte'
+export { default as GoogleAnalyticsUniversal } from './GoogleAnalyticsUniversal.svelte'
+export { default as CookieManager } from './CookieManager.svelte'
