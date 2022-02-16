@@ -27,11 +27,11 @@ export const setCookie = (name: string, val: string, expDays: number): void => {
 // Check user has all necessary cookies already set
 export const hasAllNecessaryCookies = (): boolean => {
     get(configuredServices)?.forEach((service) => {
-        if (!getCookie(SupportedCookieTracking[service.type])) {
-            return true;
+        if (!getCookie(SupportedCookieTracking[service.type])?.length) {
+            return false;
         }
     });
-    return false;
+    return true;
 };
 
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {

@@ -1,21 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { initializeGoogleAnalyticsUniversal, updatePathGA } from '$lib/services';
+	import { initializeServices, updatePathGA } from '$lib/services';
 	import {
-		configuredServices,
 		initConfiguredServices,
 		showCookieDisclaimer,
 		updateConfiguredServices
 	} from '$lib/store';
-	import { SuportedService } from '$lib/types';
-	import { hasAllNecessaryCookies } from '$lib/utils';
+	import { hasAllNecessaryCookies, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
 
 	export let googleAnalyticsUniversalId: string = undefined;
 	export let googleAnalytics4Id: string = undefined;
 
-	$: if ($page.url.pathname) {
+	// TODO: improve this
+	$: if ($page?.url.pathname) {
 		updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
 	}
 
@@ -23,14 +22,16 @@
 		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id);
 		if (hasAllNecessaryCookies()) {
 			updateConfiguredServices();
+			initializeServices(googleAnalyticsUniversalId);
 		} else {
 			showCookieDisclaimer.set(true);
 		}
 	});
 
 	const _submitNecessaryCookies = (value: 'true' | 'false'): void => {
+		submitNecessaryCookies(value);
 		if (value === 'true') {
-			initializeServices();
+			initializeServices(googleAnalyticsUniversalId);
 		}
 		showCookieDisclaimer.set(false);
 	};
@@ -42,12 +43,6 @@
 	const declineCookies = (): void => {
 		_submitNecessaryCookies('false');
 	};
-
-	function initializeServices(): void {
-		if (configuredServices[SuportedService.GoogleAnalyticsUniversal]?.enabled) {
-			initializeGoogleAnalyticsUniversal(googleAnalyticsUniversalId);
-		}
-	}
 </script>
 
 {#if $showCookieDisclaimer}
