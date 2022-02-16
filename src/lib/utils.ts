@@ -1,3 +1,8 @@
+import { get } from 'svelte/store';
+import { COOKIE_EXPIRATION_DAYS } from './constants';
+import { configuredServices } from './store';
+import { SupportedCookieTracking } from './types';
+
 /*
  * General utils for managing cookies in Typescript.
  * Source: https://gist.github.com/joduplessis/7b3b4340353760e945f972a69e855d11
@@ -19,34 +24,23 @@ export const setCookie = (name: string, val: string, expDays: number): void => {
     document.cookie = name + '=' + value + '; expires=' + date.toUTCString() + '; path=/';
 };
 
-
-/*
- * Google Analytics utils.
- */
-
-export const loadGoogleAnalytics = (gaID: string): void => {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(key: string, value: unknown) {
-        // eslint-disable-next-line prefer-rest-params
-        window.dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-    gtag('config', gaID);
-
-    const script = document.createElement('script');
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaID}`;
-    document.body.appendChild(script);
+// Check user has all necessary cookies already set
+export const hasAllNecessaryCookies = (): boolean => {
+    get(configuredServices)?.forEach((service) => {
+        if (!getCookie(SupportedCookieTracking[service.type])) {
+            return true;
+        }
+    });
+    return false;
 };
 
-
-export const updatePathGA = (gaID: string, path): void => {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(key: string, value: unknown, { page_path: string }) {
-        // eslint-disable-next-line prefer-rest-params
-        window.dataLayer.push(arguments);
-    }
-    gtag('config', gaID, {
-        page_path: path
+export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
+    const _configuredServices = get(configuredServices)?.map((service) => {
+        setCookie(SupportedCookieTracking[service.type], value, COOKIE_EXPIRATION_DAYS);
+        return {
+            ...service,
+            enabled: value === 'true'
+        };
     });
+    configuredServices.set(_configuredServices)
 };
