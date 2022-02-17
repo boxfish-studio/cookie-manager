@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { initializeServices, updatePathGA } from '$lib/services';
-	import { initConfiguredServices, showCookieDisclaimer, servicesInitialized } from '$lib/store';
+	import { initConfiguredServices, showCookieDisclaimer } from '$lib/store';
 	import { hasAllNecessaryCookies, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
