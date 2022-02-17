@@ -1,11 +1,13 @@
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { NecessaryCookies } from './constants';
-import { Service, SuportedService } from './types';
+import { SuportedService } from './types';
+import type { Service } from './types';
 import { getCookie } from './utils';
 
 export const showCookieDisclaimer: Writable<boolean> = writable(false);
 export const configuredServices: Writable<Service[]> = writable([]);
+export const servicesInitialized: Writable<boolean> = writable(false);
 
 export function initConfiguredServices(googleAnalyticsUniversalId: string, googleAnalytics4Id: string): void {
     const _configuredServices = []

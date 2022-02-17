@@ -1,6 +1,6 @@
 import { browser } from "$app/env";
 import { get } from 'svelte/store';
-import { configuredServices } from './store';
+import { configuredServices, servicesInitialized } from './store';
 import { SuportedService } from './types';
 
 export const initializeServices = (): void => {
@@ -8,6 +8,7 @@ export const initializeServices = (): void => {
     if (googleAnalyticsUniversalConfig?.enabled) {
         loadGoogleAnalytics(googleAnalyticsUniversalConfig.id);
     }
+    servicesInitialized.set(true);
 }
 
 /*

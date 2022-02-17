@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { initializeServices, updatePathGA } from '$lib/services';
-	import { initConfiguredServices, showCookieDisclaimer } from '$lib/store';
+	import { initConfiguredServices, showCookieDisclaimer, servicesInitialized } from '$lib/store';
 	import { hasAllNecessaryCookies, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
@@ -15,15 +15,21 @@
 	}
 
 	onMount(() => {
+		let areServicesInitialized: boolean = false;
+		servicesInitialized.subscribe((value) => {
+			areServicesInitialized = value;
+		});
 		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id);
 		if (hasAllNecessaryCookies()) {
-			initializeServices();
+			if (!areServicesInitialized) {
+				initializeServices();
+			}
 		} else {
 			showCookieDisclaimer.set(true);
 		}
 	});
 
-	const _submitNecessaryCookies = (value: 'true' | 'false'): void => {
+	const handleSubmitNecessaryCookies = (value: 'true' | 'false'): void => {
 		submitNecessaryCookies(value);
 		if (value === 'true') {
 			initializeServices();
@@ -32,11 +38,11 @@
 	};
 
 	const allowCookies = (): void => {
-		_submitNecessaryCookies('true');
+		handleSubmitNecessaryCookies('true');
 	};
 
 	const declineCookies = (): void => {
-		_submitNecessaryCookies('false');
+		handleSubmitNecessaryCookies('false');
 	};
 </script>
 
