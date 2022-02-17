@@ -15,15 +15,9 @@
 	}
 
 	onMount(() => {
-		let areServicesInitialized: boolean = false;
-		servicesInitialized.subscribe((value) => {
-			areServicesInitialized = value;
-		});
 		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id);
 		if (hasAllNecessaryCookies()) {
-			if (!areServicesInitialized) {
-				initializeServices();
-			}
+			initializeServices();
 		} else {
 			showCookieDisclaimer.set(true);
 		}
