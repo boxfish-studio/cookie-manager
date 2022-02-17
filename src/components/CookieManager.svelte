@@ -1,71 +1,45 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { getCookie, setCookie, loadGoogleAnalytics, updatePathGA } from '$lib/utils';
+	import { initializeServices, updatePathGA } from '$lib/services';
+	import { initConfiguredServices, showCookieDisclaimer } from '$lib/store';
+	import { hasAllNecessaryCookies, submitNecessaryCookies } from '$lib/utils';
+	import { onMount } from 'svelte';
+	import { Disclaimer } from './';
 
-	export let googleAnalyticsUniversalId: string = '';
+	export let googleAnalyticsUniversalId: string = undefined;
+	export let googleAnalytics4Id: string = undefined;
 
-	let COOKIES = {
-		googleAnalyticsUniversal: { name: 'ga_universal', enabled: false },
-		googleAnalytics4: { name: 'ga_4', enabled: false }
-	};
-
-	let showCookieDisclaimer: boolean = false;
-	let mounted: boolean = false;
+	// TODO: improve this
+	$: if ($page?.url.pathname) {
+		updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
+	}
 
 	onMount(() => {
-		showCookieDisclaimer = anyUnkownCookie();
-		//update status of each cookie to load or not each service
-		for (const service in COOKIES) {
-			COOKIES[service].enabled = getCookie(COOKIES[service].name) === 'true';
+		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id);
+		if (hasAllNecessaryCookies()) {
+			initializeServices();
+		} else {
+			showCookieDisclaimer.set(true);
 		}
-
-		if (COOKIES['googleAnalyticsUniversal'].enabled && googleAnalyticsUniversalId) {
-			loadGoogleAnalytics(googleAnalyticsUniversalId as string);
-		}
-		mounted = true;
 	});
 
-	//Check user has accepted/rejected all our cookies
-	const anyUnkownCookie = (): boolean => {
-		for (const service in COOKIES) {
-			if (!getCookie(COOKIES[service].name)?.length) {
-				return true;
-			}
+	const handleSubmitNecessaryCookies = (value: 'true' | 'false'): void => {
+		submitNecessaryCookies(value);
+		if (value === 'true') {
+			initializeServices();
 		}
-		return false;
+		showCookieDisclaimer.set(false);
 	};
 
 	const allowCookies = (): void => {
-		for (const service in COOKIES) {
-			setCookie(COOKIES[service].name, 'true', 30);
-		}
-		showCookieDisclaimer = false;
-		if (googleAnalyticsUniversalId) {
-			loadGoogleAnalytics(googleAnalyticsUniversalId as string);
-		}
+		handleSubmitNecessaryCookies('true');
 	};
 
 	const declineCookies = (): void => {
-		for (const service in COOKIES) {
-			setCookie(COOKIES[service].name, 'false', 30);
-		}
-		showCookieDisclaimer = false;
+		handleSubmitNecessaryCookies('false');
 	};
-
-	$: if ($page.url.pathname && mounted) {
-		updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
-	}
 </script>
 
-{#if showCookieDisclaimer}
-	<div>
-		<div>
-			<span>By using this site, you agree with our cookies policy. </span>
-		</div>
-		<div>
-			<button on:click={allowCookies}>Accept</button>
-			<button on:click={declineCookies}>Decline</button>
-		</div>
-	</div>
+{#if $showCookieDisclaimer}
+	<Disclaimer {allowCookies} {declineCookies} />
 {/if}
