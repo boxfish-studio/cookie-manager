@@ -5,17 +5,17 @@
 	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
-	import { SuportedService } from '$lib/types';
+	import { SupportedService } from '$lib/types';
 
 	export let googleAnalyticsUniversalId: string = undefined;
 	export let googleAnalytics4Id: string = undefined;
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
-		if (isServiceEnabled(SuportedService.GoogleAnalyticsUniversal)) {
+		if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
 			updatePathGA(googleAnalyticsUniversalId, $page.url.pathname);
 		} else {
-			if (isServiceEnabled(SuportedService.GoogleAnalytics4)) {
+			if (isServiceEnabled(SupportedService.GoogleAnalytics4)) {
 				updatePathGA(googleAnalytics4Id, $page.url.pathname);
 			}
 		}
