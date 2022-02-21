@@ -2,16 +2,23 @@
 	import { page } from '$app/stores';
 	import { initializeServices, updatePathGA } from '$lib/services';
 	import { initConfiguredServices, showCookieDisclaimer } from '$lib/store';
-	import { hasAllNecessaryCookies, submitNecessaryCookies } from '$lib/utils';
+	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
+	import { SuportedService } from '$lib/types';
 
 	export let googleAnalyticsUniversalId: string = undefined;
 	export let googleAnalytics4Id: string = undefined;
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
-		updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
+		if (isServiceEnabled(SuportedService.GoogleAnalyticsUniversal)) {
+			updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
+		} else {
+			if (isServiceEnabled(SuportedService.GoogleAnalytics4)) {
+				updatePathGA(googleAnalytics4Id as string, $page.url.pathname);
+			}
+		}
 	}
 
 	onMount(() => {

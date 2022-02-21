@@ -6,8 +6,14 @@ import { SuportedService } from './types';
 export const initializeServices = (): void => {
     if (!get(servicesInitialized)) {
         const googleAnalyticsUniversalConfig = get(configuredServices)?.find(({ type }) => type === SuportedService.GoogleAnalyticsUniversal)
+        const googleAnalytics4Config = get(configuredServices)?.find(({ type }) => type === SuportedService.GoogleAnalytics4)
         if (googleAnalyticsUniversalConfig?.enabled) {
             loadGoogleAnalytics(googleAnalyticsUniversalConfig.id);
+        }
+        else {
+            if (googleAnalytics4Config?.enabled) {
+                loadGoogleAnalytics(googleAnalytics4Config.id);
+            }
         }
         servicesInitialized.set(true);
     }
