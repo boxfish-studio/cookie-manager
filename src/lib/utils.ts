@@ -1,6 +1,7 @@
 import { get } from 'svelte/store';
 import { COOKIE_EXPIRATION_DAYS, NecessaryCookies } from './constants';
 import { configuredServices } from './store';
+import type { SuportedService } from './types';
 
 /*
  * General utils for managing cookies in Typescript.
@@ -45,9 +46,9 @@ export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
     configuredServices.set(_configuredServices)
 };
 
-export const isServiceEnabled = (supportedService: string): boolean => {
+export const isServiceEnabled = (serviceType: SuportedService): boolean => {
     const serviceConfig = get(configuredServices)?.find(
-        ({ type }) => type === supportedService
+        ({ type }) => type === serviceType
     );
     return serviceConfig?.enabled
 };
