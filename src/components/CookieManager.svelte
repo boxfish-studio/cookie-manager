@@ -13,10 +13,10 @@
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
 		if (isServiceEnabled(SuportedService.GoogleAnalyticsUniversal)) {
-			updatePathGA(googleAnalyticsUniversalId as string, $page.url.pathname);
+			updatePathGA(googleAnalyticsUniversalId, $page.url.pathname);
 		} else {
 			if (isServiceEnabled(SuportedService.GoogleAnalytics4)) {
-				updatePathGA(googleAnalytics4Id as string, $page.url.pathname);
+				updatePathGA(googleAnalytics4Id, $page.url.pathname);
 			}
 		}
 	}
