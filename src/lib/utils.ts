@@ -45,9 +45,9 @@ export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
     configuredServices.set(_configuredServices)
 };
 
-export const isServiceEnabled = (name: string): boolean => {
+export const isServiceEnabled = (supportedService: string): boolean => {
     const serviceConfig = get(configuredServices)?.find(
-        ({ type }) => type === name
+        ({ type }) => type === supportedService
     );
     return serviceConfig?.enabled
 };
