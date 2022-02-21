@@ -1,10 +1,10 @@
-export enum SuportedService {
+export enum SupportedService {
     GoogleAnalyticsUniversal = 'googleAnalyticsUniversal',
     GoogleAnalytics4 = 'googleAnalytics4',
 }
 
 export type Service = {
-    type: SuportedService;
+    type: SupportedService;
     id?: string,
     enabled?: boolean
 }
