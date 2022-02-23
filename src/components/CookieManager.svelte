@@ -6,18 +6,20 @@
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
 	import { SupportedService } from '$lib/types';
-	import { fade } from 'svelte/transition';
 
 	export let googleAnalyticsUniversalId: string = undefined;
 	export let googleAnalytics4Id: string = undefined;
-	export let title: string = 'Cookie Preferences';
-	export let body: string =
-		'For an optimal website experience, we use cookies and similar technologies to show personalized content, offer features and collect statistics. Clicking on "Accept" allows us to process this data and share it with third parties according to our privacy policy. You can view and change the current settings at any time by visiting our cookie policy.';
-	export let acceptButtonText: string = 'Accept Additional Cookies';
-	export let rejectButtonText: string = 'Reject Additional Cookies';
-	export let primaryColor: string = '#14CABF';
-	export let buttonTextColor: string = '#FFF';
+	export let title: string = undefined;
+	export let body: string = undefined;
+	export let policyText: string = undefined;
 	export let policyUrl: string = undefined;
+	export let acceptButtonText: string = undefined;
+	export let rejectButtonText: string = undefined;
+	export let textColor: string = undefined;
+	export let anchorColor: string = undefined;
+	export let backgroundColor: string = undefined;
+	export let buttonColor: string = undefined;
+	export let buttonTextColor: string = undefined;
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
@@ -57,17 +59,19 @@
 </script>
 
 {#if $showCookieDisclaimer}
-	<div transition:fade>
-		<Disclaimer
-			{allowCookies}
-			{declineCookies}
-			{title}
-			{body}
-			{primaryColor}
-			{buttonTextColor}
-			{policyUrl}
-			{acceptButtonText}
-			{rejectButtonText}
-		/>
-	</div>
+	<Disclaimer
+		{allowCookies}
+		{declineCookies}
+		{title}
+		{body}
+		{policyText}
+		{policyUrl}
+		{acceptButtonText}
+		{rejectButtonText}
+		{textColor}
+		{anchorColor}
+		{backgroundColor}
+		{buttonColor}
+		{buttonTextColor}
+	/>
 {/if}
