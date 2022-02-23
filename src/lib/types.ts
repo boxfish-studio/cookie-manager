@@ -6,5 +6,6 @@ export enum SupportedService {
 export type Service = {
     type: SupportedService;
     id?: string,
-    enabled?: boolean
+    enabled?: boolean,
+    relatedCookies?,
 }

@@ -6,6 +6,7 @@
 <a href="/">homepage</a>
 <a href="/developers">developers</a>
 <a href="/about">about</a>
+<a href="/policy">policy</a>
 <main>
 	<slot />
 </main>
