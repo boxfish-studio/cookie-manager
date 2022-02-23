@@ -17,20 +17,20 @@
 
 <div id="skcm-banner" style="--backgroundColor: {backgroundColor};">
 	<div>
-		<h6 style="color: {textColor}; ">{title}</h6>
-		<p style="color: {textColor}; ">
+		<h6 style="--textColor: {textColor}; ">{title}</h6>
+		<p style="--textColor: {textColor}; ">
 			{body}
-			<a href={policyUrl} target="_blank" style="color: {anchorColor}; "
+			<a href={policyUrl} target="_blank" style="--anchorColor: {anchorColor}; "
 				><span> {policyText}</span></a
 			>
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<button style="--buttonColor: {buttonColor}; color: {buttonTextColor}; " on:click={allowCookies}
+		<button style="--buttonColor: {buttonColor}; --buttonTextColor: {buttonTextColor}; " on:click={allowCookies}
 			>{acceptButtonText}</button
 		>
 		<button
-			style="--buttonColor: {buttonColor};  color: {buttonTextColor};"
+			style="--buttonColor: {buttonColor};  --buttonTextColor: {buttonTextColor};"
 			on:click={declineCookies}>{rejectButtonText}</button
 		>
 	</div>
