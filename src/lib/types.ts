@@ -9,3 +9,12 @@ export type Service = {
     enabled?: boolean,
     relatedCookies?,
 }
+
+export type ServiceCookie ={
+    name: string,
+    provider: string,
+    providerUrl: string,
+    purpose: string,
+    expiry: string,
+    type: string
+}
