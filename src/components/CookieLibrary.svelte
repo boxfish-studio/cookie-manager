@@ -67,6 +67,7 @@
 					font-size: 0.9rem;
 					text-transform: uppercase;
 					border-bottom: 1px solid #f2f5fb;
+					color: #b2c1dc;
 				}
 			}
 		}
