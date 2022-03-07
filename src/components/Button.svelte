@@ -3,7 +3,7 @@
 	export let onClick: () => void = () => {};
 </script>
 
-<button on:click={onClick}>{text}</button>
+<button on:click={onClick}> <slot /> </button>
 
 <style type="text/scss">
 	button {
@@ -18,6 +18,5 @@
 		border-radius: 6px;
 		background-color: $skcm-primary;
 		color: $skcm-white;
-        
 	}
 </style>
