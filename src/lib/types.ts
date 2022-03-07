@@ -9,11 +9,17 @@ export type Service = {
     enabled?: boolean
 }
 
-export type DisclaimerDetails = {
+export type ServicesKeys = {
+    googleAnalyticsUniversalId?: string,
+    googleAnalytics4Id?: string
+}
+
+export type SKCMConfiguration = {
     title?: string,
     body?: string,
     policyText?: string,
     policyUrl?: string,
     acceptButtonText?: string,
     rejectButtonText?: string,
+    servicesKeys?: ServicesKeys
 }
