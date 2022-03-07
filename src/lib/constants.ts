@@ -8,62 +8,68 @@ export const NecessaryCookies = {
     [SupportedService.GoogleAnalytics4]: `${COOKIE_NAME_PREFIX}-ga-4`,
 }
 
-export const googlePrivacyUrl = 'https://policies.google.com/privacy';
-export const googleProvider = 'Google';
-export const httpType = 'HTTP';
+export enum provider {
+    google = "Google"
+}
+export enum privacyUrl {
+    google = 'https://policies.google.com/privacy'
+}
+export enum cookieType {
+    google = 'HTTP'
+}
 
 export let _gaGoogleAnalyticsUniversalCookie: ServiceCookie = {
     name: '_ga',
-    provider: googleProvider,
-    providerUrl: googlePrivacyUrl,
+    provider: provider.google,
+    providerUrl: privacyUrl.google,
     purpose: 'Registers a unique ID that is used to generate statistical data on how the visitor uses the website.',
     expiry: '2 years',
-    type: httpType,
+    type: cookieType.google,
 }
 
 export const _gatGoogleAnalyticsUniversalCookie: ServiceCookie = {
     name: '_gat',
-    provider: googleProvider,
-    providerUrl: googlePrivacyUrl,
+    provider: provider.google,
+    providerUrl: privacyUrl.google,
     purpose: 'Used by Google Analytics to throttle request rate.',
     expiry: '1 day',
-    type: httpType
+    type: cookieType.google
 }
 
 export const _gidGoogleAnalyticsUniversalCookie: ServiceCookie = {
     name: '_gid',
-    provider: googleProvider,
-    providerUrl: googlePrivacyUrl,
+    provider: provider.google,
+    providerUrl: privacyUrl.google,
     purpose: 'Registers a unique ID that is used to generate statistical data on how the visitor uses the website.',
     expiry: '1 day',
-    type: httpType
+    type: cookieType.google
 }
 
 export const _gac_propertyGoogleAnalyticsUniversalCookie: ServiceCookie = {
     name: '_gac_<property-id>',
-    provider: googleProvider,
-    providerUrl: googlePrivacyUrl,
+    provider: provider.google,
+    providerUrl: privacyUrl.google,
     purpose: ' Contains campaign related information for the user. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
     expiry: '90 days',
-    type: httpType
+    type: cookieType.google
 }
 
 export const _gaGoogleAnalytics4Cookie: ServiceCookie = {
     name: '_ga',
-    provider: googleProvider,
-    providerUrl: googlePrivacyUrl,
+    provider: provider.google,
+    providerUrl: privacyUrl.google,
     purpose: 'Registers a unique ID that is used to generate statistical data on how the visitor uses the website.',
     expiry: '2 years',
-    type: httpType
+    type: cookieType.google
 }
 
 export const _ga_containerGoogleAnalytics4Cookie: ServiceCookie = {
     name: '_ga_<container-id>',
-    provider: googleProvider,
-    providerUrl: googlePrivacyUrl,
+    provider: provider.google,
+    providerUrl: privacyUrl.google,
     purpose: 'Used to persist session state.',
     expiry: '2 years',
-    type: httpType
+    type: cookieType.google
 }
 
 
