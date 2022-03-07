@@ -20,7 +20,7 @@
 	<slot />
 </main>
 
-<CookieManager SKCMConfiguration={myconfig} />
+<CookieManager skcmDetails={myconfig} />
 
 <style type="text/scss">
 	main {
