@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from './';
 	import type { DisclaimerDetails } from '$lib/types';
+	import { defaultDisclaimerDetails } from '$lib/constants';
 	export let allowCookies: () => void = () => {};
 	export let declineCookies: () => void = () => {};
 	export let disclaimerDetails: DisclaimerDetails;
@@ -8,17 +9,21 @@
 
 <div id="skcm-banner">
 	<div>
-		<h6>{disclaimerDetails.title}</h6>
+		<h6>{disclaimerDetails?.title ?? defaultDisclaimerDetails.title}</h6>
 		<p>
-			{disclaimerDetails.body}
-			<a href={disclaimerDetails.policyUrl} target="_blank"
-				><span> {disclaimerDetails.policyText}</span></a
+			{disclaimerDetails?.body ?? defaultDisclaimerDetails.body}
+			<a href={disclaimerDetails?.policyUrl ?? defaultDisclaimerDetails.policyUrl} target="_blank"
+				><span>{disclaimerDetails?.policyText ?? defaultDisclaimerDetails.policyText}</span></a
 			>
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button onClick={allowCookies}>{disclaimerDetails.acceptButtonText}</Button>
-		<Button onClick={declineCookies}>{disclaimerDetails.rejectButtonText}</Button>
+		<Button onClick={allowCookies}
+			>{disclaimerDetails?.acceptButtonText ?? defaultDisclaimerDetails.acceptButtonText}</Button
+		>
+		<Button onClick={declineCookies}
+			>{disclaimerDetails?.rejectButtonText ?? defaultDisclaimerDetails.rejectButtonText}
+		</Button>
 	</div>
 </div>
 

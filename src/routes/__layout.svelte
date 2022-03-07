@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { CookieManager } from '$components';
 	import type { DisclaimerDetails } from '$lib/types';
-	import { defaultDisclaimerDetails } from '$lib/constants';
 
 	let disclaimerDetails: DisclaimerDetails = {
-		...defaultDisclaimerDetails,
 		title: 'Custom Title',
+		body:"Custom Body"
 	};
 </script>
 
