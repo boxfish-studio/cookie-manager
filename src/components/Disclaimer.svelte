@@ -1,28 +1,29 @@
 <script lang="ts">
+	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/constants';
+	import type { DisclaimerConfiguration } from '$lib/types';
 	import { Button } from './';
-	import type { SKCMConfiguration } from '$lib/types';
-	import { defaultDisclaimerDetails } from '$lib/constants';
+
+	export let configuration: DisclaimerConfiguration;
 	export let allowCookies: () => void = () => {};
 	export let declineCookies: () => void = () => {};
-	export let skcmDetails: SKCMConfiguration;
 </script>
 
 <div id="skcm-banner">
 	<div>
-		<h6>{skcmDetails?.title ?? defaultDisclaimerDetails.title}</h6>
+		<h6>{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}</h6>
 		<p>
-			{skcmDetails?.body ?? defaultDisclaimerDetails.body}
-			<a href={skcmDetails?.policyUrl ?? defaultDisclaimerDetails.policyUrl} target="_blank"
-				><span>{skcmDetails?.policyText ?? defaultDisclaimerDetails.policyText}</span></a
+			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
+			<a href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl} target="_blank"
+				><span>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span></a
 			>
 		</p>
 	</div>
 	<div class="button-wrapper">
 		<Button onClick={allowCookies}
-			>{skcmDetails?.acceptButtonText ?? defaultDisclaimerDetails.acceptButtonText}</Button
+			>{configuration?.acceptButtonText ?? DEFAULT_DISCLAIMER_CONFIG.acceptButtonText}</Button
 		>
 		<Button onClick={declineCookies}
-			>{skcmDetails?.rejectButtonText ?? defaultDisclaimerDetails.rejectButtonText}
+			>{configuration?.rejectButtonText ?? DEFAULT_DISCLAIMER_CONFIG.rejectButtonText}
 		</Button>
 	</div>
 </div>
