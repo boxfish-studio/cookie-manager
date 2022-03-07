@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button } from './';
 	export let allowCookies: () => void = () => {};
 	export let declineCookies: () => void = () => {};
 	export let title: string = 'Cookie Preferences';
@@ -26,13 +27,18 @@
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<button style="--buttonColor: {buttonColor}; --buttonTextColor: {buttonTextColor}; " on:click={allowCookies}
-			>{acceptButtonText}</button
-		>
-		<button
-			style="--buttonColor: {buttonColor};  --buttonTextColor: {buttonTextColor};"
-			on:click={declineCookies}>{rejectButtonText}</button
-		>
+		<Button
+			bgColor={buttonColor}
+			textColor={buttonTextColor}
+			text={acceptButtonText}
+			onClick={() => allowCookies()}
+		/>
+		<Button
+			bgColor={buttonColor}
+			textColor={buttonTextColor}
+			text={rejectButtonText}
+			onClick={() => declineCookies()}
+		/>
 	</div>
 </div>
 
@@ -70,20 +76,6 @@
 		}
 		.button-wrapper {
 			margin-top: 2rem;
-
-			button {
-				text-transform: uppercase;
-				display: block;
-				width: 100%;
-				padding: 0.75rem;
-				font-weight: 700;
-				margin-bottom: 0.6rem;
-				cursor: pointer;
-				border: none;
-				border-radius: 6px;
-				background-color: var(--buttonColor);
-				color: var(--buttonTextColor);
-			}
 		}
 	}
 </style>
