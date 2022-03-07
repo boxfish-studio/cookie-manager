@@ -5,10 +5,10 @@
 	import { SupportedService } from '$lib/types';
 	import { isServiceEnabled } from '$lib/utils';
 
-	let allActiveCookies = [];
+	let enabledCookies = [];
 
 	onMount(() => {
-		allActiveCookies = get(configuredServices)
+		enabledCookies = get(configuredServices)
 			?.filter(function (service) {
 				if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
 					return service.type !== 'googleAnalytics4' && service.enabled;
@@ -21,7 +21,7 @@
 	});
 </script>
 
-{#if allActiveCookies.length}
+{#if enabledCookies.length}
 	<table>
 		<thead>
 			<tr>
@@ -32,8 +32,8 @@
 				<th> Type </th>
 			</tr>
 		</thead>
-		{#each allActiveCookies as cookies}
-			{#each cookies as cookie}
+		{#each enabledCookies as providerCookies}
+			{#each providerCookies as cookie}
 				<tbody>
 					<tr>
 						<td> {cookie.name} </td>
