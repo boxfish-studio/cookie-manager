@@ -45,23 +45,5 @@
 			right: 3rem;
 			border-radius: 6px;
 		}
-		h6 {
-			margin: 0;
-			font-size: 1.25rem;
-			color: $skcm-dark;
-		}
-		p {
-			font-size: 0.875rem;
-			margin-top: 1.5rem;
-			line-height: 1.31rem;
-			color: $skcm-dark;
-		}
-		a {
-			text-decoration: none;
-			color: $skcm-primary;
-		}
-		.button-wrapper {
-			margin-top: 2rem;
-		}
 	}
 </style>
