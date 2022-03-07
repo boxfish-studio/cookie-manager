@@ -14,10 +14,7 @@
 	googleAnalyticsUniversalId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVERSAL_ID}
 	googleAnalytics4Id={import.meta.env.VITE_GOOGLE_ANALYTICS_4_ID}
 	title="Choose your cookie preferences"
-	buttonColor="#14CABF"
 	policyUrl="https://iota.org/privacy-policy"
-	backgroundColor="yellow"
-	anchorColor = "purple"
 />
 
 <style type="text/scss">

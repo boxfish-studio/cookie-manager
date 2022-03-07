@@ -15,11 +15,6 @@
 	export let policyUrl: string = undefined;
 	export let acceptButtonText: string = undefined;
 	export let rejectButtonText: string = undefined;
-	export let textColor: string = undefined;
-	export let anchorColor: string = undefined;
-	export let backgroundColor: string = undefined;
-	export let buttonColor: string = undefined;
-	export let buttonTextColor: string = undefined;
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
@@ -68,10 +63,9 @@
 		{policyUrl}
 		{acceptButtonText}
 		{rejectButtonText}
-		{textColor}
-		{anchorColor}
-		{backgroundColor}
-		{buttonColor}
-		{buttonTextColor}
 	/>
 {/if}
+
+<style type="text/scss">
+	@import '../style/style.scss';
+</style>

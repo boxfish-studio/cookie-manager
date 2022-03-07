@@ -5,9 +5,7 @@
 	export let onClick: () => void = () => {};
 </script>
 
-<button style="--buttonColor: {bgColor}; --buttonTextColor: {textColor}; " on:click={onClick}
-	>{text}</button
->
+<button on:click={onClick}>{text}</button>
 
 <style type="text/scss">
 	button {
@@ -20,7 +18,7 @@
 		cursor: pointer;
 		border: none;
 		border-radius: 6px;
-		background-color: var(--buttonColor);
-		color: var(--buttonTextColor);
+		background-color: $svkc-button-bg-color;
+		color: $svkc-button-text-color;
 	}
 </style>

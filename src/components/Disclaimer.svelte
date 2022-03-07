@@ -9,36 +9,19 @@
 	export let policyUrl: string = undefined;
 	export let acceptButtonText: string = 'Accept Additional Cookies';
 	export let rejectButtonText: string = 'Reject Additional Cookies';
-	export let backgroundColor: string = '#FFF';
-	export let textColor: string = '#131F37';
-	export let anchorColor: string = '#FFF';
-	export let buttonColor: string = '#14CABF';
-	export let buttonTextColor: string = '#FFF';
 </script>
 
-<div id="skcm-banner" style="--backgroundColor: {backgroundColor};">
+<div id="skcm-banner">
 	<div>
-		<h6 style="--textColor: {textColor}; ">{title}</h6>
-		<p style="--textColor: {textColor}; ">
+		<h6>{title}</h6>
+		<p>
 			{body}
-			<a href={policyUrl} target="_blank" style="--anchorColor: {anchorColor}; "
-				><span> {policyText}</span></a
-			>
+			<a href={policyUrl} target="_blank"><span> {policyText}</span></a>
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button
-			bgColor={buttonColor}
-			textColor={buttonTextColor}
-			text={acceptButtonText}
-			onClick={() => allowCookies()}
-		/>
-		<Button
-			bgColor={buttonColor}
-			textColor={buttonTextColor}
-			text={rejectButtonText}
-			onClick={() => declineCookies()}
-		/>
+		<Button text={acceptButtonText} onClick={() => allowCookies()} />
+		<Button text={rejectButtonText} onClick={() => declineCookies()} />
 	</div>
 </div>
 
@@ -47,7 +30,7 @@
 		position: fixed;
 		padding: 2rem 1.5rem 1rem 1.5rem;
 		border-radius: 6px;
-		background-color: var(--backgroundColor);
+		background-color: $svkc-bg-color;
 		max-width: 100vw;
 		bottom: 0;
 		right: 0;
@@ -62,17 +45,17 @@
 		h6 {
 			margin: 0;
 			font-size: 1.25rem;
-			color: var(--textColor);
+			color: $svkc-text-color;
 		}
 		p {
 			font-size: 0.875rem;
 			margin-top: 1.5rem;
 			line-height: 1.31rem;
-			color: var(--textColor);
+			color: $svkc-text-color;
 		}
 		a {
 			text-decoration: none;
-			color: var(--anchorColor);
+			color: $svkc-anchor-color;
 		}
 		.button-wrapper {
 			margin-top: 2rem;
