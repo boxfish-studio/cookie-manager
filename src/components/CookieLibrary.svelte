@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
 	import { get } from 'svelte/store';
 	import { SupportedService } from '$lib/types';
