@@ -7,7 +7,7 @@
 
 	let allActiveCookies = [];
 
-	onMount(async () => {
+	onMount(() => {
 		allActiveCookies = get(configuredServices)
 			?.filter(function (service) {
 				if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
@@ -19,7 +19,6 @@
 				return service.relatedCookies;
 			});
 	});
-
 </script>
 
 {#if allActiveCookies.length}
