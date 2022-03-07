@@ -19,9 +19,7 @@
 				return service.relatedCookies;
 			});
 	});
-	onDestroy(() => {
-		allActiveCookies = [];
-	});
+
 </script>
 
 {#if allActiveCookies.length}
