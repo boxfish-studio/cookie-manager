@@ -8,3 +8,12 @@ export type Service = {
     id?: string,
     enabled?: boolean
 }
+
+export type DisclaimerDetails = {
+    title?: string,
+    body?: string,
+    policyText?: string,
+    policyUrl?: string,
+    acceptButtonText?: string,
+    rejectButtonText?: string,
+}

@@ -1,27 +1,24 @@
 <script lang="ts">
 	import { Button } from './';
+	import type { DisclaimerDetails } from '$lib/types';
 	export let allowCookies: () => void = () => {};
 	export let declineCookies: () => void = () => {};
-	export let title: string = 'Cookie Preferences';
-	export let body: string =
-		'For an optimal website experience, we use cookies and similar technologies to show personalized content, offer features and collect statistics. Clicking on "Accept" allows us to process this data and share it with third parties according to our privacy policy. You can view and change the current settings at any time.';
-	export let policyText: string = 'Read our cookie policy';
-	export let policyUrl: string = undefined;
-	export let acceptButtonText: string = 'Accept Additional Cookies';
-	export let rejectButtonText: string = 'Reject Additional Cookies';
+	export let disclaimerDetails: DisclaimerDetails;
 </script>
 
 <div id="skcm-banner">
 	<div>
-		<h6>{title}</h6>
+		<h6>{disclaimerDetails.title}</h6>
 		<p>
-			{body}
-			<a href={policyUrl} target="_blank"><span> {policyText}</span></a>
+			{disclaimerDetails.body}
+			<a href={disclaimerDetails.policyUrl} target="_blank"
+				><span> {disclaimerDetails.policyText}</span></a
+			>
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button onClick={allowCookies}>{acceptButtonText}</Button>
-		<Button onClick={declineCookies}>{rejectButtonText}</Button>
+		<Button onClick={allowCookies}>{disclaimerDetails.acceptButtonText}</Button>
+		<Button onClick={declineCookies}>{disclaimerDetails.rejectButtonText}</Button>
 	</div>
 </div>
 

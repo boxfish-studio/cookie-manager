@@ -1,5 +1,12 @@
 <script lang="ts">
 	import { CookieManager } from '$components';
+	import type { DisclaimerDetails } from '$lib/types';
+	import { defaultDisclaimerDetails } from '$lib/constants';
+
+	let disclaimerDetails: DisclaimerDetails = {
+		...defaultDisclaimerDetails,
+		title: 'Custom Title',
+	};
 </script>
 
 <svelte:head />
@@ -13,8 +20,7 @@
 <CookieManager
 	googleAnalyticsUniversalId={import.meta.env.VITE_GOOGLE_ANALYTICS_UNIVERSAL_ID}
 	googleAnalytics4Id={import.meta.env.VITE_GOOGLE_ANALYTICS_4_ID}
-	title="Choose your cookie preferences"
-	policyUrl="https://iota.org/privacy-policy"
+	{disclaimerDetails}
 />
 
 <style type="text/scss">

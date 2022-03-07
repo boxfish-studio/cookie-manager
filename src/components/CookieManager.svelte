@@ -5,16 +5,12 @@
 	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
-	import { SupportedService } from '$lib/types';
+	import { SupportedService, DisclaimerDetails } from '$lib/types';
 
 	export let googleAnalyticsUniversalId: string = undefined;
 	export let googleAnalytics4Id: string = undefined;
-	export let title: string = undefined;
-	export let body: string = undefined;
-	export let policyText: string = undefined;
-	export let policyUrl: string = undefined;
-	export let acceptButtonText: string = undefined;
-	export let rejectButtonText: string = undefined;
+
+	export let disclaimerDetails: DisclaimerDetails;
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
@@ -54,16 +50,7 @@
 </script>
 
 {#if $showCookieDisclaimer}
-	<Disclaimer
-		{allowCookies}
-		{declineCookies}
-		{title}
-		{body}
-		{policyText}
-		{policyUrl}
-		{acceptButtonText}
-		{rejectButtonText}
-	/>
+	<Disclaimer {allowCookies} {declineCookies} {disclaimerDetails} />
 {/if}
 
 <style type="text/scss">
