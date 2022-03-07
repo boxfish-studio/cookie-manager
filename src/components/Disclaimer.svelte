@@ -20,8 +20,8 @@
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button onClick={() => allowCookies()}>{acceptButtonText}</Button>
-		<Button onClick={() => declineCookies()}>{rejectButtonText}</Button>
+		<Button onClick={allowCookies}>{acceptButtonText}</Button>
+		<Button onClick={declineCookies}>{rejectButtonText}</Button>
 	</div>
 </div>
 
