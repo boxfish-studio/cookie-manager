@@ -24,6 +24,6 @@ export type ServicesConfiguration = {
 }
 
 export type SKCMConfiguration = {
-    disclaimer: DisclaimerConfiguration,
+    disclaimer?: DisclaimerConfiguration,
     services?: ServicesConfiguration
 }
