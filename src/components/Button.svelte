@@ -1,7 +1,5 @@
 <script lang="ts">
-	export let bgColor: string = '#14CABF';
-	export let textColor: string = '#FFF';
-	export let text: string = '#FFF';
+	export let text: string = '';
 	export let onClick: () => void = () => {};
 </script>
 
