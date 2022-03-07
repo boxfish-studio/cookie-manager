@@ -16,7 +16,8 @@
 		cursor: pointer;
 		border: none;
 		border-radius: 6px;
-		background-color: $svkc-button-bg-color;
-		color: $svkc-button-text-color;
+		background-color: $skcm-primary;
+		color: $skcm-white;
+        
 	}
 </style>

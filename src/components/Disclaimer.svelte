@@ -30,7 +30,7 @@
 		position: fixed;
 		padding: 2rem 1.5rem 1rem 1.5rem;
 		border-radius: 6px;
-		background-color: $svkc-bg-color;
+		background-color:  $skcm-white;
 		max-width: 100vw;
 		bottom: 0;
 		right: 0;
@@ -45,17 +45,17 @@
 		h6 {
 			margin: 0;
 			font-size: 1.25rem;
-			color: $svkc-text-color;
+			color: $skcm-dark;
 		}
 		p {
 			font-size: 0.875rem;
 			margin-top: 1.5rem;
 			line-height: 1.31rem;
-			color: $svkc-text-color;
+			color: $skcm-dark;
 		}
 		a {
 			text-decoration: none;
-			color: $svkc-anchor-color;
+			color: $skcm-primary;
 		}
 		.button-wrapper {
 			margin-top: 2rem;
