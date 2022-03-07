@@ -16,6 +16,6 @@
 		border: none;
 		border-radius: 6px;
 		background-color: $skcm-primary;
-		color: $skcm-white;
+		color: $skcm-light;
 	}
 </style>

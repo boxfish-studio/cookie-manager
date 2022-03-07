@@ -33,7 +33,7 @@
 		position: fixed;
 		padding: 2rem 1.5rem 1rem 1.5rem;
 		border-radius: 6px;
-		background-color: $skcm-white;
+		background-color: $skcm-light;
 		max-width: 100vw;
 		bottom: 0;
 		right: 0;
