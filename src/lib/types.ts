@@ -7,7 +7,7 @@ export type Service = {
     type: SupportedService;
     id?: string,
     enabled?: boolean,
-    relatedCookies?,
+    cookies?,
 }
 
 export type ServiceCookie ={

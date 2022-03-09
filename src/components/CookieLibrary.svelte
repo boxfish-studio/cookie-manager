@@ -16,7 +16,7 @@
 				return service.enabled;
 			})
 			.map(function (service) {
-				return service.relatedCookies;
+				return service.cookies;
 			});
 	});
 </script>

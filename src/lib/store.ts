@@ -19,7 +19,7 @@ export function initConfiguredServices(googleAnalyticsUniversalId: string, googl
                 type: SupportedService.GoogleAnalyticsUniversal,
                 id: googleAnalyticsUniversalId,
                 enabled: getCookie(NECESSARY_COOKIES[SupportedService.GoogleAnalyticsUniversal]) === 'true',
-                relatedCookies: GoogleOwnCookies.GoogleAnalyticsUniversal
+                cookies: GoogleOwnCookies.GoogleAnalyticsUniversal
             }
         );
     }
@@ -29,7 +29,7 @@ export function initConfiguredServices(googleAnalyticsUniversalId: string, googl
                 type: SupportedService.GoogleAnalytics4,
                 id: googleAnalytics4Id,
                 enabled: getCookie(NECESSARY_COOKIES[SupportedService.GoogleAnalytics4]) === 'true',
-                relatedCookies: GoogleOwnCookies.GoogleAnalytics4
+                cookies: GoogleOwnCookies.GoogleAnalytics4
             }
         );
     }
