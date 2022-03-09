@@ -1,9 +1,10 @@
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
-import { NecessaryCookies, GoogleOwnCookies } from './constants';
-import { SupportedService } from './types';
-import type { Service } from './types';
 import { getCookie } from './utils';
+import {  GoogleOwnCookies } from './cookieLib';
+import { NecessaryCookies } from './constants';
+import type { Service } from './types';
+import { SupportedService } from './types';
 
 export const showCookieDisclaimer: Writable<boolean> = writable(false);
 export const configuredServices: Writable<Service[]> = writable([]);
