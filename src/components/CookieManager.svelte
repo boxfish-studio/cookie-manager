@@ -2,27 +2,29 @@
 	import { page } from '$app/stores';
 	import { initializeServices, updatePathGA } from '$lib/services';
 	import { initConfiguredServices, showCookieDisclaimer } from '$lib/store';
+	import { SKCMConfiguration, SupportedService } from '$lib/types';
 	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
-	import { SupportedService } from '$lib/types';
 
-	export let googleAnalyticsUniversalId: string = undefined;
-	export let googleAnalytics4Id: string = undefined;
+	export let configuration: SKCMConfiguration;
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
 		if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
-			updatePathGA(googleAnalyticsUniversalId, $page.url.pathname);
+			updatePathGA(configuration?.services?.googleAnalyticsUniversalId, $page.url.pathname);
 		} else {
 			if (isServiceEnabled(SupportedService.GoogleAnalytics4)) {
-				updatePathGA(googleAnalytics4Id, $page.url.pathname);
+				updatePathGA(configuration?.services?.googleAnalytics4Id, $page.url.pathname);
 			}
 		}
 	}
 
 	onMount(() => {
-		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id);
+		initConfiguredServices(
+			configuration?.services?.googleAnalyticsUniversalId,
+			configuration?.services?.googleAnalytics4Id
+		);
 		if (hasAllNecessaryCookies()) {
 			initializeServices();
 		} else {
@@ -48,5 +50,5 @@
 </script>
 
 {#if $showCookieDisclaimer}
-	<Disclaimer {allowCookies} {declineCookies} />
+	<Disclaimer {allowCookies} {declineCookies} configuration={configuration?.disclaimer} />
 {/if}
