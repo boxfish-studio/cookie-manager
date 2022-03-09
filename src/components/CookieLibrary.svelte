@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
 	import { get } from 'svelte/store';
-	import { SupportedService } from '$lib/types';
+	import { Service, SupportedService } from '$lib/types';
 	import { isServiceEnabled } from '$lib/utils';
 
-	let enabledCookies = [];
+	let enabledCookies:Service[] = [];
 
 	onMount(() => {
 		enabledCookies = get(configuredServices)
