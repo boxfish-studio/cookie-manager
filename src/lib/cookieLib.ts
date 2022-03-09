@@ -10,7 +10,7 @@ export enum cookieType {
     google = 'HTTP'
 }
 
-export let _gaGoogleAnalyticsUniversalCookie: ServiceCookie = {
+export const GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
     name: '_ga',
     provider: Provider.google,
     providerUrl: privacyUrl.google,
@@ -19,7 +19,7 @@ export let _gaGoogleAnalyticsUniversalCookie: ServiceCookie = {
     type: cookieType.google,
 }
 
-export const _gatGoogleAnalyticsUniversalCookie: ServiceCookie = {
+export const GAT_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
     name: '_gat',
     provider: Provider.google,
     providerUrl: privacyUrl.google,
@@ -28,7 +28,7 @@ export const _gatGoogleAnalyticsUniversalCookie: ServiceCookie = {
     type: cookieType.google
 }
 
-export const _gidGoogleAnalyticsUniversalCookie: ServiceCookie = {
+export const GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
     name: '_gid',
     provider: Provider.google,
     providerUrl: privacyUrl.google,
@@ -37,7 +37,7 @@ export const _gidGoogleAnalyticsUniversalCookie: ServiceCookie = {
     type: cookieType.google
 }
 
-export const _gac_propertyGoogleAnalyticsUniversalCookie: ServiceCookie = {
+export const GAC_PROPERTY_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
     name: '_gac_<property-id>',
     provider: Provider.google,
     providerUrl: privacyUrl.google,
@@ -46,7 +46,7 @@ export const _gac_propertyGoogleAnalyticsUniversalCookie: ServiceCookie = {
     type: cookieType.google
 }
 
-export const _gaGoogleAnalytics4Cookie: ServiceCookie = {
+export const GA_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
     name: '_ga',
     provider: Provider.google,
     providerUrl: privacyUrl.google,
@@ -55,7 +55,7 @@ export const _gaGoogleAnalytics4Cookie: ServiceCookie = {
     type: cookieType.google
 }
 
-export const _ga_containerGoogleAnalytics4Cookie: ServiceCookie = {
+export const GA_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
     name: '_ga_<container-id>',
     provider: Provider.google,
     providerUrl: privacyUrl.google,
@@ -67,13 +67,13 @@ export const _ga_containerGoogleAnalytics4Cookie: ServiceCookie = {
 
 export const GoogleOwnCookies = {
     GoogleAnalyticsUniversal: [
-        _gaGoogleAnalyticsUniversalCookie,
-        _gatGoogleAnalyticsUniversalCookie,
-        _gidGoogleAnalyticsUniversalCookie,
-        _gac_propertyGoogleAnalyticsUniversalCookie
+        GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+        GAT_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+        GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+        GAC_PROPERTY_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
     ],
     GoogleAnalytics4: [
-        _gaGoogleAnalytics4Cookie,
-        _ga_containerGoogleAnalytics4Cookie
+        GA_GOOGLE_ANALYTICS_4_COOKIE,
+        GA_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE
     ]
 }
