@@ -2,11 +2,10 @@
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
 	import { get } from 'svelte/store';
-	import { Service, SupportedService } from '$lib/types';
+	import { SupportedService } from '$lib/types';
 	import { isServiceEnabled } from '$lib/utils';
 
-	let enabledCookies:Service[] = [];
-
+	let enabledCookies: Array<object> = [];
 	onMount(() => {
 		enabledCookies = get(configuredServices)
 			?.filter(function (service) {
