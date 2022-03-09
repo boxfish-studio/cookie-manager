@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { COOKIE_EXPIRATION_DAYS, NecessaryCookies } from './constants';
+import { COOKIE_EXPIRATION_DAYS, COOKIES } from './constants';
 import { configuredServices } from './store';
 import type { SupportedService } from './types';
 
@@ -28,7 +28,7 @@ export const setCookie = (name: string, val: string, expDays: number): void => {
 export const hasAllNecessaryCookies = (): boolean => {
     const _configuredServices = get(configuredServices);
     for (let i = 0; i < _configuredServices.length; i++) {
-        if (!getCookie(NecessaryCookies[_configuredServices[i].type])?.length) {
+        if (!getCookie(COOKIES[_configuredServices[i].type])?.length) {
             return false;
         }
     }
@@ -37,7 +37,7 @@ export const hasAllNecessaryCookies = (): boolean => {
 
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
     const _configuredServices = get(configuredServices)?.map((service) => {
-        setCookie(NecessaryCookies[service.type], value, COOKIE_EXPIRATION_DAYS);
+        setCookie(COOKIES[service.type], value, COOKIE_EXPIRATION_DAYS);
         return {
             ...service,
             enabled: value === 'true'
