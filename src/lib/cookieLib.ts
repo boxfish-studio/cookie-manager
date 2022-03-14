@@ -1,17 +1,45 @@
+import { COOKIE_EXPIRATION_DAYS, COOKIE_NAME_PREFIX } from './constants';
 import type { ServiceCookie } from './types';
+import { SupportedService } from './types';
 
 export enum Provider {
-    Google = "Google"
+    Google = "Google",
+    Iota = "www.iota.org"
 }
 
 export enum CookieType {
     HTTP = 'HTTP'
 }
+
 const RELEVANT_LINKS = {
     [Provider.Google]: {
         privacy: 'https://policies.google.com/privacy'
     }
 }
+
+export const SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
+    name: `${COOKIE_NAME_PREFIX}-ga-universal`,
+    provider: Provider.Google,
+    providerUrl: RELEVANT_LINKS.Google.privacy,
+    purpose: 'Stores the user´s Google Analytics Universal cookies consent state for the current domain',
+    expiry: COOKIE_EXPIRATION_DAYS+ ' days',
+    type: CookieType.HTTP,
+}
+
+export const SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
+    name: `${COOKIE_NAME_PREFIX}-ga-4`,
+    provider: Provider.Google,
+    providerUrl: RELEVANT_LINKS.Google.privacy,
+    purpose: 'Stores the user´s Google Analytics 4 cookies consent state for the current domain',
+    expiry: COOKIE_EXPIRATION_DAYS+ ' days',
+    type: CookieType.HTTP,
+}
+ 
+export const NECESSARY_COOKIES = {
+    [SupportedService.GoogleAnalyticsUniversal]: SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+    [SupportedService.GoogleAnalytics4]: SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
+} 
+
 export const GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
     name: '_ga',
     provider: Provider.Google,

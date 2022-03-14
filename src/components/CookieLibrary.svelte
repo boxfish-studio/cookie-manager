@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
 	import { get } from 'svelte/store';
+	import { NECESSARY_COOKIES } from '$lib/cookieLib';
 	import { SupportedService } from '$lib/types';
 	import { isServiceEnabled } from '$lib/utils';
 
@@ -20,6 +21,35 @@
 	});
 </script>
 
+{#if NECESSARY_COOKIES}
+	<table>
+		<thead>
+			<tr>
+				<th> Name </th>
+				<th> Provider </th>
+				<th> Purpose </th>
+				<th> Expiry </th>
+				<th> Type </th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each Object.entries(NECESSARY_COOKIES) as [cookie, details]}
+				<tr>
+					<td> {details?.name}</td>
+					<td
+						><a href={details?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+							{details?.provider}</a
+						>
+					</td>
+					<td> {details?.purpose} </td>
+					<td> {details?.expiry} </td>
+					<td> {details?.type} </td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+{/if}
+
 {#if enabledCookies.length}
 	<table>
 		<thead>
@@ -35,15 +65,15 @@
 			{#each providerCookies as cookie}
 				<tbody>
 					<tr>
-						<td> {cookie.name} </td>
+						<td> {cookie?.name} </td>
 						<td
-							><a href={cookie.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
-								{cookie.provider}</a
+							><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+								{cookie?.provider}</a
 							>
 						</td>
-						<td> {cookie.purpose} </td>
-						<td> {cookie.expiry} </td>
-						<td> {cookie.type} </td>
+						<td> {cookie?.purpose} </td>
+						<td> {cookie?.expiry} </td>
+						<td> {cookie?.type} </td>
 					</tr>
 				</tbody>
 			{/each}
@@ -52,37 +82,4 @@
 {/if}
 
 <style type="text/scss">
-	table {
-		border: 1px solid #f2f5fb;
-		border-bottom: none;
-		text-align: left;
-		thead {
-			tr {
-				th {
-					padding: 1rem;
-					font-size: 0.9rem;
-					text-transform: uppercase;
-					border-bottom: 1px solid #f2f5fb;
-					color: #b2c1dc;
-				}
-			}
-		}
-		tbody {
-			tr {
-				td {
-					padding: 1rem;
-					font-size: 0.8rem;
-					border-bottom: 1px solid #f2f5fb;
-
-					&:first-child {
-						font-weight: bold;
-					}
-					a {
-						color: #0fc1b7;
-						text-decoration: none;
-					}
-				}
-			}
-		}
-	}
 </style>
