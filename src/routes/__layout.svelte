@@ -3,9 +3,11 @@
 	import type { SKCMConfiguration } from '$lib/types';
 
 	let myconfig: SKCMConfiguration = {
-		title: 'Custom Title',
-		body: 'Custom Body',
-		servicesKeys: {
+		disclaimer: {
+			title: 'Custom Title',
+			body: 'Custom Body'
+		},
+		services: {
 			googleAnalyticsUniversalId: 'UA-55289638-1',
 			googleAnalytics4Id: 'G-MRTBG711QZ'
 		}
@@ -21,11 +23,10 @@
 	<slot />
 </main>
 
-<CookieManager skcmDetails={myconfig} />
+<CookieManager configuration={myconfig} />
 
 <style type="text/scss">
 	main {
-		background-color: green;
 		height: 100vh;
 	}
 </style>
