@@ -1,7 +1,9 @@
 import { browser } from "$app/env";
 import { get } from 'svelte/store';
 import { configuredServices, servicesInitialized } from './store';
+import { GoogleOwnCookies } from './cookieLib'
 import { SupportedService } from './types';
+import { deleteCookie } from './utils';
 
 export const initializeServices = (): void => {
     if (!get(servicesInitialized)) {
@@ -18,6 +20,20 @@ export const initializeServices = (): void => {
         servicesInitialized.set(true);
     }
 }
+
+export const stopServices = (): void => {
+
+    let enabledCookies: Array<object> = [];
+    enabledCookies = get(configuredServices).map((service) => service.cookies)
+
+    for (let i = 0; i < enabledCookies.length; i++) {
+        for (let j = 0; j < enabledCookies.length; j++) {
+            console.log(enabledCookies[i][j].name)
+            deleteCookie(enabledCookies[i][j].name)
+        }
+    }
+}
+
 
 /*
  * Google Analytics utils.

@@ -20,7 +20,7 @@
 			initializeServices();
 		} else {
 			if (areCookiesAllowed === 'false') {
-				//stopServices();
+				stopServices();
 			}
 		}
 	}
