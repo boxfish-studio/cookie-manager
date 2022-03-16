@@ -22,18 +22,13 @@ export const initializeServices = (): void => {
 }
 
 export const stopServices = (): void => {
-
-    let enabledCookies: Array<object> = [];
-    enabledCookies = get(configuredServices).map((service) => service.cookies)
-
-    for (let i = 0; i < enabledCookies.length; i++) {
-        for (let j = 0; j < enabledCookies.length; j++) {
-            console.log(enabledCookies[i][j].name)
-            deleteCookie(enabledCookies[i][j].name)
-        }
-    }
+    let enabledServices: Array<object> = [];
+    enabledServices = get(configuredServices)?.filter((enabled) => enabled)?.map((service) =>
+        service.cookies.forEach((cookie) => {
+            deleteCookie(cookie.name)
+        })
+    )
 }
-
 
 /*
  * Google Analytics utils.

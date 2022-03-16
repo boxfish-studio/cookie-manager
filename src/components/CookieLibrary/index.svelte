@@ -15,7 +15,6 @@
 
 	function updatePreferences() {
 		servicesInitialized.set(false);
-		submitNecessaryCookies(areCookiesAllowed);
 		if (areCookiesAllowed === 'true') {
 			initializeServices();
 		} else {
@@ -23,6 +22,7 @@
 				stopServices();
 			}
 		}
+		submitNecessaryCookies(areCookiesAllowed);
 	}
 </script>
 
