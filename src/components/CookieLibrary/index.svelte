@@ -8,21 +8,21 @@
 	import { information } from './cookies.json';
 	import { NecessaryCookies } from '$components';
 
-	let areCookiesAllowed: 'true' | 'false';
+	let hasAllowedCookies: 'true' | 'false';
 	onMount(() => {
 		showCookieDisclaimer.set(false);
 	});
 
 	function updatePreferences() {
-		servicesInitialized.set(false);
-		if (areCookiesAllowed === 'true') {
+		submitNecessaryCookies(hasAllowedCookies);
+		if (hasAllowedCookies === 'true') {
+			servicesInitialized.set(false);
 			initializeServices();
 		} else {
-			if (areCookiesAllowed === 'false') {
+			if (hasAllowedCookies === 'false') {
 				stopServices();
 			}
 		}
-		submitNecessaryCookies(areCookiesAllowed);
 	}
 </script>
 
@@ -46,11 +46,11 @@
 
 <div id="svkm-preferences-wrapper">
 	<label>
-		<input type="radio" bind:group={areCookiesAllowed} value={'false'} />
+		<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
 		Reject
 	</label>
 	<label>
-		<input type="radio" bind:group={areCookiesAllowed} value={'true'} />
+		<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 		Allow
 	</label>
 </div>

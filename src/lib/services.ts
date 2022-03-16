@@ -22,17 +22,20 @@ export const initializeServices = (): void => {
 }
 
 export const stopServices = (): void => {
+    const googleAnalyticsUniversalConfig = get(configuredServices)?.find(({ type }) => type === SupportedService.GoogleAnalyticsUniversal)
+    const googleAnalytics4Config = get(configuredServices)?.find(({ type }) => type === SupportedService.GoogleAnalytics4)
     let enabledServices: Array<object> = [];
+    
+    removeGoogleAnalytics(googleAnalytics4Config.id)
+    removeGoogleAnalytics(googleAnalyticsUniversalConfig.id)
+
     enabledServices = get(configuredServices)?.filter((enabled) => enabled)?.map((service) =>
         service.cookies.forEach((cookie) => {
             deleteCookie(cookie.name)
         })
     )
+    servicesInitialized.set(false)
 }
-
-/*
- * Google Analytics utils.
- */
 
 export const loadGoogleAnalytics = (id: string): void => {
     function gtag(key: string, value: unknown) {
@@ -49,6 +52,14 @@ export const loadGoogleAnalytics = (id: string): void => {
         script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
         document.body.appendChild(script);
     }
+};
+
+export const removeGoogleAnalytics = (id: string): void => {
+    const scripts = Array.from(document.getElementsByTagName("script"))
+    if (scripts && scripts.length) {
+        scripts.find((script) => script?.src === `https://www.googletagmanager.com/gtag/js?id=${id}`)?.remove()
+        scripts.find((script) => script?.src === 'https://www.google-analytics.com/analytics.js')?.remove()
+    } 
 };
 
 export const updatePathGA = (id: string, path): void => {
