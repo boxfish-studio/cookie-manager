@@ -29,6 +29,7 @@
 {#each information as section}
 	{#if section?.title}
 		<h4>{section?.title}</h4>
+		<hr />
 	{/if}
 	{#if section?.body}
 		{#each section?.body as paragraphs}
@@ -53,5 +54,11 @@
 		<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 		Allow
 	</label>
+	<Button onClick={updatePreferences}>Update Cookie Preference</Button>
 </div>
-<Button onClick={updatePreferences}>Update Cookie Preference</Button>
+
+<style type="text/scss">
+	#svkm-preferences-wrapper{
+		max-width: 250px;
+	}
+</style>

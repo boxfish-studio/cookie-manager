@@ -3,6 +3,19 @@ $skcm-dark: #131f37;
 $skcm-medium: #b0bfd9;
 $skcm-light: #fff;
 
+h4 {
+    margin-top: 6rem;
+    margin-bottom: 0;
+    font-size: 2rem;
+}
+
+hr {
+    width: 5rem;
+    border: none;
+    border-top: 4px solid $skcm-primary;
+    margin: 1.5rem 0;
+}
+
 h6 {
     margin: 0;
     font-size: 1.25rem;
@@ -55,4 +68,15 @@ table {
             }
         }
     }
+}
+
+label {
+    margin: 2rem 1rem 2rem 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+
+}
+input {
+    cursor: pointer;
 }
