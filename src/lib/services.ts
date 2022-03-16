@@ -1,7 +1,6 @@
 import { browser } from "$app/env";
 import { get } from 'svelte/store';
 import { configuredServices, servicesInitialized } from './store';
-import { GoogleOwnCookies } from './cookieLib'
 import { SupportedService } from './types';
 import { deleteCookie } from './utils';
 
