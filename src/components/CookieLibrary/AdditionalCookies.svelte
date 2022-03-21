@@ -6,6 +6,7 @@
 	let cookiesByService: Array<object> = [];
 	let filteredCookies: Array<object> = [];
 	onMount(() => {
+		//Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
 		cookiesByService = get(configuredServices).map((service) => service.cookies);
 		filteredCookies = get(configuredServices).map((service, serviceIndex) => {
 			if (serviceIndex != 0) {
@@ -15,10 +16,10 @@
 			}
 		});
 
-		function removeDuplicates(cookie, serviceIndex, cookieIndex) {
-			cookiesByService.forEach(function (item, index) {
-				item.forEach(function (i, index2) {
-					if (i.name === cookie && (index !== serviceIndex || index2 !== cookieIndex)) {
+		function removeDuplicates(cookiename, serviceIndex, cookieIndex) {
+			cookiesByService.forEach(function (cookies, i) {
+				cookies.forEach(function (cookie, j) {
+					if (cookie.name === cookiename && (i !== serviceIndex || j !== cookieIndex)) {
 						cookiesByService[serviceIndex][cookieIndex] = '';
 					}
 				});
