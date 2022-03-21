@@ -2,25 +2,32 @@
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
 	import { get } from 'svelte/store';
-	import { SupportedService } from '$lib/types';
-	import { isServiceEnabled } from '$lib/utils';
 
-	let enabledCookies: Array<object> = [];
+	let cookiesByService: Array<object> = [];
+	let filteredCookies: Array<object> = [];
 	onMount(() => {
-		enabledCookies = get(configuredServices)
-			?.filter(function (service) {
-				if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
-					return service.type !== 'googleAnalytics4' && service.enabled;
-				}
-				return service.enabled;
-			})
-			.map(function (service) {
-				return service.cookies;
+		cookiesByService = get(configuredServices).map((service) => service.cookies);
+		filteredCookies = get(configuredServices).map((service, serviceIndex) => {
+			if (serviceIndex != 0) {
+				service.cookies.map((cookie, cookieIndex) => {
+					removeDuplicates(cookie.name, serviceIndex, cookieIndex);
+				});
+			}
+		});
+
+		function removeDuplicates(cookie, serviceIndex, cookieIndex) {
+			cookiesByService.forEach(function (item, index) {
+				item.forEach(function (i, index2) {
+					if (i.name === cookie && (index !== serviceIndex || index2 !== cookieIndex)) {
+						cookiesByService[serviceIndex][cookieIndex] = '';
+					}
+				});
 			});
+		}
 	});
 </script>
 
-{#if enabledCookies.length}
+{#if cookiesByService.length}
 	<table>
 		<thead>
 			<tr>
@@ -31,23 +38,25 @@
 				<th> Type </th>
 			</tr>
 		</thead>
-		{#each enabledCookies as providerCookies}
-			{#each providerCookies as cookie}
-				<tbody>
-					<tr>
-						<td> {cookie?.name} </td>
-						<td
-							><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
-								{cookie?.provider}</a
-							>
-						</td>
-						<td> {cookie?.purpose} </td>
-						<td> {cookie?.expiry} </td>
-						<td> {cookie?.type} </td>
-					</tr>
-				</tbody>
+		<tbody>
+			{#each cookiesByService as cookies}
+				{#each cookies as cookie}
+					{#if cookie && cookie.name}
+						<tr>
+							<td> {cookie?.name} </td>
+							<td
+								><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+									{cookie?.provider}</a
+								>
+							</td>
+							<td> {cookie?.purpose} </td>
+							<td> {cookie?.expiry} </td>
+							<td> {cookie?.type} </td>
+						</tr>
+					{/if}
+				{/each}
 			{/each}
-		{/each}
+		</tbody>
 	</table>
 {/if}
 

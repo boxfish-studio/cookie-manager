@@ -16,7 +16,6 @@
 	function updatePreferences() {
 		submitNecessaryCookies(hasAllowedCookies);
 		if (hasAllowedCookies === 'true') {
-			servicesInitialized.set(false);
 			initializeServices();
 		} else {
 			if (hasAllowedCookies === 'false') {

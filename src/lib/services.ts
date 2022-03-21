@@ -16,7 +16,6 @@ export const initializeServices = (): void => {
                 loadGoogleAnalytics(googleAnalytics4Config.id);
             }
         }
-        servicesInitialized.set(true);
     }
 }
 
@@ -50,6 +49,7 @@ export const loadGoogleAnalytics = (id: string): void => {
         const script = document.createElement('script');
         script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
         document.body.appendChild(script);
+        servicesInitialized.set(true);
     }
 };
 
