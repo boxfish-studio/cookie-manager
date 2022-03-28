@@ -3,7 +3,7 @@
 ## About The Project
 
 Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
-Enables cookie management of:
+Enables cookie management of following services:
 - Google Analytics Universal.
 - Google Analytics 4.
 
