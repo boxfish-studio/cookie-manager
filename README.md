@@ -4,13 +4,22 @@
 
 Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
 Enables cookie management of:
-- Google Analytics Universal
-- Google Analytics 4
+- Google Analytics Universal.
+- Google Analytics 4.
+
+
+
+### Features
+- Display a customizable popup to accept or reject cookies. Pop up consists of: 
+    - Title, body, Accept/Reject buttons and a link to Privacy Policy page.
+- Create a cookie library showing: 
+    - Tables with details about site's Necessary Cookies and Additional Cookies: cookie name, provider name, purpose, expiry, type.
+    - A radio input to update cookie configuration.
 
 ### Built with
 
-- Sveltekit 
-- Typescript
+- Sveltekit.
+- Typescript.
 
 ## Installation
 
@@ -20,13 +29,15 @@ $ npm i @iota/sveltekit-cookie-manager
 
 ## How to use
 
+### Show popup
+
 1. Import `CookieManager` component 
 
 ```
 import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 ```
 
-2. Add CookieManager to your html passing a configuration variable with desired settings as shown in example below
+2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
 
 
 ```
@@ -60,6 +71,17 @@ You may also set the type of your configuration variable:
 </script>
 ``` 
 
+### Show cookie library
+
+```
+<script>
+    import { CookieLibrary } from '@iota/sveltekit-cookie-manager';
+</script>
+
+<CookieLibrary />
+``` 
+
+
 ## Available configuration
 Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
 
@@ -81,7 +103,7 @@ Custom configuration variable must be of type `SKCMConfiguration`. All available
 ``` 
 
 ## Styling
-A 4-colour palette has been predefined following IOTA's style guide. You may overwrite their value in your custom css to match your site's styles.
+A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom css to match your site's styles.
 
 ```
 //teal: used in buttons backgrounds, anchors 
