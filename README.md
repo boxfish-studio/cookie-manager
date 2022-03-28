@@ -1,51 +1,98 @@
-# sveltekit-cookie-mananger
+# Sveltekit Cookie Manager
 
-## Features
+## About The Project
 
-Sveltekit Cookie Manager reduces the workload of keeping multiple websites cookie consents up to date by centralizing them into this package. 
+Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
 Enables cookie management of:
 - Google Analytics Universal
+- Google Analytics 4
+
+### Built with
+
+- Sveltekit 
+- Typescript
+
+## Installation
+
+```
+$ npm i @iota/sveltekit-cookie-manager
+```
 
 ## How to use
-## Documentation
 
-## create-svelte
+1. Import `CookieManager` component 
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-### Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+```
+import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 ```
 
-> Note: the `@next` is temporary
+2. Add CookieManager to your html passing a configuration variable with desired settings as shown in example below
 
-### Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+<script>
+    import { CookieManager } from '@iota/sveltekit-cookie-manager';
 
-### Building
+	let customConfiguration = {
+		disclaimer: {
+			title: 'Custom Title',
+			body: 'Custom Body'
+		},
+		services: {
+			googleAnalyticsUniversalId: 'myCustomID',
+			googleAnalytics4Id: 'myCustomID'
+		}
+	};
+</script>
 
-To create a production version of your app:
+<CookieManager configuration={customConfiguration} />
+``` 
 
-```bash
-npm run build
+You may also set the type of your configuration variable:
 ```
+<script>
+	import type { SKCMConfiguration } from '@iota/sveltekit-cookie-manager';
 
-You can preview the production build with `npm run preview`.
+    let customConfiguration: SKCMConfiguration = {
+		disclaimer: {},
+		services: {}
+	};
+</script>
+``` 
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment.
+## Available configuration
+Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
+
+```
+	let customConfiguration: SKCMConfiguration = {
+		disclaimer: {
+            title?: string,
+            body?: string,
+            policyText?: string,
+            policyUrl?: string,
+            acceptButtonText?: string,
+            rejectButtonText?: string,
+		},
+		services: {
+            googleAnalyticsUniversalId?: string,
+            googleAnalytics4Id?: string
+		}
+	};
+``` 
+
+## Styling
+A 4-colour palette has been predefined following IOTA's style guide. You may overwrite their value in your custom css to match your site's styles.
+
+```
+//teal: used in buttons backgrounds, anchors 
+$skcm-primary: #14cabf;
+
+//black: used in headings, body
+$skcm-dark: #131f37;
+
+//gray: used in table headings, table borders
+$skcm-medium: #b0bfd9;
+
+//white: used in banner background colour, buttons text colour
+$skcm-light: #fff;
+```
