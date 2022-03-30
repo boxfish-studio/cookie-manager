@@ -4,7 +4,7 @@ import { SupportedService } from './types';
 
 export enum Provider {
     Google = "Google",
-    Iota = "Iota"
+    IOTA = "IOTA"
 }
 
 export enum CookieType {
@@ -15,15 +15,15 @@ const RELEVANT_LINKS = {
     [Provider.Google]: {
         privacy: 'https://policies.google.com/privacy'
     },
-    [Provider.Iota]: {
-        privacy: 'https://www.iota.org/privacy-policy'
+    [Provider.IOTA]: {
+        privacy: 'https://www.IOTA.org/privacy-policy'
     }
 }
 
 export const SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
     name: `${COOKIE_NAME_PREFIX}-ga-universal`,
-    provider: Provider.Iota,
-    providerUrl: RELEVANT_LINKS.Iota.privacy,
+    provider: Provider.IOTA,
+    providerUrl: RELEVANT_LINKS.IOTA.privacy,
     purpose: 'Stores the user´s Google Analytics Universal cookies consent state for the current domain',
     expiry: COOKIE_EXPIRATION_DAYS + ' days',
     type: CookieType.HTTP,
@@ -31,8 +31,8 @@ export const SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 
 export const SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
     name: `${COOKIE_NAME_PREFIX}-ga-4`,
-    provider: Provider.Iota,
-    providerUrl: RELEVANT_LINKS.Iota.privacy,
+    provider: Provider.IOTA,
+    providerUrl: RELEVANT_LINKS.IOTA.privacy,
     purpose: 'Stores the user´s Google Analytics 4 cookies consent state for the current domain',
     expiry: COOKIE_EXPIRATION_DAYS + ' days',
     type: CookieType.HTTP,
