@@ -3,6 +3,19 @@ $skcm-dark: #131f37;
 $skcm-medium: #b0bfd9;
 $skcm-light: #fff;
 
+h4 {
+    margin-top: 6rem;
+    margin-bottom: 0;
+    font-size: 2rem;
+}
+
+hr {
+    width: 5rem;
+    border: none;
+    border-top: 4px solid $skcm-primary;
+    margin: 1.5rem 0;
+}
+
 h6 {
     margin: 0;
     font-size: 1.25rem;
@@ -20,4 +33,50 @@ a {
 }
 .button-wrapper {
     margin-top: 2rem;
+}
+
+table {
+    border: 1px solid $skcm-medium;
+    border-bottom: none;
+    border-collapse: collapse;
+    text-align: left;
+    thead {
+        tr {
+            th {
+                padding: 1rem;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                border-bottom: 1px solid $skcm-medium;
+                color: $skcm-medium;
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                padding: 1rem;
+                font-size: 0.8rem;
+                border-bottom: 1px solid $skcm-medium;
+
+                &:first-child {
+                    font-weight: bold;
+                }
+                a {
+                    color: $skcm-primary;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+label {
+    margin: 2rem 1rem 2rem 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+
+}
+input {
+    cursor: pointer;
 }

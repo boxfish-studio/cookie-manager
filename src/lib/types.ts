@@ -6,7 +6,17 @@ export enum SupportedService {
 export type Service = {
     type: SupportedService;
     id?: string,
-    enabled?: boolean
+    enabled?: boolean,
+    cookies?: ServiceCookie[],
+}
+
+export type ServiceCookie = {
+    name: string,
+    provider: string,
+    providerUrl: string,
+    purpose: string,
+    expiry: string,
+    type: string
 }
 
 export type DisclaimerConfiguration = {

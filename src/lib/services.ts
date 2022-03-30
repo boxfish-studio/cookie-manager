@@ -2,6 +2,8 @@ import { browser } from "$app/env";
 import { get } from 'svelte/store';
 import { configuredServices, servicesInitialized } from './store';
 import { SupportedService } from './types';
+import type { Service } from './types';
+import { deleteCookie } from './utils';
 
 export const initializeServices = (): void => {
     if (!get(servicesInitialized)) {
@@ -15,13 +17,24 @@ export const initializeServices = (): void => {
                 loadGoogleAnalytics(googleAnalytics4Config.id);
             }
         }
-        servicesInitialized.set(true);
     }
 }
 
-/*
- * Google Analytics utils.
- */
+export const stopServices = (): void => {
+    const googleAnalyticsUniversalConfig = get(configuredServices)?.find(({ type }) => type === SupportedService.GoogleAnalyticsUniversal)
+    const googleAnalytics4Config = get(configuredServices)?.find(({ type }) => type === SupportedService.GoogleAnalytics4)
+    let enabledServices: Service[] = [];
+
+    removeGoogleAnalytics(googleAnalytics4Config.id)
+    removeGoogleAnalytics(googleAnalyticsUniversalConfig.id)
+
+    enabledServices = get(configuredServices)?.filter((enabled) => enabled)?.map((service) =>
+        service.cookies.forEach((cookie) => {
+            deleteCookie(cookie.name)
+        })
+    )
+    servicesInitialized.set(false)
+}
 
 export const loadGoogleAnalytics = (id: string): void => {
     function gtag(key: string, value: unknown) {
@@ -37,6 +50,15 @@ export const loadGoogleAnalytics = (id: string): void => {
         const script = document.createElement('script');
         script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
         document.body.appendChild(script);
+        servicesInitialized.set(true);
+    }
+};
+
+export const removeGoogleAnalytics = (id: string): void => {
+    const scripts = Array.from(document.getElementsByTagName("script"))
+    if (scripts && scripts.length) {
+        scripts.find((script) => script?.src === `https://www.googletagmanager.com/gtag/js?id=${id}`)?.remove()
+        scripts.find((script) => script?.src === 'https://www.google-analytics.com/analytics.js')?.remove()
     }
 };
 
