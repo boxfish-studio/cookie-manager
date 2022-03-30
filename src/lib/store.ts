@@ -11,7 +11,7 @@ export const configuredServices: Writable<Service[]> = writable([]);
 export const servicesInitialized: Writable<boolean> = writable(false);
 
 export function initConfiguredServices(googleAnalyticsUniversalId: string, googleAnalytics4Id: string): void {
-    const _configuredServices = []
+    const _configuredServices: Service[] = []
 
     if (googleAnalyticsUniversalId) {
         _configuredServices.push(
