@@ -16,7 +16,7 @@ const RELEVANT_LINKS = {
         privacy: 'https://policies.google.com/privacy'
     },
     [Provider.IOTA]: {
-        privacy: 'https://www.IOTA.org/privacy-policy'
+        privacy: 'https://www.iota.org/privacy-policy'
     }
 }
 
