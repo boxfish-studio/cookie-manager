@@ -3,32 +3,20 @@
 	import { configuredServices } from '$lib/store';
 	import { get } from 'svelte/store';
 
-	let cookiesByService: Array<object> = [];
-	let filteredCookies: Array<object> = [];
+	let cookies: Array<object> = [];
 	onMount(() => {
 		//Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
-		cookiesByService = get(configuredServices).map((service) => service.cookies);
-		filteredCookies = get(configuredServices).map((service, serviceIndex) => {
-			if (serviceIndex != 0) {
-				service.cookies.map((cookie, cookieIndex) => {
-					removeDuplicates(cookie.name, serviceIndex, cookieIndex);
-				});
-			}
-		});
-
-		function removeDuplicates(cookiename, serviceIndex, cookieIndex) {
-			cookiesByService.forEach(function (cookies, i) {
-				cookies.forEach(function (cookie, j) {
-					if (cookie.name === cookiename && (i !== serviceIndex || j !== cookieIndex)) {
-						cookiesByService[serviceIndex][cookieIndex] = '';
-					}
-				});
+		cookies = get(configuredServices).reduce((accumulator, service) => {
+			let cookiesName = accumulator.map((cookie) => cookie.name);
+			let serviceCookies = service.cookies.filter((cookie) => {
+				return !cookiesName.includes(cookie.name);
 			});
-		}
+			return accumulator.concat(serviceCookies);
+		}, []);
 	});
 </script>
 
-{#if cookiesByService.length}
+{#if cookies.length}
 	<table>
 		<thead>
 			<tr>
@@ -40,22 +28,20 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each cookiesByService as cookies}
-				{#each cookies as cookie}
-					{#if cookie && cookie.name}
-						<tr>
-							<td> {cookie?.name} </td>
-							<td
-								><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
-									{cookie?.provider}</a
-								>
-							</td>
-							<td> {cookie?.purpose} </td>
-							<td> {cookie?.expiry} </td>
-							<td> {cookie?.type} </td>
-						</tr>
-					{/if}
-				{/each}
+			{#each cookies as cookie}
+				{#if cookie && cookie.name}
+					<tr>
+						<td> {cookie?.name} </td>
+						<td
+							><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+								{cookie?.provider}</a
+							>
+						</td>
+						<td> {cookie?.purpose} </td>
+						<td> {cookie?.expiry} </td>
+						<td> {cookie?.type} </td>
+					</tr>
+				{/if}
 			{/each}
 		</tbody>
 	</table>
