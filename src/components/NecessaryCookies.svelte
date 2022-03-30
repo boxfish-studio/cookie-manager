@@ -14,17 +14,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each Object.entries(NECESSARY_COOKIES) as [cookie, details]}
+			{#each Object.values(NECESSARY_COOKIES) as cookie}
 				<tr>
-					<td> {details?.name}</td>
+					<td> {cookie?.name}</td>
 					<td
-						><a href={details?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
-							{details?.provider}</a
+						><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+							{cookie?.provider}</a
 						>
 					</td>
-					<td> {details?.purpose} </td>
-					<td> {details?.expiry} </td>
-					<td> {details?.type} </td>
+					<td> {cookie?.purpose} </td>
+					<td> {cookie?.expiry} </td>
+					<td> {cookie?.type} </td>
 				</tr>
 			{/each}
 		</tbody>
