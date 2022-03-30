@@ -2,6 +2,7 @@ import { browser } from "$app/env";
 import { get } from 'svelte/store';
 import { configuredServices, servicesInitialized } from './store';
 import { SupportedService } from './types';
+import type { Service } from './types';
 import { deleteCookie } from './utils';
 
 export const initializeServices = (): void => {
@@ -22,8 +23,8 @@ export const initializeServices = (): void => {
 export const stopServices = (): void => {
     const googleAnalyticsUniversalConfig = get(configuredServices)?.find(({ type }) => type === SupportedService.GoogleAnalyticsUniversal)
     const googleAnalytics4Config = get(configuredServices)?.find(({ type }) => type === SupportedService.GoogleAnalytics4)
-    let enabledServices: Array<object> = [];
-    
+    let enabledServices: Service[] = [];
+
     removeGoogleAnalytics(googleAnalytics4Config.id)
     removeGoogleAnalytics(googleAnalyticsUniversalConfig.id)
 
@@ -58,7 +59,7 @@ export const removeGoogleAnalytics = (id: string): void => {
     if (scripts && scripts.length) {
         scripts.find((script) => script?.src === `https://www.googletagmanager.com/gtag/js?id=${id}`)?.remove()
         scripts.find((script) => script?.src === 'https://www.google-analytics.com/analytics.js')?.remove()
-    } 
+    }
 };
 
 export const updatePathGA = (id: string, path): void => {
