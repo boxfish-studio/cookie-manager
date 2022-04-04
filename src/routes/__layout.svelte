@@ -5,7 +5,12 @@
 	let myconfig: SKCMConfiguration = {
 		disclaimer: {
 			title: 'Custom Title',
-			body: 'Custom Body'
+			body: 'Custom Body',
+			colors: {
+				primary: 'red',
+				light: 'yellow',
+				dark: 'blue'
+			}
 		},
 		services: {
 			googleAnalyticsUniversalId: 'UA-55289638-1',
