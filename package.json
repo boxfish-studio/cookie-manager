@@ -1,5 +1,5 @@
 {
-  "name": "sveltekit-cookie-mananger",
+  "name": "sveltekit-cookie-manager",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
