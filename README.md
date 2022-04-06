@@ -11,10 +11,10 @@ Enables cookie management of following services:
 
 ### Features
 - Display a customizable popup to accept or reject cookies. Pop up consists of: 
-    - Title, body, Accept/Reject buttons and a link to Privacy Policy page.
+    - Title, body, accept/reject buttons and a link to Privacy Policy page.
 - Create a cookie library showing: 
-    - Tables with details about site's Necessary Cookies and Additional Cookies: cookie name, provider name, purpose, expiry, type.
-    - A radio input to update cookie configuration.
+    - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
+    - An input to update preferences.
 
 ### Built with
 
@@ -43,8 +43,9 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 ```
 <script>
     import { CookieManager } from '@iota/sveltekit-cookie-manager';
+	import type { SKCMConfiguration } from 'sveltekit-cookie-manager';
 
-	let customConfiguration = {
+	let configuration: SKCMConfiguration = {
 		disclaimer: {
 			title: 'Custom Title',
 			body: 'Custom Body'
@@ -52,33 +53,35 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 		services: {
 			googleAnalyticsUniversalId: 'myCustomID',
 			googleAnalytics4Id: 'myCustomID'
+		},
+		theme: {
+			primary: '#14cabf',
+			dark: '#131f37',
 		}
 	};
 </script>
 
-<CookieManager configuration={customConfiguration} />
+<CookieManager {configuration} />
 ``` 
 
-You may also set the type of your configuration variable:
-```
-<script>
-	import type { SKCMConfiguration } from '@iota/sveltekit-cookie-manager';
 
-    let customConfiguration: SKCMConfiguration = {
-		disclaimer: {},
-		services: {}
-	};
-</script>
-``` 
 
 ### Show cookie library
 
 ```
 <script>
-    import { CookieLibrary } from '@iota/sveltekit-cookie-manager';
+	import { CookieLibrary } from 'sveltekit-cookie-manager';
+	import type { SKCMConfiguration } from 'sveltekit-cookie-manager';
+
+	let configuration: SKCMConfiguration = {
+		theme: {
+			primary: '#14cabf',
+			light: '#fff',
+		}
+	};
 </script>
 
-<CookieLibrary />
+<CookieLibrary {configuration} />
 ``` 
 
 
@@ -86,35 +89,41 @@ You may also set the type of your configuration variable:
 Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
 
 ```
-	let customConfiguration: SKCMConfiguration = {
-		disclaimer: {
-            title?: string,
-            body?: string,
-            policyText?: string,
-            policyUrl?: string,
-            acceptButtonText?: string,
-            rejectButtonText?: string,
-		},
-		services: {
-            googleAnalyticsUniversalId?: string,
-            googleAnalytics4Id?: string
-		}
-	};
+let customConfiguration: SKCMConfiguration = {
+	disclaimer: {
+		title?: string,
+		body?: string,
+		policyText?: string,
+		policyUrl?: string,
+		acceptButtonText?: string,
+		rejectButtonText?: string,
+	},
+	services: {
+		googleAnalyticsUniversalId?: string,
+		googleAnalytics4Id?: string
+	},
+	theme: {
+		primary?: string;
+		dark?: string;
+		medium?: string;
+		light?: string;
+	}
+};
 ``` 
 
-## Styling
-A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom css to match your site's styles.
+## Theme
+A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom configuration variable.
 
 ```
-//teal: used in buttons backgrounds, anchors 
-$skcm-primary: #14cabf;
+//primary (default teal): used in buttons backgrounds, anchors 
+primary: #14cabf;
 
-//black: used in headings, body
-$skcm-dark: #131f37;
+//dark (default black): used in headings, body
+dark: #131f37;
 
-//gray: used in table headings, table borders
-$skcm-medium: #b0bfd9;
+//medium (default gray): used in table headings, table borders
+medium: #b0bfd9;
 
-//white: used in banner background colour, buttons text colour
-$skcm-light: #fff;
+//light (default white): used in banner background colour, buttons text colour
+light: #fff;
 ```
