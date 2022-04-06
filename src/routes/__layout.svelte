@@ -2,7 +2,7 @@
 	import { CookieManager } from '$components';
 	import type { SKCMConfiguration } from '$lib/types';
 
-	let config: SKCMConfiguration = {
+	let configuration: SKCMConfiguration = {
 		disclaimer: {
 			title: 'Custom Title',
 			body: 'Custom Body'
@@ -25,7 +25,7 @@
 	<slot />
 </main>
 
-<CookieManager configuration={config} />
+<CookieManager {configuration}/>
 
 <style type="text/scss">
 </style>

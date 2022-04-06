@@ -2,7 +2,7 @@
 	import { CookieLibrary } from '$components';
 	import type { SKCMConfiguration } from '$lib/types';
 	export const prerender = true;
-	let config: SKCMConfiguration = {
+	let configuration: SKCMConfiguration = {
 		theme: {
 			light: '#fff',
 			dark: '#131f37',
@@ -14,4 +14,4 @@
 
 <h1>Policy</h1>
 
-<CookieLibrary configuration={config} />
+<CookieLibrary {configuration} />
