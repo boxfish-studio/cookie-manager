@@ -53,7 +53,7 @@
 		{/if}
 		{#if section?.id === 'necessaryCookies'}
 			<NecessaryCookies />
-		{:else if section?.id === 'aditionalCookies'}
+		{:else if section?.id === 'additionalCookies'}
 			<AdditionalCookies />
 		{/if}
 	{/each}
