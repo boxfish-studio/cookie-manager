@@ -1,42 +1,55 @@
-$skcm-primary: #14cabf;
-$skcm-dark: #131f37;
-$skcm-medium: #b0bfd9;
-$skcm-light: #fff;
-
 h4 {
     margin-top: 6rem;
     margin-bottom: 0;
     font-size: 2rem;
+    color: var(--dark);
+}
+
+h6 {
+    color: var(--dark);
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.button-wrapper {
+    margin-top: 2rem;
+}
+
+button {
+    text-transform: uppercase;
+    display: block;
+    width: max-content;
+    padding: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary);
+    color: var(--light);
 }
 
 hr {
     width: 5rem;
     border: none;
-    border-top: 4px solid $skcm-primary;
+    border-top: 4px solid var(--primary);
     margin: 1.5rem 0;
 }
 
-h6 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: $skcm-dark;
-}
 p {
     font-size: 0.875rem;
     margin-top: 1.5rem;
     line-height: 1.31rem;
-    color: $skcm-dark;
-}
-a {
-    text-decoration: none;
-    color: $skcm-primary;
-}
-.button-wrapper {
-    margin-top: 2rem;
+    color: var(--dark);
 }
 
 table {
-    border: 1px solid $skcm-medium;
+    border: 1px solid var(--medium);
     border-bottom: none;
     border-collapse: collapse;
     text-align: left;
@@ -46,8 +59,8 @@ table {
                 padding: 1rem;
                 font-size: 0.9rem;
                 text-transform: uppercase;
-                border-bottom: 1px solid $skcm-medium;
-                color: $skcm-medium;
+                border-bottom: 1px solid var(--medium);
+                color: var(--medium);
             }
         }
     }
@@ -56,13 +69,14 @@ table {
             td {
                 padding: 1rem;
                 font-size: 0.8rem;
-                border-bottom: 1px solid $skcm-medium;
+                border-bottom: 1px solid var(--medium);
+                color: var(--dark);
 
                 &:first-child {
                     font-weight: bold;
                 }
                 a {
-                    color: $skcm-primary;
+                    color: var(--primary);
                     text-decoration: none;
                 }
             }
@@ -75,7 +89,6 @@ label {
     text-transform: uppercase;
     cursor: pointer;
     display: inline-block;
-
 }
 input {
     cursor: pointer;

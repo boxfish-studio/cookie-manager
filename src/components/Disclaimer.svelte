@@ -1,16 +1,28 @@
 <script lang="ts">
 	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/constants';
-	import type { DisclaimerConfiguration } from '$lib/types';
+	import type { DisclaimerConfiguration, Theme } from '$lib/types';
 	import { Button } from './';
 
 	export let configuration: DisclaimerConfiguration;
+	export let theme: Theme = {
+		light: '#fff',
+		dark: '#131f37',
+		medium: '#b0bfd9',
+		primary: '#14cabf'
+	};
+
 	export let allowCookies: () => void = () => {};
 	export let declineCookies: () => void = () => {};
 </script>
 
-<div id="skcm-banner">
+<div
+	id="skcm-banner"
+	style="--light:{theme?.light}; --dark:{theme?.dark}; --primary:{theme?.primary}"
+>
 	<div>
-		<h6>{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}</h6>
+		<h6>
+			{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}
+		</h6>
 		<p>
 			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
 			<a href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl} target="_blank"
@@ -33,7 +45,7 @@
 		position: fixed;
 		padding: 2rem 1.5rem 1rem 1.5rem;
 		border-radius: 6px;
-		background-color: $skcm-light;
+		background-color: var(--light);
 		max-width: 100vw;
 		bottom: 0;
 		right: 0;

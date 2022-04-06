@@ -10,6 +10,12 @@
 		services: {
 			googleAnalyticsUniversalId: 'UA-55289638-1',
 			googleAnalytics4Id: 'G-MRTBG711QZ'
+		},
+		theme: {
+			light: 'red',
+			dark: 'white',
+			medium: '#b0bfd9',
+			primary: 'pink'
 		}
 	};
 </script>
