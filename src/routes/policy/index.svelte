@@ -1,7 +1,9 @@
 <script context="module" lang="ts">
 	import { CookieLibrary } from '$components';
 	import type { SKCMConfiguration } from '$lib/types';
+	
 	export const prerender = true;
+
 	let configuration: SKCMConfiguration = {
 		theme: {
 			light: '#fff',
