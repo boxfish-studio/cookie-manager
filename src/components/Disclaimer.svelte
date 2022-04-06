@@ -15,26 +15,26 @@
 	export let declineCookies: () => void = () => {};
 </script>
 
-<div id="skcm-banner" style="--light:{theme?.light}">
+<div
+	id="skcm-banner"
+	style="--light:{theme?.light}; --dark:{theme?.dark}; --primary:{theme?.primary}"
+>
 	<div>
-		<h6 style="--dark:{theme?.dark}">
+		<h6>
 			{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}
 		</h6>
-		<p style="--dark:{theme?.dark}">
+		<p>
 			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
-			<a
-				style="--primary:{theme?.primary}"
-				href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
-				target="_blank"
+			<a href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl} target="_blank"
 				><span>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span></a
 			>
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button {theme} onClick={allowCookies}
+		<Button onClick={allowCookies}
 			>{configuration?.acceptButtonText ?? DEFAULT_DISCLAIMER_CONFIG.acceptButtonText}</Button
 		>
-		<Button {theme} onClick={declineCookies}
+		<Button onClick={declineCookies}
 			>{configuration?.rejectButtonText ?? DEFAULT_DISCLAIMER_CONFIG.rejectButtonText}
 		</Button>
 	</div>

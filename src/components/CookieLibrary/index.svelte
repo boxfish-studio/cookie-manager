@@ -57,17 +57,18 @@
 			<AdditionalCookies />
 		{/if}
 	{/each}
-</div>
-<div id="svkm-preferences-wrapper">
-	<label>
-		<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
-		Reject
-	</label>
-	<label>
-		<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
-		Allow
-	</label>
-	<Button theme={configuration?.theme} onClick={updatePreferences}>Update Cookie Preference</Button>
+
+	<div id="svkm-preferences-wrapper">
+		<label>
+			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
+			Reject
+		</label>
+		<label>
+			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
+			Allow
+		</label>
+		<Button onClick={updatePreferences}>Update Cookie Preference</Button>
+	</div>
 </div>
 
 <style type="text/scss">
