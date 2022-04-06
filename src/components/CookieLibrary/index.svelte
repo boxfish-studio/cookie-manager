@@ -10,7 +10,7 @@
 	import { NecessaryCookies } from '$components';
 
 	export let configuration: SKCMConfiguration = {
-		styles: {
+		theme: {
 			primary: '#14cabf',
 			light: '#fff',
 			medium: '#b0bfd9',
@@ -37,20 +37,20 @@
 
 {#each information as section}
 	{#if section?.title}
-		<h4 style="--dark:{configuration?.styles?.dark}">{section?.title}</h4>
-		<hr style="--primary:{configuration?.styles?.primary}" />
+		<h4 style="--dark:{configuration?.theme?.dark}">{section?.title}</h4>
+		<hr style="--primary:{configuration?.theme?.primary}" />
 	{/if}
 	{#if section?.body}
 		{#each section?.body as paragraphs}
-			<p style="--dark:{configuration?.styles?.dark}">
+			<p style="--dark:{configuration?.theme?.dark}">
 				{paragraphs?.paragraph}
 			</p>
 		{/each}
 	{/if}
 	{#if section?.id === 'necessaryCookies'}
-		<NecessaryCookies styles={configuration?.styles} />
+		<NecessaryCookies theme={configuration?.theme} />
 	{:else if section?.id === 'aditionalCookies'}
-		<AdditionalCookies styles={configuration?.styles} />
+		<AdditionalCookies theme={configuration?.theme} />
 	{/if}
 {/each}
 
@@ -63,7 +63,7 @@
 		<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 		Allow
 	</label>
-	<Button styles={configuration?.styles} onClick={updatePreferences}>Update Cookie Preference</Button>
+	<Button theme={configuration?.theme} onClick={updatePreferences}>Update Cookie Preference</Button>
 </div>
 
 <style type="text/scss">

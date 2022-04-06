@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
-	import type { ServiceCookie, StylesConfiguration } from '$lib/types';
+	import type { ServiceCookie, Theme } from '$lib/types';
 	import { get } from 'svelte/store';
-	export let styles: StylesConfiguration;
+	export let theme: Theme;
 
 	let cookies: ServiceCookie[] = [];
 
@@ -21,7 +21,7 @@
 
 {#if cookies.length}
 	<table
-		style="--medium:{styles?.medium}; --primary:{styles?.primary}; --dark:{styles?.dark}"
+		style="--medium:{theme?.medium}; --primary:{theme?.primary}; --dark:{theme?.dark}"
 	>
 		<thead>
 			<tr>

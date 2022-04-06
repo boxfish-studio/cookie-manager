@@ -11,11 +11,11 @@
 			googleAnalyticsUniversalId: 'UA-55289638-1',
 			googleAnalytics4Id: 'G-MRTBG711QZ'
 		},
-		styles: {
-			light: '#fff',
-			dark: '#131f37',
+		theme: {
+			light: 'red',
+			dark: 'white',
 			medium: '#b0bfd9',
-			primary: '#14cabf'
+			primary: 'pink'
 		}
 	};
 </script>

@@ -3,7 +3,7 @@
 	import type { SKCMConfiguration } from '$lib/types';
 	export const prerender = true;
 	let myconfig: SKCMConfiguration = {
-		styles: {
+		theme: {
 			light: '#fff',
 			dark: '#131f37',
 			medium: '#b0bfd9',

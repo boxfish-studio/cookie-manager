@@ -19,7 +19,7 @@ export type ServiceCookie = {
     type: string
 }
 
-export type StylesConfiguration = {
+export type Theme = {
     primary?: string,
     dark?: string,
     light?: string,
@@ -43,5 +43,5 @@ export type ServicesConfiguration = {
 export type SKCMConfiguration = {
     disclaimer?: DisclaimerConfiguration,
     services?: ServicesConfiguration,
-    styles?: StylesConfiguration
+    theme?: Theme,
 }

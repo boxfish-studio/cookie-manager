@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/constants';
-	import type { DisclaimerConfiguration, StylesConfiguration } from '$lib/types';
+	import type { DisclaimerConfiguration, Theme } from '$lib/types';
 	import { Button } from './';
 
 	export let configuration: DisclaimerConfiguration;
-	export let styles: StylesConfiguration = {
+	export let theme: Theme = {
 		light: '#fff',
 		dark: '#131f37',
 		medium: '#b0bfd9',
@@ -15,15 +15,15 @@
 	export let declineCookies: () => void = () => {};
 </script>
 
-<div id="skcm-banner" style="--light:{styles?.light}">
+<div id="skcm-banner" style="--light:{theme?.light}">
 	<div>
-		<h6 style="--dark:{styles?.dark}">
+		<h6 style="--dark:{theme?.dark}">
 			{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}
 		</h6>
-		<p style="--dark:{styles?.dark}">
+		<p style="--dark:{theme?.dark}">
 			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
 			<a
-				style="--primary:{styles?.primary}"
+				style="--primary:{theme?.primary}"
 				href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
 				target="_blank"
 				><span>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span></a
@@ -31,10 +31,10 @@
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button {styles} onClick={allowCookies}
+		<Button {theme} onClick={allowCookies}
 			>{configuration?.acceptButtonText ?? DEFAULT_DISCLAIMER_CONFIG.acceptButtonText}</Button
 		>
-		<Button {styles} onClick={declineCookies}
+		<Button {theme} onClick={declineCookies}
 			>{configuration?.rejectButtonText ?? DEFAULT_DISCLAIMER_CONFIG.rejectButtonText}
 		</Button>
 	</div>
