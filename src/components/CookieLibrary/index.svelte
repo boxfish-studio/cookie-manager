@@ -61,9 +61,7 @@
 		<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 		Allow
 	</label>
-	<Button light={styles?.light} primary={styles?.primary} onClick={updatePreferences}
-		>Update Cookie Preference</Button
-	>
+	<Button {styles} onClick={updatePreferences}>Update Cookie Preference</Button>
 </div>
 
 <style type="text/scss">

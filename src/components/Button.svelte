@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { StylesConfiguration } from '$lib/types';
 	export let onClick: () => void = () => {};
-	export let primary: string = '#14cabf';
-	export let light: string = '#fff';
+	export let styles: StylesConfiguration ;
 </script>
 
-<button on:click={onClick} style="--primary:{primary}; --light:{light}">
+<button on:click={onClick} style="--primary:{styles?.primary}; --light:{styles?.light}">
 	<slot />
 </button>
 

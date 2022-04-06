@@ -31,10 +31,10 @@
 		</p>
 	</div>
 	<div class="button-wrapper">
-		<Button light={styles?.light} primary={styles?.primary} onClick={allowCookies}
+		<Button {styles} onClick={allowCookies}
 			>{configuration?.acceptButtonText ?? DEFAULT_DISCLAIMER_CONFIG.acceptButtonText}</Button
 		>
-		<Button light={styles?.light} primary={styles?.primary} onClick={declineCookies}
+		<Button {styles} onClick={declineCookies}
 			>{configuration?.rejectButtonText ?? DEFAULT_DISCLAIMER_CONFIG.rejectButtonText}
 		</Button>
 	</div>
@@ -58,5 +58,4 @@
 			border-radius: 6px;
 		}
 	}
-
 </style>
