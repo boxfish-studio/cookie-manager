@@ -20,6 +20,20 @@ a {
     margin-top: 2rem;
 }
 
+button {
+    text-transform: uppercase;
+    display: block;
+    width: max-content;
+    padding: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary);
+    color: var(--light);
+}
+
 hr {
     width: 5rem;
     border: none;
