@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { NECESSARY_COOKIES } from '$lib/cookieLib';
-	import type { Theme } from '$lib/types';
-
-	export let theme: Theme;
 </script>
 
 {#if NECESSARY_COOKIES}
-	<table style="--medium:{theme?.medium}; --primary:{theme?.primary}; --dark:{theme?.dark};">
+	<table>
 		<thead>
 			<tr>
 				<th> Name </th>

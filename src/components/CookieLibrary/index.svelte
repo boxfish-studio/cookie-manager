@@ -35,25 +35,29 @@
 	}
 </script>
 
-{#each information as section}
-	{#if section?.title}
-		<h4 style="--dark:{configuration?.theme?.dark}">{section?.title}</h4>
-		<hr style="--primary:{configuration?.theme?.primary}" />
-	{/if}
-	{#if section?.body}
-		{#each section?.body as paragraphs}
-			<p style="--dark:{configuration?.theme?.dark}">
-				{paragraphs?.paragraph}
-			</p>
-		{/each}
-	{/if}
-	{#if section?.id === 'necessaryCookies'}
-		<NecessaryCookies theme={configuration?.theme} />
-	{:else if section?.id === 'aditionalCookies'}
-		<AdditionalCookies theme={configuration?.theme} />
-	{/if}
-{/each}
-
+<div
+	style="--primary:{configuration?.theme?.primary}; --dark:{configuration?.theme
+		?.dark}; --medium:{configuration?.theme?.medium}; --light:{configuration?.theme?.light}"
+>
+	{#each information as section}
+		{#if section?.title}
+			<h4>{section?.title}</h4>
+			<hr />
+		{/if}
+		{#if section?.body}
+			{#each section?.body as paragraphs}
+				<p>
+					{paragraphs?.paragraph}
+				</p>
+			{/each}
+		{/if}
+		{#if section?.id === 'necessaryCookies'}
+			<NecessaryCookies />
+		{:else if section?.id === 'aditionalCookies'}
+			<AdditionalCookies />
+		{/if}
+	{/each}
+</div>
 <div id="svkm-preferences-wrapper">
 	<label>
 		<input type="radio" bind:group={hasAllowedCookies} value={'false'} />

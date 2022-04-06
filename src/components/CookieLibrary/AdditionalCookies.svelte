@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
-	import type { ServiceCookie, Theme } from '$lib/types';
+	import type { ServiceCookie } from '$lib/types';
 	import { get } from 'svelte/store';
-	export let theme: Theme;
 
 	let cookies: ServiceCookie[] = [];
 
@@ -20,9 +19,7 @@
 </script>
 
 {#if cookies.length}
-	<table
-		style="--medium:{theme?.medium}; --primary:{theme?.primary}; --dark:{theme?.dark}"
-	>
+	<table>
 		<thead>
 			<tr>
 				<th> Name </th>
