@@ -1,15 +1,17 @@
 <script context="module" lang="ts">
 	import { CookieLibrary } from '$components';
-	import type { StylesConfiguration } from '$lib/types';
+	import type { SKCMConfiguration } from '$lib/types';
 	export const prerender = true;
-	let styles: StylesConfiguration = {
-		primary: '#14cabf',
-		light: '#fff',
-		medium: '#b0bfd9',
-		dark: '#131f37'
+	let myconfig: SKCMConfiguration = {
+		styles: {
+			light: '#fff',
+			dark: '#131f37',
+			medium: '#b0bfd9',
+			primary: '#14cabf'
+		}
 	};
 </script>
 
 <h1>Policy</h1>
 
-<CookieLibrary {styles} />
+<CookieLibrary configuration={myconfig} />

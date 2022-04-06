@@ -3,17 +3,19 @@
 	import { submitNecessaryCookies } from '$lib/utils';
 	import { initializeServices, stopServices } from '$lib/services';
 	import { showCookieDisclaimer } from '$lib/store';
-	import type { StylesConfiguration } from '$lib/types';
+	import type { SKCMConfiguration } from '$lib/types';
 	import { AdditionalCookies } from '$components';
 	import { Button } from '$components';
 	import { information } from './cookies.json';
 	import { NecessaryCookies } from '$components';
 
-	export let styles: StylesConfiguration = {
-		primary: '#14cabf',
-		light: '#fff',
-		medium: '#b0bfd9',
-		dark: '#131f37'
+	export let configuration: SKCMConfiguration = {
+		styles: {
+			primary: '#14cabf',
+			light: '#fff',
+			medium: '#b0bfd9',
+			dark: '#131f37'
+		}
 	};
 
 	let hasAllowedCookies: 'true' | 'false';
@@ -35,20 +37,20 @@
 
 {#each information as section}
 	{#if section?.title}
-		<h4 style="--dark:{styles?.dark}">{section?.title}</h4>
-		<hr style="--primary:{styles?.primary}" />
+		<h4 style="--dark:{configuration?.styles?.dark}">{section?.title}</h4>
+		<hr style="--primary:{configuration?.styles?.primary}" />
 	{/if}
 	{#if section?.body}
 		{#each section?.body as paragraphs}
-			<p style="--dark:{styles?.dark}">
+			<p style="--dark:{configuration?.styles?.dark}">
 				{paragraphs?.paragraph}
 			</p>
 		{/each}
 	{/if}
 	{#if section?.id === 'necessaryCookies'}
-		<NecessaryCookies {styles} />
+		<NecessaryCookies styles={configuration?.styles} />
 	{:else if section?.id === 'aditionalCookies'}
-		<AdditionalCookies {styles} />
+		<AdditionalCookies styles={configuration?.styles} />
 	{/if}
 {/each}
 
@@ -61,7 +63,7 @@
 		<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 		Allow
 	</label>
-	<Button {styles} onClick={updatePreferences}>Update Cookie Preference</Button>
+	<Button styles={configuration?.styles} onClick={updatePreferences}>Update Cookie Preference</Button>
 </div>
 
 <style type="text/scss">
