@@ -1,6 +1,7 @@
 # Sveltekit Cookie Manager
+<br/>
 
-## About The Project
+## 1. About The Project
 
 Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
 Enables cookie management of following services:
@@ -9,27 +10,30 @@ Enables cookie management of following services:
 
 
 
-### Features
+### 1.1 Features
 - Display a customizable popup to accept or reject cookies. Pop up consists of: 
     - Title, body, accept/reject buttons and a link to Privacy Policy page.
 - Create a cookie library showing: 
     - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
-    - An input to update preferences.
+    - Radio inputs (accept all, reject all) and submit button to update preferences.
 
-### Built with
+### 1.2 Built with
 
 - Sveltekit.
 - Typescript.
 
-## Installation
+<br/>
+
+## 2. Installation
 
 ```
 $ npm i @iota/sveltekit-cookie-manager
 ```
+<br/>
 
-## How to use
+## 3. How to use
 
-### Show popup
+### 3.1 Show popup
 
 1. Import `CookieManager` component 
 
@@ -51,8 +55,8 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 			body: 'Custom Body'
 		},
 		services: {
-			googleAnalyticsUniversalId: 'myCustomID',
-			googleAnalytics4Id: 'myCustomID'
+			googleAnalyticsUniversalId: 'myCustomKey',
+			googleAnalytics4Id: 'myCustomKey'
 		},
 		theme: {
 			primary: '#14cabf',
@@ -66,7 +70,14 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 
 
 
-### Show cookie library
+### 3.2 Show cookie library
+
+1. Import `CookieLibrary` component 
+```
+import { CookieLibrary } from '@iota/sveltekit-cookie-manager';`
+```
+2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
+
 
 ```
 <script>
@@ -83,13 +94,14 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 
 <CookieLibrary {configuration} />
 ``` 
+<br/>
 
 
-## Available configuration
+## 4. Available configuration
 Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
 
 ```
-let customConfiguration: SKCMConfiguration = {
+let configuration: SKCMConfiguration = {
 	disclaimer: {
 		title?: string,
 		body?: string,
@@ -111,19 +123,36 @@ let customConfiguration: SKCMConfiguration = {
 };
 ``` 
 
-## Theme
+### 4.1 Popup props
+
+`title`: The title of the popup. Default value: "Cookie Preferences".
+
+`body`: The body of the popup. Default value: "For an optimal website experience, we use cookies and similar technologies to show personalized content, offer features and collect statistics. Clicking on "Accept" allows us to process this data and share it with third parties according to our privacy policy. You can view and change the current settings at any time.".
+
+`policyText`: Text that links to Privacy Policy. Default value: "Read our cookie policy".
+
+`policyUrl`: Privacy Policy url. Default value: "https://iota.org/privacy-policy".
+
+`acceptButtonText`: Text shown in 'Accept' button. Default value: "Accept Additional Cookies".
+
+`rejectButtonText`: Text shown in 'Reject' button. Default value: "Reject Additional Cookies".
+
+
+### 4.2 Services props
+
+`googleAnalyticsUniversalId`: Your custom Google Analytics Universal key.
+
+`googleAnalytics4Id`:Your custom Google Analytics 4 key.
+
+
+### 4.3 Theme props
 A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom configuration variable.
 
-```
-//primary (default teal): used in buttons backgrounds, anchors 
-primary: #14cabf;
+`primary`: Used in buttons backgrounds, anchors. Default value: `#14cabf` (teal).
 
-//dark (default black): used in headings, body
-dark: #131f37;
+`dark`: Used in headings, body. Default value: `#131f37` (black).
 
-//medium (default gray): used in table headings, table borders
-medium: #b0bfd9;
+`medium`: Used in table headings, table borders. Default value: `#b0bfd9` (gray).
 
-//light (default white): used in banner background colour, buttons text colour
-light: #fff;
-```
+`light`: Used in banner background colour, buttons text colour. Default value: `#fff` (white).
+
