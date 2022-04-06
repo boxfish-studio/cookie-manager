@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { StylesConfiguration } from '$lib/types';
 	export let onClick: () => void = () => {};
-	export let styles: StylesConfiguration ;
+	export let styles: StylesConfiguration;
 </script>
 
 <button on:click={onClick} style="--primary:{styles?.primary}; --light:{styles?.light}">
