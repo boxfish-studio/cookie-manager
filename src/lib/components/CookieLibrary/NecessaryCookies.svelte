@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NECESSARY_COOKIES } from '$lib/cookieLib';
+	import { NECESSARY_COOKIES } from '$lib/app/cookieLib';
 </script>
 
 {#if NECESSARY_COOKIES}

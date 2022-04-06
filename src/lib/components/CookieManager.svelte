@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { initializeServices, updatePathGA } from '$lib/services';
-	import { initConfiguredServices, showCookieDisclaimer } from '$lib/store';
-	import { SKCMConfiguration, SupportedService } from '$lib/types';
-	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/utils';
+	import { initializeServices, updatePathGA } from '$lib/app/services';
+	import { initConfiguredServices, showCookieDisclaimer } from '$lib/app/store';
+	import { SKCMConfiguration, SupportedService } from '$lib/app/types';
+	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/app/utils';
 	import { onMount } from 'svelte';
 	import { Disclaimer } from './';
 
