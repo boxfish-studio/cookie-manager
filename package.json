@@ -1,5 +1,5 @@
 {
-  "name": "sveltekit-cookie-manager-props",
+  "name": "sveltekit-cookie-mananger",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
