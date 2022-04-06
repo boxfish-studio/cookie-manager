@@ -1,10 +1,10 @@
 <script lang="ts">
 	export let onClick: () => void = () => {};
-	export let bgColor: string = '#14cabf';
-	export let textColor: string = '#fff';
+	export let primary: string = '#14cabf';
+	export let light: string = '#fff';
 </script>
 
-<button on:click={onClick} style="--bg-color:{bgColor}; --text-color:{textColor}">
+<button on:click={onClick} style="--primary:{primary}; --light:{light}">
 	<slot />
 </button>
 
@@ -19,7 +19,7 @@
 		cursor: pointer;
 		border: none;
 		border-radius: 6px;
-		background-color: var(--bg-color);
-		color: var(--text-color);
+		background-color: var(--primary);
+		color: var(--light);
 	}
 </style>

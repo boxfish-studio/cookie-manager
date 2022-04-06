@@ -5,16 +5,17 @@
 	let myconfig: SKCMConfiguration = {
 		disclaimer: {
 			title: 'Custom Title',
-			body: 'Custom Body',
-			colors: {
-				primary: 'red',
-				light: 'yellow',
-				dark: 'blue'
-			}
+			body: 'Custom Body'
 		},
 		services: {
 			googleAnalyticsUniversalId: 'UA-55289638-1',
 			googleAnalytics4Id: 'G-MRTBG711QZ'
+		},
+		styles: {
+			light: '#fff',
+			dark: '#131f37',
+			medium: '#b0bfd9',
+			primary: '#14cabf'
 		}
 	};
 </script>

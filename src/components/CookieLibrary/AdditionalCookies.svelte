@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { configuredServices } from '$lib/store';
-	import type { ServiceCookie } from '$lib/types';
+	import type { ServiceCookie, StylesConfiguration } from '$lib/types';
 	import { get } from 'svelte/store';
+	export let styles: StylesConfiguration;
 
 	let cookies: ServiceCookie[] = [];
+
 	onMount(() => {
 		//Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
 		cookies = get(configuredServices).reduce((accumulator, service) => {
@@ -18,7 +20,9 @@
 </script>
 
 {#if cookies.length}
-	<table>
+	<table
+		style="--medium:{styles?.medium}; --primary:{styles?.primary}; --dark:{styles?.dark}"
+	>
 		<thead>
 			<tr>
 				<th> Name </th>

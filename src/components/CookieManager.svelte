@@ -50,5 +50,5 @@
 </script>
 
 {#if $showCookieDisclaimer}
-	<Disclaimer {allowCookies} {declineCookies} configuration={configuration?.disclaimer} />
+	<Disclaimer {allowCookies} {declineCookies} configuration={configuration?.disclaimer} styles={configuration?.styles} />
 {/if}
