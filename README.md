@@ -1,51 +1,158 @@
-# sveltekit-cookie-mananger
+# Sveltekit Cookie Manager
+<br/>
 
-## Features
+## 1. About The Project
 
-Sveltekit Cookie Manager reduces the workload of keeping multiple websites cookie consents up to date by centralizing them into this package. 
-Enables cookie management of:
-- Google Analytics Universal
+Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
+Enables cookie management of following services:
+- Google Analytics Universal.
+- Google Analytics 4.
 
-## How to use
-## Documentation
 
-## create-svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+### 1.1 Features
+- Display a customizable popup to accept or reject cookies. Pop up consists of: 
+    - Title, body, accept/reject buttons and a link to Privacy Policy page.
+- Create a cookie library showing: 
+    - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
+    - Radio inputs (accept all, reject all) and submit button to update preferences.
 
-### Creating a project
+### 1.2 Built with
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Sveltekit.
+- Typescript.
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+<br/>
 
-# create a new project in my-app
-npm init svelte@next my-app
+## 2. Installation
+
+```
+$ npm i @iota/sveltekit-cookie-manager
+```
+<br/>
+
+## 3. How to use
+
+### 3.1 Show popup
+
+1. Import `CookieManager` component 
+
+```
+import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 ```
 
-> Note: the `@next` is temporary
+2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
 
-### Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+<script>
+    import { CookieManager } from '@iota/sveltekit-cookie-manager';
+	import type { SKCMConfiguration } from 'sveltekit-cookie-manager';
 
-### Building
+	let configuration: SKCMConfiguration = {
+		disclaimer: {
+			title: 'Custom Title',
+			body: 'Custom Body'
+		},
+		services: {
+			googleAnalyticsUniversalId: 'myCustomKey',
+			googleAnalytics4Id: 'myCustomKey'
+		},
+		theme: {
+			primary: '#14cabf',
+			dark: '#131f37',
+		}
+	};
+</script>
 
-To create a production version of your app:
+<CookieManager {configuration} />
+``` 
 
-```bash
-npm run build
+
+
+### 3.2 Show cookie library
+
+1. Import `CookieLibrary` component 
 ```
+import { CookieLibrary } from '@iota/sveltekit-cookie-manager';`
+```
+2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
 
-You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment.
+```
+<script>
+	import { CookieLibrary } from 'sveltekit-cookie-manager';
+	import type { SKCMConfiguration } from 'sveltekit-cookie-manager';
+
+	let configuration: SKCMConfiguration = {
+		theme: {
+			primary: '#14cabf',
+			light: '#fff',
+		}
+	};
+</script>
+
+<CookieLibrary {configuration} />
+``` 
+<br/>
+
+
+## 4. Available configuration
+Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
+
+```
+let configuration: SKCMConfiguration = {
+	disclaimer: {
+		title?: string,
+		body?: string,
+		policyText?: string,
+		policyUrl?: string,
+		acceptButtonText?: string,
+		rejectButtonText?: string,
+	},
+	services: {
+		googleAnalyticsUniversalId?: string,
+		googleAnalytics4Id?: string
+	},
+	theme: {
+		primary?: string;
+		dark?: string;
+		medium?: string;
+		light?: string;
+	}
+};
+``` 
+
+### 4.1 Popup props
+
+`title`: The title of the popup. Default value: "Cookie Preferences".
+
+`body`: The body of the popup. Default value: "For an optimal website experience, we use cookies and similar technologies to show personalized content, offer features and collect statistics. Clicking on "Accept" allows us to process this data and share it with third parties according to our privacy policy. You can view and change the current settings at any time.".
+
+`policyText`: Text that links to Privacy Policy. Default value: "Read our cookie policy".
+
+`policyUrl`: Privacy Policy url. Default value: "https://iota.org/privacy-policy".
+
+`acceptButtonText`: Text shown in 'Accept' button. Default value: "Accept Additional Cookies".
+
+`rejectButtonText`: Text shown in 'Reject' button. Default value: "Reject Additional Cookies".
+
+
+### 4.2 Services props
+
+`googleAnalyticsUniversalId`: Your custom Google Analytics Universal key.
+
+`googleAnalytics4Id`:Your custom Google Analytics 4 key.
+
+
+### 4.3 Theme props
+A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom configuration variable.
+
+`primary`: Used in buttons backgrounds, anchors. Default value: `#14cabf` (teal).
+
+`dark`: Used in headings, body. Default value: `#131f37` (black).
+
+`medium`: Used in table headings, table borders. Default value: `#b0bfd9` (gray).
+
+`light`: Used in banner background colour, buttons text colour. Default value: `#fff` (white).
+
