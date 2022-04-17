@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { submitNecessaryCookies } from '$lib/utils';
-	import { initializeServices, stopServices } from '$lib/services';
-	import { showCookieDisclaimer } from '$lib/store';
-	import type { SKCMConfiguration } from '$lib/types';
-	import { AdditionalCookies } from '$components';
-	import { Button } from '$components';
+	import { submitNecessaryCookies } from '$lib/app/utils';
+	import { initializeServices, stopServices } from '$lib/app/services';
+	import { showCookieDisclaimer } from '$lib/app/store';
+	import type { SKCMConfiguration } from '$lib/app/types';
+	import { AdditionalCookies } from '../';
+	import { Button } from '../';
 	import { information } from './cookies.json';
-	import { NecessaryCookies } from '$components';
+	import { NecessaryCookies } from '../';
 
 	export let configuration: SKCMConfiguration = {
 		theme: {

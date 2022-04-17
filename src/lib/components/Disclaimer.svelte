@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/constants';
-	import type { DisclaimerConfiguration, Theme } from '$lib/types';
+	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/app/constants';
+	import type { DisclaimerConfiguration, Theme } from '$lib/app/types';
 	import { Button } from './';
 
 	export let configuration: DisclaimerConfiguration;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { configuredServices } from '$lib/store';
-	import type { ServiceCookie } from '$lib/types';
+	import { configuredServices } from '$lib/app/store';
+	import type { ServiceCookie } from '$lib/app/types';
 	import { get } from 'svelte/store';
 
 	let cookies: ServiceCookie[] = [];
