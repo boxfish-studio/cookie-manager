@@ -1,7 +1,7 @@
 # Sveltekit Cookie Manager
 <br/>
 
-## 1. About The Project
+## About The Project
 
 Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
 Enables cookie management of following services:
@@ -10,35 +10,35 @@ Enables cookie management of following services:
 
 
 
-### 1.1 Features
+### Features
 - Display a customizable popup to accept or reject cookies. Pop up consists of: 
     - Title, body, accept/reject buttons and a link to Privacy Policy page.
 - Create a cookie library showing: 
     - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
     - Radio inputs (accept all, reject all) and submit button to update preferences.
 
-### 1.2 Built with
+### Built with
 
 - Sveltekit.
 - Typescript.
 
 <br/>
 
-## 2. Installation
+## Installation
 
 ```
-$ npm i @iota/sveltekit-cookie-manager
+$ npm i @boxfish-studio/sveltekit-cookie-manager
 ```
 <br/>
 
-## 3. How to use
+## How to use
 
-### 3.1 Show popup
+### Show popup
 
 1. Import `CookieManager` component 
 
 ```
-import { CookieManager } from '@iota/sveltekit-cookie-manager';`
+import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
 ```
 
 2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
@@ -46,7 +46,7 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 
 ```
 <script>
-    import { CookieManager } from '@iota/sveltekit-cookie-manager';
+    import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';
 	import type { SKCMConfiguration } from 'sveltekit-cookie-manager';
 
 	let configuration: SKCMConfiguration = {
@@ -70,11 +70,11 @@ import { CookieManager } from '@iota/sveltekit-cookie-manager';`
 
 
 
-### 3.2 Show cookie library
+### Show cookie library
 
 1. Import `CookieLibrary` component 
 ```
-import { CookieLibrary } from '@iota/sveltekit-cookie-manager';`
+import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager';`
 ```
 2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
 
@@ -97,7 +97,7 @@ import { CookieLibrary } from '@iota/sveltekit-cookie-manager';`
 <br/>
 
 
-## 4. Available configuration
+## Available configuration
 Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
 
 ```
@@ -123,7 +123,7 @@ let configuration: SKCMConfiguration = {
 };
 ``` 
 
-### 4.1 Popup props
+### Popup props
 
 `title`: The title of the popup. Default value: "Cookie Preferences".
 
@@ -138,14 +138,14 @@ let configuration: SKCMConfiguration = {
 `rejectButtonText`: Text shown in 'Reject' button. Default value: "Reject Additional Cookies".
 
 
-### 4.2 Services props
+### Services props
 
 `googleAnalyticsUniversalId`: Your custom Google Analytics Universal key.
 
 `googleAnalytics4Id`:Your custom Google Analytics 4 key.
 
 
-### 4.3 Theme props
+### Theme props
 A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom configuration variable.
 
 `primary`: Used in buttons backgrounds, anchors. Default value: `#14cabf` (teal).
@@ -156,3 +156,7 @@ A 4-colour palette has been predefined following IOTA's style guide. You may ove
 
 `light`: Used in banner background colour, buttons text colour. Default value: `#fff` (white).
 
+
+## Release Package
+
+`npm run package && cd package && npm publish --access=public`

@@ -1,5 +1,5 @@
 {
-  "name": "sveltekit-cookie-manager",
+  "name": "@boxfish-studio/sveltekit-cookie-manager",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
@@ -26,7 +26,10 @@
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.10.2",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.6.4"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "svelte2tsx": "^0.5.9"
+  }
 }
