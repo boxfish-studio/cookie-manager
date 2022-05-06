@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
-	import { CookieLibrary } from '$components';
-	import type { SKCMConfiguration } from '$lib/types';
+	import { CookieLibrary } from '$components'
+	import type { SKCMConfiguration } from '$lib/types'
 	
-	export const prerender = true;
+	export const prerender = true
 
 	let configuration: SKCMConfiguration = {
 		theme: {
@@ -11,7 +11,7 @@
 			medium: '#b0bfd9',
 			primary: '#14cabf'
 		}
-	};
+	}
 </script>
 
 <h1>Policy</h1>
