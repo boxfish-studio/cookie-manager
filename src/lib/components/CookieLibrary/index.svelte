@@ -71,7 +71,7 @@
 	</div>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 	#svkm-preferences-wrapper {
 		max-width: 250px;
 	}

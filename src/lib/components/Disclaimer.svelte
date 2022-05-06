@@ -40,7 +40,7 @@
 	</div>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 	#skcm-banner {
 		position: fixed;
 		padding: 2rem 1.5rem 1rem 1.5rem;
