@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { CookieManager } from '$components';
-	import type { SKCMConfiguration } from '$lib/types';
+	import { CookieManager } from '$components'
 	import type { SKCMConfiguration } from '$lib/app/types'
 
 	let configuration: SKCMConfiguration = {
@@ -18,7 +17,7 @@
 			medium: '#purple',
 			primary: 'blue'
 		}
-	};
+	}
 </script>
 
 <svelte:head />
@@ -27,6 +26,3 @@
 </main>
 
 <CookieManager {configuration}/>
-
-<style type="text/scss">
-</style>

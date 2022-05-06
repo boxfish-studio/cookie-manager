@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { configuredServices } from '$lib/app/store';
-	import type { ServiceCookie } from '$lib/app/types';
+	import { configuredServices } from '$lib/app/store'
+	import type { ServiceCookie } from '$lib/app/types'
 
-	let cookies: ServiceCookie[] = [];
+	let cookies: ServiceCookie[] = []
 
 	//Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
 	$: cookies = $configuredServices.reduce((accumulator, service) => {
-		let cookiesName = accumulator.map((cookie) => cookie.name);
+		let cookiesName = accumulator.map((cookie) => cookie.name)
 		let serviceCookies = service.cookies.filter((cookie) => {
-			return !cookiesName.includes(cookie.name);
-		});
-		return accumulator.concat(serviceCookies);
-	}, []);
+			return !cookiesName.includes(cookie.name)
+		})
+		return accumulator.concat(serviceCookies)
+	}, [])
 </script>
 
 {#if cookies.length}
