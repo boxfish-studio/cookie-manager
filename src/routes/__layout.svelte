@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { CookieManager } from '$components';
 	import type { SKCMConfiguration } from '$lib/types';
+	import type { SKCMConfiguration } from '$lib/app/types'
 
 	let configuration: SKCMConfiguration = {
 		disclaimer: {
