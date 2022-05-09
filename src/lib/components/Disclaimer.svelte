@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/app/constants';
-	import type { DisclaimerConfiguration, Theme } from '$lib/app/types';
-	import { Button } from './';
+	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/app/constants'
+	import type { DisclaimerConfiguration, Theme } from '$lib/app/types'
+	import { Button } from './'
 
-	export let configuration: DisclaimerConfiguration;
+	export let configuration: DisclaimerConfiguration
 	export let theme: Theme = {
 		light: '#fff',
 		dark: '#131f37',
 		medium: '#b0bfd9',
 		primary: '#14cabf'
-	};
+	}
 
-	export let allowCookies: () => void = () => {};
-	export let declineCookies: () => void = () => {};
+	export let allowCookies: () => void = () => {}
+	export let declineCookies: () => void = () => {}
 </script>
 
 <div
@@ -40,7 +40,7 @@
 	</div>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 	#skcm-banner {
 		position: fixed;
 		padding: 2rem 1.5rem 1rem 1.5rem;
