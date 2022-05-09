@@ -27,7 +27,7 @@ Enables cookie management of following services:
 ## Installation
 
 ```
-$ npm i @boxfish-studio/sveltekit-cookie-manager
+$ npm i sveltekit-cookie-manager
 ```
 <br/>
 
@@ -38,7 +38,7 @@ $ npm i @boxfish-studio/sveltekit-cookie-manager
 1. Import `CookieManager` component 
 
 ```
-import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
+import { CookieManager } from 'sveltekit-cookie-manager';`
 ```
 
 2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
@@ -46,7 +46,7 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
 
 ```
 <script>
-    import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';
+    import { CookieManager } from 'sveltekit-cookie-manager';
 	import type { SKCMConfiguration } from 'sveltekit-cookie-manager';
 
 	let configuration: SKCMConfiguration = {
@@ -74,7 +74,7 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
 
 1. Import `CookieLibrary` component 
 ```
-import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager';`
+import { CookieLibrary } from 'sveltekit-cookie-manager';`
 ```
 2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
 
