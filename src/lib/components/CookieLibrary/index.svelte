@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { submitNecessaryCookies } from '$lib/app/utils';
-	import { initializeServices, stopServices } from '$lib/app/services';
-	import { showCookieDisclaimer } from '$lib/app/store';
-	import type { SKCMConfiguration } from '$lib/app/types';
-	import { AdditionalCookies } from '../';
-	import { Button } from '../';
-	import { information } from './cookies.json';
-	import { NecessaryCookies } from '../';
+	import { onMount } from 'svelte'
+	import { submitNecessaryCookies } from '$lib/app/utils'
+	import { initializeServices, stopServices } from '$lib/app/services'
+	import { showCookieDisclaimer } from '$lib/app/store'
+	import type { SKCMConfiguration } from '$lib/app/types'
+	import { AdditionalCookies } from '../'
+	import { Button } from '../'
+	import { information } from './cookies.json'
+	import { NecessaryCookies } from '../'
 
 	export let configuration: SKCMConfiguration = {
 		theme: {
@@ -16,20 +16,20 @@
 			medium: '#b0bfd9',
 			dark: '#131f37'
 		}
-	};
+	}
 
-	let hasAllowedCookies: 'true' | 'false';
+	let hasAllowedCookies: 'true' | 'false'
 	onMount(() => {
-		showCookieDisclaimer.set(false);
-	});
+		showCookieDisclaimer.set(false)
+	})
 
 	function updatePreferences() {
-		submitNecessaryCookies(hasAllowedCookies);
+		submitNecessaryCookies(hasAllowedCookies)
 		if (hasAllowedCookies === 'true') {
-			initializeServices();
+			initializeServices()
 		} else {
 			if (hasAllowedCookies === 'false') {
-				stopServices();
+				stopServices()
 			}
 		}
 	}
@@ -71,7 +71,7 @@
 	</div>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 	#svkm-preferences-wrapper {
 		max-width: 250px;
 	}

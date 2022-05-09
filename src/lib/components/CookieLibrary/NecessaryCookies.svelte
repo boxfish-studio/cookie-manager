@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NECESSARY_COOKIES } from '$lib/app/cookieLib';
+	import { NECESSARY_COOKIES } from '$lib/app/cookieLib'
 </script>
 
 {#if NECESSARY_COOKIES}
@@ -30,6 +30,3 @@
 		</tbody>
 	</table>
 {/if}
-
-<style type="text/scss">
-</style>

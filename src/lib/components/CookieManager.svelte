@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { initializeServices, updatePathGA } from '$lib/app/services';
-	import { initConfiguredServices, showCookieDisclaimer } from '$lib/app/store';
-	import { SKCMConfiguration, SupportedService } from '$lib/app/types';
-	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/app/utils';
-	import { onMount } from 'svelte';
-	import { Disclaimer } from './';
+	import { page } from '$app/stores'
+	import { initializeServices, updatePathGA } from '$lib/app/services'
+	import { initConfiguredServices, showCookieDisclaimer } from '$lib/app/store'
+	import { SKCMConfiguration, SupportedService } from '$lib/app/types'
+	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/app/utils'
+	import { onMount } from 'svelte'
+	import { Disclaimer } from './'
 
-	export let configuration: SKCMConfiguration;
+	export let configuration: SKCMConfiguration
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
 		if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
-			updatePathGA(configuration?.services?.googleAnalyticsUniversalId, $page.url.pathname);
+			updatePathGA(configuration?.services?.googleAnalyticsUniversalId, $page.url.pathname)
 		} else {
 			if (isServiceEnabled(SupportedService.GoogleAnalytics4)) {
-				updatePathGA(configuration?.services?.googleAnalytics4Id, $page.url.pathname);
+				updatePathGA(configuration?.services?.googleAnalytics4Id, $page.url.pathname)
 			}
 		}
 	}
@@ -24,29 +24,29 @@
 		initConfiguredServices(
 			configuration?.services?.googleAnalyticsUniversalId,
 			configuration?.services?.googleAnalytics4Id
-		);
+		)
 		if (hasAllNecessaryCookies()) {
-			initializeServices();
+			initializeServices()
 		} else {
-			showCookieDisclaimer.set(true);
+			showCookieDisclaimer.set(true)
 		}
-	});
+	})
 
 	const handleSubmitNecessaryCookies = (value: 'true' | 'false'): void => {
-		submitNecessaryCookies(value);
+		submitNecessaryCookies(value)
 		if (value === 'true') {
-			initializeServices();
+			initializeServices()
 		}
-		showCookieDisclaimer.set(false);
-	};
+		showCookieDisclaimer.set(false)
+	}
 
 	const allowCookies = (): void => {
-		handleSubmitNecessaryCookies('true');
-	};
+		handleSubmitNecessaryCookies('true')
+	}
 
 	const declineCookies = (): void => {
-		handleSubmitNecessaryCookies('false');
-	};
+		handleSubmitNecessaryCookies('false')
+	}
 </script>
 
 {#if $showCookieDisclaimer}
