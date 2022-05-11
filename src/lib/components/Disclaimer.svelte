@@ -4,27 +4,26 @@
 	import { Button } from './'
 
 	export let configuration: DisclaimerConfiguration
-	export let theme: Theme = {
-		light: '#fff',
-		dark: '#131f37',
-		medium: '#b0bfd9',
-		primary: '#14cabf'
-	}
-
+	export let theme: Theme
 	export let allowCookies: () => void = () => {}
 	export let declineCookies: () => void = () => {}
+
+	$: ({ title, body } = configuration)
 </script>
 
 <div
 	id="skcm-banner"
-	style="--light:{theme?.light}; --dark:{theme?.dark}; --primary:{theme?.primary}"
+	style="--light:{theme?.light ?? '#fff'}; --dark:{theme?.dark ??
+		'#131f37'}; --primary:{theme?.primary ?? '#14cabf'}"
 >
 	<div>
-		<h6>
-			{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}
-		</h6>
+		{#if title}
+			<h6>
+				{title}
+			</h6>
+		{/if}
 		<p>
-			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
+			{body ?? DEFAULT_DISCLAIMER_CONFIG.body}
 			<a href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl} target="_blank"
 				><span>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span></a
 			>

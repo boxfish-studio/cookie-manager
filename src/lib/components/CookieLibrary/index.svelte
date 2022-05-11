@@ -4,19 +4,12 @@
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$lib/app/types'
-	import { AdditionalCookies } from '../'
-	import { Button } from '../'
 	import { information } from './cookies.json'
-	import { NecessaryCookies } from '../'
+	import { NecessaryCookies, Button, AdditionalCookies } from '../'
 
-	export let configuration: SKCMConfiguration = {
-		theme: {
-			primary: '#14cabf',
-			light: '#fff',
-			medium: '#b0bfd9',
-			dark: '#131f37'
-		}
-	}
+	export let configuration: SKCMConfiguration
+
+	$: ({ primary, light, medium, dark } = configuration?.theme)
 
 	let hasAllowedCookies: 'true' | 'false'
 	onMount(() => {
@@ -36,8 +29,8 @@
 </script>
 
 <div
-	style="--primary:{configuration?.theme?.primary}; --dark:{configuration?.theme
-		?.dark}; --medium:{configuration?.theme?.medium}; --light:{configuration?.theme?.light}"
+	style="--primary:{primary ?? '#14cabf'}; --dark:{dark ?? '#131f37'}; --medium:{medium ??
+		'#b0bfd9'}; --light:{light ?? '#fff'}"
 >
 	{#each information as section}
 		{#if section?.title}
