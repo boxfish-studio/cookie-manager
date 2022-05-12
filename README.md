@@ -51,7 +51,7 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 
 
 ```
-<script>
+<script lang='ts'>
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
 	let configuration: SKCMConfiguration = {
@@ -85,8 +85,7 @@ import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 
 
 ```
-<script>
-	import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
+<script lang='ts'>
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
 	let configuration: SKCMConfiguration = {
