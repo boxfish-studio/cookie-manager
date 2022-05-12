@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import { submitNecessaryCookies } from '$lib/app/utils'
 	import { initializeServices, stopServices } from '$lib/app/services'
-	import { showCookieDisclaimer } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$lib/app/types'
 	import { AdditionalCookies } from '../'
 	import { Button } from '../'
@@ -19,11 +17,8 @@
 	}
 
 	let hasAllowedCookies: 'true' | 'false'
-	onMount(() => {
-		showCookieDisclaimer.set(false)
-	})
 
-	function updatePreferences() {
+	const updatePreferences = () => {
 		submitNecessaryCookies(hasAllowedCookies)
 		if (hasAllowedCookies === 'true') {
 			initializeServices()
