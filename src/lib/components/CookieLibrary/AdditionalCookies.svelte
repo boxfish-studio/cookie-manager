@@ -15,8 +15,8 @@
 </script>
 
 {#if cookies.length}
-	<table>
-		<thead>
+	<table id="skcl-table">
+		<thead  id="skcl-thead">
 			<tr>
 				<th> Name </th>
 				<th> Provider </th>
@@ -25,7 +25,7 @@
 				<th> Type </th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="skcl-tbody">
 			{#each cookies as cookie}
 				<tr>
 					<td> {cookie?.name} </td>

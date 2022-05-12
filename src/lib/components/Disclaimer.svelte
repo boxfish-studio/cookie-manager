@@ -19,22 +19,25 @@
 	id="skcm-banner"
 	style="--light:{theme?.light}; --dark:{theme?.dark}; --primary:{theme?.primary}"
 >
-	<div>
-		<h6>
+	<div id="skcm-disclaimer-wrapper">
+		<h6 id="skcm-title">
 			{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}
 		</h6>
-		<p>
+		<p id="skcm-body">
 			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
-			<a href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl} target="_blank"
+			<a
+				href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
+				target="_blank"
+				id="skcm-link"
 				><span>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span></a
 			>
 		</p>
 	</div>
-	<div class="button-wrapper">
-		<Button onClick={allowCookies}
+	<div id="skcm-btn-wrapper">
+		<Button onClick={allowCookies} id="skcm-btn-allow"
 			>{configuration?.acceptButtonText ?? DEFAULT_DISCLAIMER_CONFIG.acceptButtonText}</Button
 		>
-		<Button onClick={declineCookies}
+		<Button onClick={declineCookies} id="skcm-btn-decline"
 			>{configuration?.rejectButtonText ?? DEFAULT_DISCLAIMER_CONFIG.rejectButtonText}
 		</Button>
 	</div>

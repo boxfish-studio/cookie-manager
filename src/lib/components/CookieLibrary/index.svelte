@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div
+<div id="skcl-wrapper"
 	style="--primary:{configuration?.theme?.primary}; --dark:{configuration?.theme
 		?.dark}; --medium:{configuration?.theme?.medium}; --light:{configuration?.theme?.light}"
 >
@@ -58,7 +58,7 @@
 		{/if}
 	{/each}
 
-	<div id="svkm-preferences-wrapper">
+	<div id="skcl-preferences-wrapper">
 		<label>
 			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
 			Reject
@@ -72,7 +72,7 @@
 </div>
 
 <style lang="scss">
-	#svkm-preferences-wrapper {
+	#skcl-preferences-wrapper {
 		max-width: 250px;
 	}
 </style>
