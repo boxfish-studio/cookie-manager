@@ -1,13 +1,19 @@
 # Sveltekit Cookie Manager
 <br/>
 
+## Alpha version
+
+SvelteKit Cookie Manager is currently under development and in alpha version.
+
+Minimum required SvelteKit version: `SvelteKit v1.0.0-next.218`.
+
+
 ## About The Project
 
 Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
 Enables cookie management of following services:
 - Google Analytics Universal.
 - Google Analytics 4.
-
 
 
 ### Features
@@ -38,7 +44,7 @@ $ npm i @boxfish-studio/sveltekit-cookie-manager
 1. Import `CookieManager` component 
 
 ```
-import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
+import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 ```
 
 2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
@@ -46,8 +52,7 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
 
 ```
 <script>
-    import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';
-	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager';
+	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
 	let configuration: SKCMConfiguration = {
 		disclaimer: {
@@ -62,7 +67,7 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
 			primary: '#14cabf',
 			dark: '#131f37',
 		}
-	};
+	}
 </script>
 
 <CookieManager {configuration} />
@@ -74,22 +79,22 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager';`
 
 1. Import `CookieLibrary` component 
 ```
-import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager';`
+import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 ```
 2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
 
 
 ```
 <script>
-	import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager';
-	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager';
+	import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
+	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
 	let configuration: SKCMConfiguration = {
 		theme: {
 			primary: '#14cabf',
 			light: '#fff',
 		}
-	};
+	}
 </script>
 
 <CookieLibrary {configuration} />
@@ -115,12 +120,12 @@ let configuration: SKCMConfiguration = {
 		googleAnalytics4Id?: string
 	},
 	theme: {
-		primary?: string;
-		dark?: string;
-		medium?: string;
-		light?: string;
+		primary?: string,
+		dark?: string,
+		medium?: string,
+		light?: string,
 	}
-};
+}
 ``` 
 
 ### Popup props
