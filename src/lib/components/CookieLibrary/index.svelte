@@ -35,18 +35,18 @@
 	}
 </script>
 
-<div id="skcl-wrapper"
+<div id="skcm-cookie-library"
 	style="--primary:{configuration?.theme?.primary}; --dark:{configuration?.theme
 		?.dark}; --medium:{configuration?.theme?.medium}; --light:{configuration?.theme?.light}"
 >
 	{#each information as section}
 		{#if section?.title}
-			<h4>{section?.title}</h4>
-			<hr />
+			<h4 id="skcm-cookie-library__h4">{section?.title}</h4>
+			<hr id="skcm__hr"/>
 		{/if}
 		{#if section?.body}
 			{#each section?.body as paragraphs}
-				<p>
+				<p  id="skcm-cookie-library__p">
 					{paragraphs?.paragraph}
 				</p>
 			{/each}
@@ -58,21 +58,23 @@
 		{/if}
 	{/each}
 
-	<div id="skcl-preferences-wrapper">
-		<label>
-			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
+	<div id="skcm-preferences">
+		<label id="skcm-preferences__label">
+			<input id="skcm-preferences__radio"
+			type="radio" bind:group={hasAllowedCookies} value={'false'} />
 			Reject
 		</label>
-		<label>
-			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
+		<label id="skcm-preferences__label">
+			<input id="skcm-preferences__radio"
+			type="radio" bind:group={hasAllowedCookies} value={'true'} />
 			Allow
 		</label>
-		<Button onClick={updatePreferences}>Update Cookie Preference</Button>
+		<Button onClick={updatePreferences} id="skcm-preferences__button">Update Cookie Preference</Button>
 	</div>
 </div>
 
 <style lang="scss">
-	#skcl-preferences-wrapper {
+	#skcm-preferences {
 		max-width: 250px;
 	}
 </style>

@@ -15,28 +15,29 @@
 </script>
 
 {#if cookies.length}
-	<table id="skcl-table">
-		<thead  id="skcl-thead">
-			<tr>
-				<th> Name </th>
-				<th> Provider </th>
-				<th> Purpose </th>
-				<th> Expiry </th>
-				<th> Type </th>
+	<table id="skcm-additional-table">
+		<thead id="skcm-table__thead">
+			<tr id="skcm-table__tr">
+				<th id="skcm-table__th"> Name </th>
+				<th id="skcm-table__th"> Provider </th>
+				<th id="skcm-table__th"> Purpose </th>
+				<th id="skcm-table__th"> Expiry </th>
+				<th id="skcm-table__th"> Type </th>
 			</tr>
 		</thead>
-		<tbody id="skcl-tbody">
+		<tbody id="skcm-table__body">
 			{#each cookies as cookie}
-				<tr>
-					<td> {cookie?.name} </td>
-					<td
-						><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+				<tr id="skcm-table__tr">
+					<td id="skcm-table__td"> {cookie?.name} </td>
+					<td id="skcm-table__td">
+						<a id="skcm-table__td--link"
+						 href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
 							{cookie?.provider}</a
 						>
 					</td>
-					<td> {cookie?.purpose} </td>
-					<td> {cookie?.expiry} </td>
-					<td> {cookie?.type} </td>
+					<td id="skcm-table__td"> {cookie?.purpose} </td>
+					<td id="skcm-table__td"> {cookie?.expiry} </td>
+					<td id="skcm-table__td"> {cookie?.type} </td>
 				</tr>
 			{/each}
 		</tbody>
