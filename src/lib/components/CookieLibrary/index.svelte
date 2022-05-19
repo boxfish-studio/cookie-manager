@@ -1,24 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { submitNecessaryCookies } from '$lib/app/utils'
+	import { submitNecessaryCookies, setStyleString } from '$lib/app/utils'
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
-	import type { SKCMConfiguration } from '$lib/app/types'
-	import { AdditionalCookies } from '../'
-	import { Button } from '../'
 	import { information } from './cookies.json'
-	import { NecessaryCookies } from '../'
+	import { NecessaryCookies, Button, AdditionalCookies } from '../'
+	import type { SKCMConfiguration } from '$lib/app/types'
 
-	export let configuration: SKCMConfiguration = {
-		theme: {
-			primary: '#14cabf',
-			light: '#fff',
-			medium: '#b0bfd9',
-			dark: '#131f37'
-		}
-	}
+	export let configuration: SKCMConfiguration = {}
+
+	let style: string = ''
+	$: ({theme} = configuration)
+	$: theme, (style = setStyleString(theme))
 
 	let hasAllowedCookies: 'true' | 'false'
+
 	onMount(() => {
 		showCookieDisclaimer.set(false)
 	})
@@ -35,10 +31,7 @@
 	}
 </script>
 
-<div id="skcm-cookie-library"
-	style="--primary:{configuration?.theme?.primary}; --dark:{configuration?.theme
-		?.dark}; --medium:{configuration?.theme?.medium}; --light:{configuration?.theme?.light}"
->
+<div id="skcm-cookie-library" {style}>
 	{#each information as section}
 		{#if section?.title}
 			<h4 id="skcm-cookie-library__h4">{section?.title}</h4>

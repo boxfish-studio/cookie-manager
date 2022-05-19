@@ -1,4 +1,4 @@
-import type { DisclaimerConfiguration } from './types'
+import type { DisclaimerConfiguration, Theme } from './types'
 
 export const COOKIE_EXPIRATION_DAYS = 30
 export const COOKIE_NAME_PREFIX = 'skcm-'
@@ -10,4 +10,11 @@ export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	policyUrl: 'https://iota.org/privacy-policy',
 	acceptButtonText: 'Accept Additional Cookies',
 	rejectButtonText: 'Reject Additional Cookies'
+}
+
+export const DEFAULT_THEME_COLORS: Theme = {
+	primary: '#14cabf',
+	dark: '#131f37',
+	medium: '#b0bfd9',
+	light: '#fff'
 }

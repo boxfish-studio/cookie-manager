@@ -1,35 +1,34 @@
 <script lang="ts">
-	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/app/constants'
-	import type { DisclaimerConfiguration, Theme } from '$lib/app/types'
+	import { DEFAULT_DISCLAIMER_CONFIG, DEFAULT_THEME_COLORS } from '$lib/app/constants'
+	import { setStyleString } from '$lib/app/utils'
 	import { Button } from './'
+	import type { DisclaimerConfiguration, Theme } from '$lib/app/types'
 
-	export let configuration: DisclaimerConfiguration
-	export let theme: Theme = {
-		light: '#fff',
-		dark: '#131f37',
-		medium: '#b0bfd9',
-		primary: '#14cabf'
-	}
-
+	export let configuration: DisclaimerConfiguration = {}
+	export let theme: Theme = DEFAULT_THEME_COLORS
 	export let allowCookies: () => void = () => {}
 	export let declineCookies: () => void = () => {}
+	let style: string = ''
+	$: theme, (style = setStyleString(theme))
+	$: ({ title, body } = configuration)
 </script>
 
-<div
-	id="skcm-banner"
-	style="--light:{theme?.light}; --dark:{theme?.dark}; --primary:{theme?.primary}"
->
+<div id="skcm-banner" {style}>
 	<div id="skcm-disclaimer">
-		<h6 id="skcm-title">
-			{configuration?.title ?? DEFAULT_DISCLAIMER_CONFIG.title}
-		</h6>
+		{#if title}
+			<h6 id="skcm-title">
+				{title}
+			</h6>
+		{/if}
 		<p id="skcm-body">
-			{configuration?.body ?? DEFAULT_DISCLAIMER_CONFIG.body}
+			{body ?? DEFAULT_DISCLAIMER_CONFIG.body}
 			<a
 				href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
 				target="_blank"
 				id="skcm-link"
-				><span id="skcm-link__span">{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span></a
+				><span id="skcm-link__span"
+					>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span
+				></a
 			>
 		</p>
 	</div>

@@ -2,7 +2,8 @@ import { get } from 'svelte/store'
 import { COOKIE_EXPIRATION_DAYS } from './constants'
 import { NECESSARY_COOKIES } from './cookieLib'
 import { configuredServices } from './store'
-import type { SupportedService } from './types'
+import { DEFAULT_THEME_COLORS } from '$lib/app/constants'
+import type { SupportedService, Theme } from './types'
 
 /*
  * General utils for managing cookies in Typescript.
@@ -56,4 +57,22 @@ export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
 export const isServiceEnabled = (serviceType: SupportedService): boolean => {
 	const serviceConfig = get(configuredServices)?.find(({ type }) => type === serviceType)
 	return serviceConfig?.enabled
+}
+export const formatStyles = (theme) => {
+	return Object.entries(theme)
+		.map((elm) => `--${elm[0]}:${elm[1]};`)
+		.join(' ')
+}
+
+export const mergeThemeDefault = (theme: Theme) => {
+	if (!theme || !Object.entries(theme).length) {
+		return { ...DEFAULT_THEME_COLORS }
+	} else {
+		return { ...DEFAULT_THEME_COLORS, ...theme }
+	}
+}
+
+export const setStyleString = (theme: Theme) => {
+	const newTheme = mergeThemeDefault(theme)
+	return formatStyles(newTheme)
 }
