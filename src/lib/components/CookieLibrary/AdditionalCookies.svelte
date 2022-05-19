@@ -4,7 +4,7 @@
 
 	let cookies: ServiceCookie[] = []
 
-	//Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
+	// Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
 	$: cookies = $configuredServices.reduce((accumulator, service) => {
 		let cookiesName = accumulator.map((cookie) => cookie.name)
 		let serviceCookies = service.cookies.filter((cookie) => {

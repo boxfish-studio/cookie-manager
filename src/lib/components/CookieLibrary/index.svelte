@@ -2,24 +2,19 @@
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$lib/app/types'
-	import { setStyleString, submitNecessaryCookies } from '$lib/app/utils'
-	import { onMount } from 'svelte'
+	import { getInlineStyle, submitNecessaryCookies } from '$lib/app/utils'
 	import { AdditionalCookies, Button, NecessaryCookies } from '../'
 	import { information } from './cookies.json'
 
 	export let configuration: SKCMConfiguration = {}
 
-	let style: string = ''
-	$: ({ theme } = configuration)
-	$: theme, (style = setStyleString(theme))
-
 	let hasAllowedCookies: 'true' | 'false'
+	let style: string = ''
 
-	onMount(() => {
-		showCookieDisclaimer.set(false)
-	})
+	$: ({ theme } = configuration)
+	$: style = getInlineStyle(theme)
 
-	function updatePreferences() {
+	function updatePreferences(): void {
 		submitNecessaryCookies(hasAllowedCookies)
 		if (hasAllowedCookies === 'true') {
 			initializeServices()
@@ -28,6 +23,7 @@
 				stopServices()
 			}
 		}
+		showCookieDisclaimer.set(false)
 	}
 </script>
 
