@@ -32,7 +32,7 @@
 		}
 	})
 
-	const handleSubmitNecessaryCookies = (value: 'true' | 'false'): void => {
+	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
 		submitNecessaryCookies(value)
 		if (value === 'true') {
 			initializeServices()
@@ -40,15 +40,20 @@
 		showCookieDisclaimer.set(false)
 	}
 
-	const allowCookies = (): void => {
+	function allowCookies(): void {
 		handleSubmitNecessaryCookies('true')
 	}
 
-	const declineCookies = (): void => {
+	function declineCookies(): void {
 		handleSubmitNecessaryCookies('false')
 	}
 </script>
 
 {#if $showCookieDisclaimer}
-	<Disclaimer {allowCookies} {declineCookies} configuration={configuration?.disclaimer} theme={configuration?.theme} />
+	<Disclaimer
+		{allowCookies}
+		{declineCookies}
+		configuration={configuration?.disclaimer}
+		theme={configuration?.theme}
+	/>
 {/if}

@@ -4,7 +4,7 @@
 
 	let cookies: ServiceCookie[] = []
 
-	//Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
+	// Google Universal and Google 4 have some duplicate cookies. Code below removes those duplicates
 	$: cookies = $configuredServices.reduce((accumulator, service) => {
 		let cookiesName = accumulator.map((cookie) => cookie.name)
 		let serviceCookies = service.cookies.filter((cookie) => {
@@ -15,7 +15,7 @@
 </script>
 
 {#if cookies.length}
-	<table>
+	<table id="skcm-additional-cookies-table">
 		<thead>
 			<tr>
 				<th> Name </th>
@@ -29,8 +29,8 @@
 			{#each cookies as cookie}
 				<tr>
 					<td> {cookie?.name} </td>
-					<td
-						><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
+					<td>
+						<a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
 							{cookie?.provider}</a
 						>
 					</td>

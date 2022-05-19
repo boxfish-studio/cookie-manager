@@ -3,7 +3,7 @@
 </script>
 
 {#if NECESSARY_COOKIES}
-	<table>
+	<table id="skcm-necessary-cookies-table">
 		<thead>
 			<tr>
 				<th> Name </th>
