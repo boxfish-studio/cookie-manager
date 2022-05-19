@@ -1,21 +1,20 @@
 <script lang="ts">
-	import { DEFAULT_DISCLAIMER_CONFIG } from '$lib/app/constants'
-	import type { DisclaimerConfiguration, Theme } from '$lib/app/types'
+	import { DEFAULT_DISCLAIMER_CONFIG, DEFAULT_THEME_COLORS } from '$lib/app/constants'
+	import { setStyleString } from '$lib/app/utils'
 	import { Button } from './'
+	import type { DisclaimerConfiguration, Theme } from '$lib/app/types'
 
-	export let configuration: DisclaimerConfiguration
-	export let theme: Theme
+	export let configuration: DisclaimerConfiguration = {}
+	export let theme: Theme = DEFAULT_THEME_COLORS
 	export let allowCookies: () => void = () => {}
 	export let declineCookies: () => void = () => {}
 
+	let style: string = ''
+	$: theme, (style = setStyleString(theme))
 	$: ({ title, body } = configuration)
 </script>
 
-<div
-	id="skcm-banner"
-	style="--light:{theme?.light ?? '#fff'}; --dark:{theme?.dark ??
-		'#131f37'}; --primary:{theme?.primary ?? '#14cabf'}"
->
+<div id="skcm-banner" {style}>
 	<div>
 		{#if title}
 			<h6>

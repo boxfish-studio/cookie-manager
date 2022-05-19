@@ -1,17 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { submitNecessaryCookies } from '$lib/app/utils'
+	import { submitNecessaryCookies, setStyleString } from '$lib/app/utils'
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
-	import type { SKCMConfiguration } from '$lib/app/types'
 	import { information } from './cookies.json'
 	import { NecessaryCookies, Button, AdditionalCookies } from '../'
+	import type { SKCMConfiguration } from '$lib/app/types'
 
-	export let configuration: SKCMConfiguration
+	export let configuration: SKCMConfiguration = {}
 
-	$: ({ primary, light, medium, dark } = configuration?.theme)
+	let style: string = ''
+	$: ({theme} = configuration)
+	$: theme, (style = setStyleString(theme))
 
 	let hasAllowedCookies: 'true' | 'false'
+
 	onMount(() => {
 		showCookieDisclaimer.set(false)
 	})
@@ -28,10 +31,7 @@
 	}
 </script>
 
-<div
-	style="--primary:{primary ?? '#14cabf'}; --dark:{dark ?? '#131f37'}; --medium:{medium ??
-		'#b0bfd9'}; --light:{light ?? '#fff'}"
->
+<div {style}>
 	{#each information as section}
 		{#if section?.title}
 			<h4>{section?.title}</h4>
