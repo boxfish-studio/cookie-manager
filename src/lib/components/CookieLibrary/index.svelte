@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import { submitNecessaryCookies, setStyleString } from '$lib/app/utils'
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
-	import { information } from './cookies.json'
-	import { NecessaryCookies, Button, AdditionalCookies } from '../'
 	import type { SKCMConfiguration } from '$lib/app/types'
+	import { setStyleString, submitNecessaryCookies } from '$lib/app/utils'
+	import { onMount } from 'svelte'
+	import { AdditionalCookies, Button, NecessaryCookies } from '../'
+	import { information } from './cookies.json'
 
 	export let configuration: SKCMConfiguration = {}
 
 	let style: string = ''
-	$: ({theme} = configuration)
+	$: ({ theme } = configuration)
 	$: theme, (style = setStyleString(theme))
 
 	let hasAllowedCookies: 'true' | 'false'
@@ -31,7 +31,7 @@
 	}
 </script>
 
-<div {style}>
+<div id="skcm-cookie-library" {style}>
 	{#each information as section}
 		{#if section?.title}
 			<h4>{section?.title}</h4>
@@ -51,21 +51,23 @@
 		{/if}
 	{/each}
 
-	<div id="svkm-preferences-wrapper">
-		<label>
+	<div id="skcm-cookie-library__preferences">
+		<label id="skcm-cookie-library__preferences--reject">
 			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
 			Reject
 		</label>
-		<label>
+		<label id="skcm-cookie-library__preferences--allow">
 			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 			Allow
 		</label>
-		<Button onClick={updatePreferences}>Update Cookie Preference</Button>
+		<Button onClick={updatePreferences} id="skcm-cookie-library__preferences__button"
+			>Update Cookie Preference</Button
+		>
 	</div>
 </div>
 
 <style lang="scss">
-	#svkm-preferences-wrapper {
+	#skcm-cookie-library__preferences {
 		max-width: 250px;
 	}
 </style>
