@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { DEFAULT_DISCLAIMER_CONFIG, DEFAULT_THEME_COLORS } from '$lib/app/constants'
 	import type { DisclaimerConfiguration, Theme } from '$lib/app/types'
-	import { setStyleString } from '$lib/app/utils'
+	import { getInlineStyle } from '$lib/app/utils'
 	import { Button } from './'
 
 	export let configuration: DisclaimerConfiguration = {}
@@ -11,8 +11,8 @@
 
 	let style: string = ''
 
-	$: theme, (style = setStyleString(theme))
 	$: ({ title, body } = configuration)
+	$: style = getInlineStyle(theme)
 </script>
 
 <div id="skcm-cookie-disclaimer" {style}>

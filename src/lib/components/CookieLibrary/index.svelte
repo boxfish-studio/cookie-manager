@@ -1,19 +1,20 @@
 <script lang="ts">
 	import { initializeServices, stopServices } from '$lib/app/services'
+	import { showCookieDisclaimer } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$lib/app/types'
-	import { setStyleString, submitNecessaryCookies } from '$lib/app/utils'
+	import { getInlineStyle, submitNecessaryCookies } from '$lib/app/utils'
 	import { AdditionalCookies, Button, NecessaryCookies } from '../'
 	import { information } from './cookies.json'
 
 	export let configuration: SKCMConfiguration = {}
 
-	let style: string = ''
-	$: ({ theme } = configuration)
-	$: theme, (style = setStyleString(theme))
-
 	let hasAllowedCookies: 'true' | 'false'
+	let style: string = ''
 
-	const updatePreferences = () => {
+	$: ({ theme } = configuration)
+	$: style = getInlineStyle(theme)
+
+	function updatePreferences(): void {
 		submitNecessaryCookies(hasAllowedCookies)
 		if (hasAllowedCookies === 'true') {
 			initializeServices()
