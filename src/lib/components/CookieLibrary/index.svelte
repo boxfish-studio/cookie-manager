@@ -1,20 +1,15 @@
 <script lang="ts">
-	import { submitNecessaryCookies } from '$lib/app/utils'
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import type { SKCMConfiguration } from '$lib/app/types'
-	import { AdditionalCookies } from '../'
-	import { Button } from '../'
+	import { setStyleString, submitNecessaryCookies } from '$lib/app/utils'
+	import { AdditionalCookies, Button, NecessaryCookies } from '../'
 	import { information } from './cookies.json'
-	import { NecessaryCookies } from '../'
 
-	export let configuration: SKCMConfiguration = {
-		theme: {
-			primary: '#14cabf',
-			light: '#fff',
-			medium: '#b0bfd9',
-			dark: '#131f37'
-		}
-	}
+	export let configuration: SKCMConfiguration = {}
+
+	let style: string = ''
+	$: ({ theme } = configuration)
+	$: theme, (style = setStyleString(theme))
 
 	let hasAllowedCookies: 'true' | 'false'
 
@@ -30,10 +25,7 @@
 	}
 </script>
 
-<div
-	style="--primary:{configuration?.theme?.primary}; --dark:{configuration?.theme
-		?.dark}; --medium:{configuration?.theme?.medium}; --light:{configuration?.theme?.light}"
->
+<div id="skcm-cookie-library" {style}>
 	{#each information as section}
 		{#if section?.title}
 			<h4>{section?.title}</h4>
@@ -53,21 +45,23 @@
 		{/if}
 	{/each}
 
-	<div id="svkm-preferences-wrapper">
-		<label>
+	<div id="skcm-cookie-library__preferences">
+		<label id="skcm-cookie-library__preferences--reject">
 			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
 			Reject
 		</label>
-		<label>
+		<label id="skcm-cookie-library__preferences--allow">
 			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 			Allow
 		</label>
-		<Button onClick={updatePreferences}>Update Cookie Preference</Button>
+		<Button onClick={updatePreferences} id="skcm-cookie-library__preferences__button"
+			>Update Cookie Preference</Button
+		>
 	</div>
 </div>
 
 <style lang="scss">
-	#svkm-preferences-wrapper {
+	#skcm-cookie-library__preferences {
 		max-width: 250px;
 	}
 </style>
