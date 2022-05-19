@@ -23,6 +23,7 @@
 				stopServices()
 			}
 		}
+		showCookieDisclaimer.set(false)
 	}
 </script>
 
