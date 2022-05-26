@@ -15,15 +15,11 @@
 	$: style = getInlineStyle(theme)
 
 	function updatePreferences(): void {
-		submitNecessaryCookies(hasAllowedCookies)
-		if (hasAllowedCookies === 'true') {
-			initializeServices()
-		} else {
-			if (hasAllowedCookies === 'false') {
-				stopServices()
-			}
+		if (hasAllowedCookies !== undefined) {
+			submitNecessaryCookies(hasAllowedCookies)
+			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
+			showCookieDisclaimer.set(false)
 		}
-		showCookieDisclaimer.set(false)
 	}
 </script>
 
