@@ -67,3 +67,11 @@ export const getInlineStyle = (theme: Theme = {}): string => {
 	const mergedTheme = { ...DEFAULT_THEME_COLORS, ...theme }
 	return formatStyles(mergedTheme)
 }
+
+export const removeAdditionalCookies = (): void => {
+	document.cookie
+		?.split('; ')
+		?.map(cookie => cookie.split('=')[0])
+		?.filter(cookie => !cookie.startsWith('skcm--ga'))
+		?.forEach(cookie => deleteCookie(cookie))
+}
