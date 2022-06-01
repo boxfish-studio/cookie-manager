@@ -1,8 +1,7 @@
 import { DEFAULT_THEME_COLORS } from '$lib/app/constants'
 import { get } from 'svelte/store'
 import { COOKIE_EXPIRATION_DAYS } from './constants'
-import { NECESSARY_COOKIES } from './cookieLib'
-import { configuredServices } from './store'
+import { necessaryCookies, configuredServices } from './store'
 import type { SupportedService, Theme } from './types'
 
 /*
@@ -30,11 +29,12 @@ export function deleteCookie(name: string) {
 }
 // -----------------------------------------------------------------------------
 
-// Check user has all necessary cookies already set
-export const hasAllNecessaryCookies = (): boolean => {
-	const _configuredServices = get(configuredServices)
-	for (let i = 0; i < _configuredServices.length; i++) {
-		if (!getCookie(NECESSARY_COOKIES[_configuredServices[i].type]?.name)?.length) {
+// Check user has all needed necessary cookies already set
+export const hasAllNeededNecessaryCookies = (): boolean => {
+	const neededCookies =
+		get(necessaryCookies)?.filter((cookie) => cookie?.showDisclaimerIfMissing) ?? []
+	for (let i = 0; i < neededCookies?.length; i++) {
+		if (!getCookie(neededCookies[i].name)?.length) {
 			return false
 		}
 	}
@@ -42,8 +42,14 @@ export const hasAllNecessaryCookies = (): boolean => {
 }
 
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
+	// set cookies
+	const neededCookies =
+		get(necessaryCookies)?.filter((cookie) => cookie?.showDisclaimerIfMissing) ?? []
+	for (let i = 0; i < neededCookies?.length; i++) {
+		setCookie(neededCookies[i]?.name, value, COOKIE_EXPIRATION_DAYS)
+	}
+	// enable services
 	const _configuredServices = get(configuredServices)?.map((service) => {
-		setCookie(NECESSARY_COOKIES[service.type]?.name, value, COOKIE_EXPIRATION_DAYS)
 		return {
 			...service,
 			enabled: value === 'true'
