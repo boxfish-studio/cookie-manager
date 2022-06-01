@@ -2,8 +2,7 @@ import { browser } from '$app/env'
 import { get } from 'svelte/store'
 import { configuredServices, servicesInitialized } from './store'
 import { SupportedService } from './types'
-import type { Service } from './types'
-import { deleteCookie } from './utils'
+import { removeAdditionalCookies } from './utils'
 
 export const initializeServices = (): void => {
 	if (!get(servicesInitialized)) {
@@ -30,20 +29,13 @@ export const stopServices = (): void => {
 	const googleAnalytics4Config = get(configuredServices)?.find(
 		({ type }) => type === SupportedService.GoogleAnalytics4
 	)
-	let enabledServices: Service[] = []
-
 	removeGoogleAnalytics(googleAnalytics4Config.id)
 	removeGoogleAnalytics(googleAnalyticsUniversalConfig.id)
+	removeAdditionalCookies()
 
-	enabledServices = get(configuredServices)
-		?.filter((enabled) => enabled)
-		?.map((service) =>
-			service.cookies.forEach((cookie) => {
-				deleteCookie(cookie.name)
-			})
-		)
 	servicesInitialized.set(false)
 }
+
 
 export const loadGoogleAnalytics = (id: string): void => {
 	function gtag(key: string, value: unknown) {

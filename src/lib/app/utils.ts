@@ -73,3 +73,15 @@ export const getInlineStyle = (theme: Theme = {}): string => {
 	const mergedTheme = { ...DEFAULT_THEME_COLORS, ...theme }
 	return formatStyles(mergedTheme)
 }
+
+export const removeAdditionalCookies = (): void => {
+	const _necessaryCookies = get(necessaryCookies).map((cookie) => cookie.name)
+	document.cookie
+		?.split('; ')
+		?.map((cookie) => cookie.split('=')[0])
+		.forEach((cookie) => {
+			if (!_necessaryCookies.includes(cookie)) {
+				deleteCookie(cookie)
+			}
+		})
+}
