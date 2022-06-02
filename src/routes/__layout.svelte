@@ -24,7 +24,7 @@
 							expDays: 30,
 							purpose: 'Test'
 						},
-							{
+						{
 							name: 'Cookie Three',
 							expDays: 30,
 							purpose: 'Test'
@@ -45,7 +45,7 @@
 							expDays: 30,
 							purpose: 'Test'
 						},
-							{
+						{
 							name: 'Cookie Three',
 							expDays: 30,
 							purpose: 'Test'

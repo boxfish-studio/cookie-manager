@@ -1,4 +1,5 @@
 # Sveltekit Cookie Manager
+
 <br/>
 
 ## Alpha version
@@ -7,21 +8,21 @@ SvelteKit Cookie Manager is currently under development and in alpha version.
 
 Minimum required SvelteKit version: `SvelteKit v1.0.0-next.218`.
 
-
 ## About The Project
 
-Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. 
+Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package.
 Enables cookie management of following services:
+
 - Google Analytics Universal.
 - Google Analytics 4.
 
-
 ### Features
-- Display a customizable popup to accept or reject cookies. Pop up consists of: 
-    - Title, body, accept/reject buttons and a link to Privacy Policy page.
-- Create a cookie library showing: 
-    - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
-    - Radio inputs (accept all, reject all) and submit button to update preferences.
+
+- Display a customizable popup to accept or reject cookies. Pop up consists of:
+  - Title, body, accept/reject buttons and a link to Privacy Policy page.
+- Create a cookie library showing:
+  - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
+  - Radio inputs (accept all, reject all) and submit button to update preferences.
 
 ### Built with
 
@@ -35,20 +36,20 @@ Enables cookie management of following services:
 ```
 $ npm i @boxfish-studio/sveltekit-cookie-manager
 ```
+
 <br/>
 
 ## How to use
 
 ### Show popup
 
-1. Import `CookieManager` component 
+1. Import `CookieManager` component
 
 ```
 import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 ```
 
 2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
-
 
 ```
 <script lang='ts'>
@@ -71,18 +72,17 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 </script>
 
 <CookieManager {configuration} />
-``` 
-
-
+```
 
 ### Show cookie library
 
-1. Import `CookieLibrary` component 
+1. Import `CookieLibrary` component
+
 ```
 import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 ```
-2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
 
+2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
 
 ```
 <script lang='ts'>
@@ -97,11 +97,12 @@ import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 </script>
 
 <CookieLibrary {configuration} />
-``` 
+```
+
 <br/>
 
-
 ## Available configuration
+
 Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
 
 ```
@@ -125,7 +126,7 @@ let configuration: SKCMConfiguration = {
 		light?: string,
 	}
 }
-``` 
+```
 
 ### Popup props
 
@@ -141,15 +142,14 @@ let configuration: SKCMConfiguration = {
 
 `rejectButtonText`: Text shown in 'Reject' button. Default value: "Reject Additional Cookies".
 
-
 ### Services props
 
 `googleAnalyticsUniversalId`: Your custom Google Analytics Universal key.
 
 `googleAnalytics4Id`:Your custom Google Analytics 4 key.
 
-
 ### Theme props
+
 A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom configuration variable.
 
 `primary`: Used in buttons backgrounds, anchors. Default value: `#14cabf` (teal).
@@ -159,7 +159,6 @@ A 4-colour palette has been predefined following IOTA's style guide. You may ove
 `medium`: Used in table headings, table borders. Default value: `#b0bfd9` (gray).
 
 `light`: Used in banner background colour, buttons text colour. Default value: `#fff` (white).
-
 
 ## Release Package
 

@@ -36,7 +36,6 @@ export const stopServices = (): void => {
 	servicesInitialized.set(false)
 }
 
-
 export const loadGoogleAnalytics = (id: string): void => {
 	function gtag(key: string, value: unknown) {
 		// eslint-disable-next-line prefer-rest-params
