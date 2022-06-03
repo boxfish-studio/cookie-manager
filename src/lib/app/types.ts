@@ -1,7 +1,7 @@
 export enum SupportedService {
-    GoogleAnalyticsUniversal = 'googleAnalyticsUniversal',
-    GoogleAnalytics4 = 'googleAnalytics4',
-    CustomCookie = 'customCookies'
+	GoogleAnalyticsUniversal = 'googleAnalyticsUniversal',
+	GoogleAnalytics4 = 'googleAnalytics4',
+	CustomCookie = 'customCookies'
 }
 
 export type Service = {
@@ -22,19 +22,19 @@ export type ServiceCookie = {
 }
 
 export type Theme = {
-    primary?: string,
-    dark?: string,
-    light?: string,
-    medium?: string
+	primary?: string
+	dark?: string
+	light?: string
+	medium?: string
 }
 
 export type DisclaimerConfiguration = {
-    title?: string,
-    body?: string,
-    policyText?: string,
-    policyUrl?: string,
-    acceptButtonText?: string,
-    rejectButtonText?: string,
+	title?: string
+	body?: string
+	policyText?: string
+	policyUrl?: string
+	acceptButtonText?: string
+	rejectButtonText?: string
 }
 
 export type ServicesConfiguration = {
@@ -44,7 +44,7 @@ export type ServicesConfiguration = {
 }
 
 export type SKCMConfiguration = {
-    disclaimer?: DisclaimerConfiguration,
-    services?: ServicesConfiguration,
-    theme?: Theme,
+	disclaimer?: DisclaimerConfiguration
+	services?: ServicesConfiguration
+	theme?: Theme
 }

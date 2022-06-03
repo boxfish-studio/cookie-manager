@@ -18,7 +18,7 @@
 					purpose: 'Stores the user´s preferences.',
 					expiry: '2 months',
 					type: 'HTTP',
-					showDisclaimerIfMissing: true,
+					showDisclaimerIfMissing: true
 				},
 				{
 					name: 'Cookie 2',
@@ -27,21 +27,11 @@
 					purpose: 'Stores the user´s cookies consent state for the current domain',
 					expiry: '30 days',
 					type: 'HTTP',
+					showDisclaimerIfMissing: true
 				}
 			]
-		},
-		theme: {
-			light: 'white',
-			dark: 'black',
-			medium: '#purple',
-			primary: 'blue'
 		}
 	}
 </script>
-
-<svelte:head />
-<main>
-	<slot />
-</main>
 
 <CookieManager {configuration} />
