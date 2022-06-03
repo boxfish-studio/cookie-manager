@@ -13,7 +13,7 @@
 
 	export let configuration: SKCMConfiguration
 
-	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customCookies } = configuration?.services)
+	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customCookies } = configuration?.services ?? {})
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {

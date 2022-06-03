@@ -5,10 +5,10 @@ export enum SupportedService {
 }
 
 export type Service = {
-    type: SupportedService,
-    id?: string,
-    enabled?: boolean,
-    cookies?: ServiceCookie[] | CustomCookieService[],
+	type: SupportedService
+	id?: string
+	enabled?: boolean
+	cookies?: ServiceCookie[]
 }
 
 export type ServiceCookie = {
@@ -18,8 +18,7 @@ export type ServiceCookie = {
 	purpose: string
 	expiry: string
 	type: string
-	cookies?: CustomCookieService[]
-    showDisclaimerIfMissing?: boolean
+	showDisclaimerIfMissing?: boolean
 }
 
 export type Theme = {
@@ -48,10 +47,4 @@ export type SKCMConfiguration = {
     disclaimer?: DisclaimerConfiguration,
     services?: ServicesConfiguration,
     theme?: Theme,
-}
-
-export type CustomCookieService = {
-	name: string
-	expDays: number
-    purpose: string
 }
