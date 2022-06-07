@@ -3,29 +3,33 @@
 	import { initializeServices, updatePathGA } from '$lib/app/services'
 	import { initConfiguredServices, showCookieDisclaimer } from '$lib/app/store'
 	import { SKCMConfiguration, SupportedService } from '$lib/app/types'
-	import { hasAllNecessaryCookies, isServiceEnabled, submitNecessaryCookies } from '$lib/app/utils'
+	import {
+		hasAllNeededNecessaryCookies,
+		isServiceEnabled,
+		submitNecessaryCookies
+	} from '$lib/app/utils'
 	import { onMount } from 'svelte'
 	import { Disclaimer } from './'
 
 	export let configuration: SKCMConfiguration
 
+	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customCookies } =
+		configuration?.services ?? {})
+
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
 		if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
-			updatePathGA(configuration?.services?.googleAnalyticsUniversalId, $page.url.pathname)
+			updatePathGA(googleAnalyticsUniversalId, $page.url.pathname)
 		} else {
 			if (isServiceEnabled(SupportedService.GoogleAnalytics4)) {
-				updatePathGA(configuration?.services?.googleAnalytics4Id, $page.url.pathname)
+				updatePathGA(googleAnalytics4Id, $page.url.pathname)
 			}
 		}
 	}
 
 	onMount(() => {
-		initConfiguredServices(
-			configuration?.services?.googleAnalyticsUniversalId,
-			configuration?.services?.googleAnalytics4Id
-		)
-		if (hasAllNecessaryCookies()) {
+		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id, customCookies)
+		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()
 		} else {
 			showCookieDisclaimer.set(true)
