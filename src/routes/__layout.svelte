@@ -34,4 +34,5 @@
 	}
 </script>
 
+<slot/>
 <CookieManager {configuration} />

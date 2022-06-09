@@ -10,7 +10,6 @@
 
 	let hasAllowedCookies: 'true' | 'false'
 	let style: string = ''
-	let disabled: boolean = true
 
 	$: ({ theme } = configuration)
 	$: style = getInlineStyle(theme)
@@ -21,9 +20,6 @@
 			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
 			showCookieDisclaimer.set(false)
 		}
-	}
-	function enableButton() {
-		disabled = false
 	}
 </script>
 
@@ -49,32 +45,24 @@
 
 	<div id="skcm-cookie-library__preferences">
 		<label id="skcm-cookie-library__preferences--reject">
-			<input type="radio" bind:group={hasAllowedCookies} value={'false'} on:change={enableButton} />
+			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
 			Reject
 		</label>
-		<label id="skcm-cookie-library__preferences--allow" on:change={enableButton}>
+		<label id="skcm-cookie-library__preferences--allow">
 			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 			Allow
 		</label>
 		<Button
 			onClick={updatePreferences}
-			id={`skcm-cookie-library__preferences__button${disabled ? '--disabled' : ''}`}
+			id='skcm-cookie-library__preferences__button'
+			disabled={!hasAllowedCookies}
 			>Update Cookie Preference</Button
 		>
 	</div>
 </div>
 
-<style lang="scss" global>
+<style lang="scss">
 	#skcm-cookie-library__preferences {
 		max-width: 250px;
-	}
-
-	#skcm-cookie-library__preferences__button {
-		opacity: 1;
-		transition: opacity 0.2s ease-in;
-		&--disabled {
-			opacity: 0.5;
-			pointer-events: none;
-		}
 	}
 </style>
