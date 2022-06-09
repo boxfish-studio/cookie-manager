@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let onClick: () => void = () => {}
 	export let id: string = undefined
-	export let disabled: boolean = true
+	export let disabled: boolean = false
 </script>
 
 <button on:click={onClick} {id} {disabled}>
