@@ -9,7 +9,7 @@
 </button>
 
 <style lang="scss">
-		#skcm-cookie-library__preferences__button {
+	#skcm-cookie-library__preferences__button {
 		opacity: 1;
 		transition: opacity 0.2s ease-in;
 		&:disabled {

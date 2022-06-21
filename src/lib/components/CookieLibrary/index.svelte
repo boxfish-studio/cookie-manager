@@ -54,9 +54,8 @@
 		</label>
 		<Button
 			onClick={updatePreferences}
-			id='skcm-cookie-library__preferences__button'
-			disabled={!hasAllowedCookies}
-			>Update Cookie Preference</Button
+			id="skcm-cookie-library__preferences__button"
+			disabled={!hasAllowedCookies}>Update Cookie Preference</Button
 		>
 	</div>
 </div>
