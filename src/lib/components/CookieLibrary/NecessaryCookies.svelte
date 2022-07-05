@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { NECESSARY_COOKIES } from '$lib/app/cookieLib'
+	import { necessaryCookies } from '$lib/app/store'
 </script>
 
-{#if NECESSARY_COOKIES}
+{#if $necessaryCookies?.length}
 	<table id="skcm-necessary-cookies-table">
 		<thead>
 			<tr>
@@ -14,7 +14,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each Object.values(NECESSARY_COOKIES) as cookie}
+			{#each $necessaryCookies as cookie}
 				<tr>
 					<td> {cookie?.name}</td>
 					<td

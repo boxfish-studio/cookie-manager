@@ -15,15 +15,11 @@
 	$: style = getInlineStyle(theme)
 
 	function updatePreferences(): void {
-		submitNecessaryCookies(hasAllowedCookies)
-		if (hasAllowedCookies === 'true') {
-			initializeServices()
-		} else {
-			if (hasAllowedCookies === 'false') {
-				stopServices()
-			}
+		if (hasAllowedCookies !== undefined) {
+			submitNecessaryCookies(hasAllowedCookies)
+			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
+			showCookieDisclaimer.set(false)
 		}
-		showCookieDisclaimer.set(false)
 	}
 </script>
 
@@ -56,8 +52,10 @@
 			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
 			Allow
 		</label>
-		<Button onClick={updatePreferences} id="skcm-cookie-library__preferences__button"
-			>Update Cookie Preference</Button
+		<Button
+			onClick={updatePreferences}
+			id="skcm-cookie-library__preferences__button"
+			disabled={!hasAllowedCookies}>Update Cookie Preference</Button
 		>
 	</div>
 </div>
