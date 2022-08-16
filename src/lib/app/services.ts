@@ -29,8 +29,8 @@ export const stopServices = (): void => {
 	const googleAnalytics4Config = get(configuredServices)?.find(
 		({ type }) => type === SupportedService.GoogleAnalytics4
 	)
-	removeGoogleAnalytics(googleAnalytics4Config.id)
-	removeGoogleAnalytics(googleAnalyticsUniversalConfig.id)
+	removeGoogleAnalytics(googleAnalytics4Config?.id)
+	removeGoogleAnalytics(googleAnalyticsUniversalConfig?.id)
 	removeAdditionalCookies()
 
 	servicesInitialized.set(false)

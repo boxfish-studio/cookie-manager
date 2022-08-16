@@ -1,6 +1,6 @@
 {
 	"name": "@boxfish-studio/sveltekit-cookie-manager",
-	"version": "0.0.7",
+	"version": "0.0.9",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
