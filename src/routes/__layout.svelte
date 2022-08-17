@@ -10,6 +10,7 @@
 		services: {
 			googleAnalyticsUniversalId: 'UA-XXXXXXXXX',
 			googleAnalytics4Id: 'G-XXXXXXX',
+			adCookiesEnabled: true,
 			customCookies: [
 				{
 					name: '1st Cookie Test',

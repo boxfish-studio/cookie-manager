@@ -29,9 +29,10 @@ export const additionalCookies: Readable<ServiceCookie[]> = derived(
 export function initConfiguredServices(
 	googleAnalyticsUniversalId?: string,
 	googleAnalytics4Id?: string,
-	customCookies?: ServiceCookie[]
+	customCookies?: ServiceCookie[],
+	adCookiesEnabled?: boolean
 ): void {
-	const _configuredServices: Service[] = []
+	let _configuredServices: Service[] = []
 	let _necessaryCookies: ServiceCookie[] = []
 	if (googleAnalyticsUniversalId) {
 		_configuredServices.push({
@@ -53,6 +54,13 @@ export function initConfiguredServices(
 	}
 	if (customCookies) {
 		_necessaryCookies = [..._necessaryCookies, ...customCookies]
+	}
+	if (!adCookiesEnabled) {
+		const filteredCookies = _configuredServices.map((service) => ({
+			...service,
+			cookies: service?.cookies?.filter((cookie) => !cookie?.name?.startsWith('_gac_'))
+		}))
+		_configuredServices = filteredCookies
 	}
 	configuredServices.set(_configuredServices)
 	necessaryCookies.set(_necessaryCookies)
