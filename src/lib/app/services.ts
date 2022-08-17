@@ -1,4 +1,4 @@
-import { COOKIE_EXPIRATION_DAYS } from './constants'
+import { COOKIE_EXPIRATION_DAYS, GOOGLE_ANALYTICS_EXPIRATION_DAYS } from './constants'
 import { browser } from '$app/env'
 import { get } from 'svelte/store'
 import { configuredServices, servicesInitialized } from './store'
@@ -46,7 +46,7 @@ export const loadGoogleAnalytics = (id: string): void => {
 		window.dataLayer = window.dataLayer || []
 
 		gtag('js', new Date())
-		gtag('config', id, { cookie_expires: COOKIE_EXPIRATION_DAYS * 24 * 60 * 60 })
+		gtag('config', id, { cookie_expires: GOOGLE_ANALYTICS_EXPIRATION_DAYS * 24 * 60 * 60 })
 
 		const script = document.createElement('script')
 		script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`

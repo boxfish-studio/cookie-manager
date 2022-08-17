@@ -1,4 +1,8 @@
-import { COOKIE_EXPIRATION_DAYS, COOKIE_NAME_PREFIX } from './constants'
+import {
+	COOKIE_EXPIRATION_DAYS,
+	COOKIE_NAME_PREFIX,
+	GOOGLE_ANALYTICS_EXPIRATION_DAYS
+} from './constants'
 import type { ServiceCookie } from './types'
 
 export enum Provider {
@@ -45,7 +49,7 @@ export const GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to distinguish users.',
-	expiry: `${COOKIE_EXPIRATION_DAYS} days`,
+	expiry: `${GOOGLE_ANALYTICS_EXPIRATION_DAYS} days`,
 	type: CookieType.HTTP
 }
 
@@ -111,7 +115,7 @@ export const GA_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to persist session state.',
-	expiry: `${COOKIE_EXPIRATION_DAYS} days`,
+	expiry: `${GOOGLE_ANALYTICS_EXPIRATION_DAYS} days`,
 	type: CookieType.HTTP
 }
 
