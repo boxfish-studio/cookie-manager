@@ -14,6 +14,7 @@ export type Service = {
 export type ServiceCookie = {
 	name: string
 	provider: string
+	category?: 'Functionality' | 'Statistics' | 'Marketing'
 	providerUrl: string
 	purpose: string
 	expiry: string

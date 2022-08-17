@@ -45,6 +45,7 @@ export const GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to distinguish users.',
+	category: 'Marketing',
 	expiry: '2 years',
 	type: CookieType.HTTP
 }
@@ -54,6 +55,7 @@ export const GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to distinguish users.',
+	category: 'Marketing',
 	expiry: '24 hours',
 	type: CookieType.HTTP
 }
@@ -64,6 +66,7 @@ export const GAT_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose:
 		'Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property- id>.',
+	category: 'Functionality',
 	expiry: '1 minute',
 	type: CookieType.HTTP
 }
@@ -74,6 +77,7 @@ export const AMP_TOKEN_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose:
 		'Contains a token that can be used to retrieve a Client ID from AMP Client ID service. Other possible values indicate opt-out, inflight request or an error retrieving a Client ID from AMP Client ID service.',
+	category: 'Statistics',
 	expiry: '30 seconds to 1 year',
 	type: CookieType.HTTP
 }
@@ -82,6 +86,7 @@ export const GAC_PROPERTY_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	name: '_gac_<property-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
+	category: 'Marketing',
 	purpose:
 		' Contains campaign related information for the user. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
 	expiry: '90 days',
@@ -93,6 +98,7 @@ export const GA_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to distinguish users.',
+	category: 'Statistics',
 	expiry: '2 years',
 	type: CookieType.HTTP
 }
@@ -102,6 +108,7 @@ export const GID_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to distinguish users.',
+	category: 'Statistics',
 	expiry: '24 hours',
 	type: CookieType.HTTP
 }
@@ -111,6 +118,7 @@ export const GA_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to persist session state.',
+	category: 'Functionality',
 	expiry: '2 years',
 	type: CookieType.HTTP
 }
@@ -119,6 +127,7 @@ export const GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	name: '_gac_gb_<container-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
+	category: 'Marketing',
 	purpose:
 		' 	Contains campaign related information. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
 	expiry: '90 days',
