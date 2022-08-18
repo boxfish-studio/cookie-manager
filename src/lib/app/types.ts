@@ -41,6 +41,7 @@ export type DisclaimerConfiguration = {
 export type ServicesConfiguration = {
 	googleAnalyticsUniversalId?: string
 	googleAnalytics4Id?: string
+	adCookiesEnabled?: boolean
 	customCookies?: ServiceCookie[]
 }
 
@@ -48,6 +49,12 @@ export type SKCMConfiguration = {
 	disclaimer?: DisclaimerConfiguration
 	services?: ServicesConfiguration
 	theme?: Theme
+}
+
+declare global {
+	interface Window {
+		dataLayer: any
+	}
 }
 
 export enum CookieCategory {
