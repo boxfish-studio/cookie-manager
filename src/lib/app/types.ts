@@ -53,5 +53,6 @@ export type SKCMConfiguration = {
 export enum CookieCategory {
 	Functionality = 'Functionality',
 	Statistics = 'Statistics',
-	Marketing = 'Marketing'
+	Marketing = 'Marketing',
+	Advertising = 'Advertising'
 }
