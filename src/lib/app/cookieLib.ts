@@ -86,7 +86,7 @@ export const GAC_PROPERTY_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	name: '_gac_<property-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
-	category: CookieCategory.Marketing,
+	category: CookieCategory.Advertising,
 	purpose:
 		' Contains campaign related information for the user. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
 	expiry: '90 days',
@@ -127,7 +127,7 @@ export const GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	name: '_gac_gb_<container-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
-	category: CookieCategory.Marketing,
+	category: CookieCategory.Advertising,
 	purpose:
 		' 	Contains campaign related information. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
 	expiry: '90 days',
