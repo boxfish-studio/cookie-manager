@@ -59,6 +59,16 @@ export const GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 }
 
 export const GAT_GOOGLE_ANALYTICS_COOKIE: ServiceCookie = {
+	name: '_gat',
+	provider: Provider.Google,
+	providerUrl: RELEVANT_LINKS.Google.privacy,
+	purpose:
+		'Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property- id>.',
+	expiry: '1 minute',
+	type: CookieType.HTTP
+}
+
+export const GAT_GTAG_GOOGLE_ANALYTICS_COOKIE: ServiceCookie = {
 	name: '_gat_gtag_UA_<property-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
@@ -132,6 +142,7 @@ export const GoogleOwnCookies = {
 		GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
 		GA_CONTAINER_GOOGLE_ANALYTICS_COOKIE,
 		GAC_PROPERTY_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+		GAT_GTAG_GOOGLE_ANALYTICS_COOKIE,
 		AMP_TOKEN_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
 	],
 	GoogleAnalytics4: [
@@ -139,6 +150,6 @@ export const GoogleOwnCookies = {
 		GID_GOOGLE_ANALYTICS_4_COOKIE,
 		GA_CONTAINER_GOOGLE_ANALYTICS_COOKIE,
 		GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE,
-		GAT_GOOGLE_ANALYTICS_COOKIE
+		GAT_GTAG_GOOGLE_ANALYTICS_COOKIE
 	]
 }
