@@ -49,7 +49,7 @@ export const GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose: 'Used to distinguish users.',
-	category: CookieCategory.Marketing,
+	category: CookieCategory.Statistics,
 	expiry: `${GOOGLE_ANALYTICS_EXPIRATION_DAYS} days`,
 	type: CookieType.HTTP
 }
