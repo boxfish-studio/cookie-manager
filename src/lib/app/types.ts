@@ -14,6 +14,7 @@ export type Service = {
 export type ServiceCookie = {
 	name: string
 	provider: string
+	category?: CookieCategory
 	providerUrl: string
 	purpose: string
 	expiry: string
@@ -47,4 +48,11 @@ export type SKCMConfiguration = {
 	disclaimer?: DisclaimerConfiguration
 	services?: ServicesConfiguration
 	theme?: Theme
+}
+
+export enum CookieCategory {
+	Functionality = 'Functionality',
+	Statistics = 'Statistics',
+	Marketing = 'Marketing',
+	Advertising = 'Advertising'
 }
