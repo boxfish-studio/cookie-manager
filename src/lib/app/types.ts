@@ -14,6 +14,7 @@ export type Service = {
 export type ServiceCookie = {
 	name: string
 	provider: string
+	category?: CookieCategory
 	providerUrl: string
 	purpose: string
 	expiry: string
@@ -54,4 +55,11 @@ declare global {
 	interface Window {
 		dataLayer: any
 	}
+}
+
+export enum CookieCategory {
+	Functionality = 'Functionality',
+	Statistics = 'Statistics',
+	Marketing = 'Marketing',
+	Advertising = 'Advertising'
 }
