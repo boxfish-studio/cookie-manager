@@ -5,7 +5,7 @@ import {
 	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
 	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
 } from './cookieLib'
-import type { Service, ServiceCookie } from './types'
+import { CookieCategory, Service, ServiceCookie } from './types'
 import { SupportedService } from './types'
 import { getCookie } from './utils'
 
@@ -58,7 +58,7 @@ export function initConfiguredServices(
 	if (!adCookiesEnabled) {
 		const filteredCookies = _configuredServices.map((service) => ({
 			...service,
-			cookies: service?.cookies?.filter((cookie) => !cookie?.name?.startsWith('_gac_'))
+			cookies: service?.cookies?.filter((cookie) => cookie?.category !== CookieCategory.Advertising)
 		}))
 		_configuredServices = filteredCookies
 	}
