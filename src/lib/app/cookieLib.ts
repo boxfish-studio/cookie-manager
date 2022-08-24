@@ -79,6 +79,7 @@ export const GAT_GTAG_GOOGLE_ANALYTICS_COOKIE: ServiceCookie = {
 	name: '_gat_gtag_UA_<property-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
+	category: CookieCategory.Functionality,
 	purpose:
 		'Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property- id>.',
 	expiry: '1 minute',
