@@ -64,13 +64,24 @@ export const GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	type: CookieType.HTTP
 }
 
-export const GAT_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
+export const GAT_GOOGLE_ANALYTICS_COOKIE: ServiceCookie = {
 	name: '_gat',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	purpose:
 		'Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property- id>.',
 	category: CookieCategory.Functionality,
+	expiry: '1 minute',
+	type: CookieType.HTTP
+}
+
+export const GAT_GTAG_GOOGLE_ANALYTICS_COOKIE: ServiceCookie = {
+	name: '_gat_gtag_UA_<property-id>',
+	provider: Provider.Google,
+	providerUrl: RELEVANT_LINKS.Google.privacy,
+	category: CookieCategory.Functionality,
+	purpose:
+		'Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property- id>.',
 	expiry: '1 minute',
 	type: CookieType.HTTP
 }
@@ -117,7 +128,7 @@ export const GID_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	type: CookieType.HTTP
 }
 
-export const GA_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
+export const GA_CONTAINER_GOOGLE_ANALYTICS_COOKIE: ServiceCookie = {
 	name: '_ga_<container-id>',
 	provider: Provider.Google,
 	providerUrl: RELEVANT_LINKS.Google.privacy,
@@ -133,7 +144,7 @@ export const GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	providerUrl: RELEVANT_LINKS.Google.privacy,
 	category: CookieCategory.Advertising,
 	purpose:
-		' 	Contains campaign related information. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
+		'Contains campaign related information. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out.',
 	expiry: '90 days',
 	type: CookieType.HTTP
 }
@@ -141,15 +152,18 @@ export const GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 export const GoogleOwnCookies = {
 	GoogleAnalyticsUniversal: [
 		GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
-		GAT_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+		GAT_GOOGLE_ANALYTICS_COOKIE,
 		GID_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+		GA_CONTAINER_GOOGLE_ANALYTICS_COOKIE,
 		GAC_PROPERTY_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+		GAT_GTAG_GOOGLE_ANALYTICS_COOKIE,
 		AMP_TOKEN_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
 	],
 	GoogleAnalytics4: [
 		GA_GOOGLE_ANALYTICS_4_COOKIE,
 		GID_GOOGLE_ANALYTICS_4_COOKIE,
-		GA_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE,
-		GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE
+		GA_CONTAINER_GOOGLE_ANALYTICS_COOKIE,
+		GAC_GB_CONTAINER_GOOGLE_ANALYTICS_4_COOKIE,
+		GAT_GTAG_GOOGLE_ANALYTICS_COOKIE
 	]
 }
