@@ -14,6 +14,7 @@ export type Service = {
 export type ServiceCookie = {
 	name: string
 	provider: string
+	category?: CookieCategory
 	providerUrl: string
 	purpose: string
 	expiry: string
@@ -40,6 +41,7 @@ export type DisclaimerConfiguration = {
 export type ServicesConfiguration = {
 	googleAnalyticsUniversalId?: string
 	googleAnalytics4Id?: string
+	adCookiesEnabled?: boolean
 	customCookies?: ServiceCookie[]
 }
 
@@ -47,4 +49,17 @@ export type SKCMConfiguration = {
 	disclaimer?: DisclaimerConfiguration
 	services?: ServicesConfiguration
 	theme?: Theme
+}
+
+declare global {
+	interface Window {
+		dataLayer: any
+	}
+}
+
+export enum CookieCategory {
+	Functionality = 'Functionality',
+	Statistics = 'Statistics',
+	Marketing = 'Marketing',
+	Advertising = 'Advertising'
 }

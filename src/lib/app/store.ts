@@ -5,7 +5,7 @@ import {
 	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
 	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
 } from './cookieLib'
-import type { Service, ServiceCookie } from './types'
+import { CookieCategory, Service, ServiceCookie } from './types'
 import { SupportedService } from './types'
 import { getCookie } from './utils'
 
@@ -29,9 +29,10 @@ export const additionalCookies: Readable<ServiceCookie[]> = derived(
 export function initConfiguredServices(
 	googleAnalyticsUniversalId?: string,
 	googleAnalytics4Id?: string,
-	customCookies?: ServiceCookie[]
+	customCookies?: ServiceCookie[],
+	adCookiesEnabled?: boolean
 ): void {
-	const _configuredServices: Service[] = []
+	let _configuredServices: Service[] = []
 	let _necessaryCookies: ServiceCookie[] = []
 	if (googleAnalyticsUniversalId) {
 		_configuredServices.push({
@@ -53,6 +54,13 @@ export function initConfiguredServices(
 	}
 	if (customCookies) {
 		_necessaryCookies = [..._necessaryCookies, ...customCookies]
+	}
+	if (!adCookiesEnabled) {
+		const filteredCookies = _configuredServices.map((service) => ({
+			...service,
+			cookies: service?.cookies?.filter((cookie) => cookie?.category !== CookieCategory.Advertising)
+		}))
+		_configuredServices = filteredCookies
 	}
 	configuredServices.set(_configuredServices)
 	necessaryCookies.set(_necessaryCookies)

@@ -8,6 +8,7 @@
 			<tr>
 				<th> Name </th>
 				<th> Provider </th>
+				<th> Category </th>
 				<th> Purpose </th>
 				<th> Expiry </th>
 				<th> Type </th>
@@ -22,6 +23,7 @@
 							{cookie?.provider}</a
 						>
 					</td>
+					<td> {cookie?.category} </td>
 					<td> {cookie?.purpose} </td>
 					<td> {cookie?.expiry} </td>
 					<td> {cookie?.type} </td>
