@@ -13,7 +13,7 @@
 
 	export let configuration: SKCMConfiguration
 
-	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customCookies } =
+	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customCookies, adCookiesEnabled } =
 		configuration?.services ?? {})
 
 	// TODO: improve this
@@ -28,7 +28,7 @@
 	}
 
 	onMount(() => {
-		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id, customCookies)
+		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id, customCookies, adCookiesEnabled)
 		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()
 		} else {

@@ -1,6 +1,7 @@
 import type { DisclaimerConfiguration, Theme } from './types'
 
 export const COOKIE_EXPIRATION_DAYS = 30
+export const GOOGLE_ANALYTICS_EXPIRATION_DAYS = 28
 export const COOKIE_NAME_PREFIX = 'skcm-'
 
 export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
