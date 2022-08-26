@@ -1,4 +1,4 @@
-import { DEFAULT_THEME_COLORS } from '$lib/app/constants'
+import { DEFAULT_THEME_COLORS, SKCM_NECESSARY_COOKIES } from '$lib/app/constants'
 import { get } from 'svelte/store'
 import { COOKIE_EXPIRATION_DAYS } from './constants'
 import { necessaryCookies, configuredServices } from './store'
@@ -44,7 +44,9 @@ export const hasAllNeededNecessaryCookies = (): boolean => {
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
 	// set cookies
 	const neededCookies =
-		get(necessaryCookies)?.filter((cookie) => cookie?.showDisclaimerIfMissing) ?? []
+		get(necessaryCookies)?.filter(
+			(cookie) => cookie?.showDisclaimerIfMissing && SKCM_NECESSARY_COOKIES.includes(cookie?.name)
+		) ?? []
 	for (let i = 0; i < neededCookies?.length; i++) {
 		setCookie(neededCookies[i]?.name, value, COOKIE_EXPIRATION_DAYS)
 	}
