@@ -1,16 +1,8 @@
-import {
-	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
-	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE
-} from './cookieLib'
 import type { DisclaimerConfiguration, Theme } from './types'
 
 export const COOKIE_EXPIRATION_DAYS = 30
 export const GOOGLE_ANALYTICS_EXPIRATION_DAYS = 28
 export const COOKIE_NAME_PREFIX = 'skcm-'
-export const SKCM_NECESSARY_COOKIES: string[] = [
-	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE.name,
-	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE.name
-]
 
 export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	title: 'Cookie Preferences',

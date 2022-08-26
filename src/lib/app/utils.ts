@@ -1,4 +1,8 @@
-import { DEFAULT_THEME_COLORS, SKCM_NECESSARY_COOKIES } from '$lib/app/constants'
+import {
+	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE,
+	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE
+} from './cookieLib'
+import { DEFAULT_THEME_COLORS } from '$lib/app/constants'
 import { get } from 'svelte/store'
 import { COOKIE_EXPIRATION_DAYS } from './constants'
 import { necessaryCookies, configuredServices } from './store'
@@ -42,6 +46,10 @@ export const hasAllNeededNecessaryCookies = (): boolean => {
 }
 
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
+	const SKCM_NECESSARY_COOKIES: string[] = [
+		SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
+		SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name
+	]
 	// set cookies
 	const neededCookies =
 		get(necessaryCookies)?.filter(
