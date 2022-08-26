@@ -157,9 +157,9 @@ SKCMConfiguration = {
 
 `title`: The title of the popup. Default value: "Cookie Preferences".
 
-`body`: The body of the popup. Default value: "For an optimal website experience, we use cookies and similar technologies to show personalized content, offer features and collect statistics. Clicking on "Accept" allows us to process this data and share it with third parties according to our privacy policy. You can view and change the current settings at any time.".
+`body`: By using this site, you agree with our use of cookies.".
 
-`policyText`: Text that links to Privacy Policy. Default value: "Read our cookie policy".
+`policyText`: Text that links to Privacy Policy. Default value: "Read our Cookie Policy".
 
 `policyUrl`: Privacy Policy url. Default value: "https://iota.org/privacy-policy".
 
