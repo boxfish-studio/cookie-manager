@@ -1,10 +1,13 @@
-# Sveltekit Cookie Manager
+<div align="center">
+	<h1>Sveltekit Cookie Manager</h1>
+	<p>Sveltekit Cookie Manager is an easy-use node package to help control the visitor's cookie consent.</p>
+</div>
 
-<br/>
 
-## Alpha version
+## Disclaimer
 
-SvelteKit Cookie Manager is currently under development and in alpha version.
+
+**SvelteKit Cookie Manager is currently in pre-alpha version and under development**
 
 Minimum required SvelteKit version: `SvelteKit v1.0.0-next.218`.
 
@@ -21,8 +24,8 @@ Enables cookie management of following services:
 - Display a customizable popup to accept or reject cookies. Pop up consists of:
   - Title, body, accept/reject buttons and a link to Privacy Policy page.
 - Create a cookie library showing:
-  - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name, purpose, expiry, type.
-  - Radio inputs (accept all, reject all) and submit button to update preferences.
+  - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name and url, cookie category, purpose, expiry and type.
+  - Radio inputs (allow or reject all cookies) and a button to update preferences.
 
 ### Built with
 
@@ -35,6 +38,10 @@ Enables cookie management of following services:
 
 ```
 $ npm i @boxfish-studio/sveltekit-cookie-manager
+```
+or yarn
+```
+$ yarn add @boxfish-studio/sveltekit-cookie-manager
 ```
 
 <br/>
@@ -49,24 +56,26 @@ $ npm i @boxfish-studio/sveltekit-cookie-manager
 import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 ```
 
-2. Add `CookieManager` to your html passing a configuration variable with desired settings as shown in example below:
+2. Add `CookieManager` to your svelte page passing a configuration variable with your desired settings as shown in example below:
 
 ```
 <script lang='ts'>
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
-	let configuration: SKCMConfiguration = {
+	const configuration: SKCMConfiguration = {
 		disclaimer: {
-			title: 'Custom Title',
-			body: 'Custom Body'
+			title: 'This website uses cookies',
+			body: 'By using this site, you agree with our use of cookies'
 		},
 		services: {
-			googleAnalyticsUniversalId: 'myCustomKey',
-			googleAnalytics4Id: 'myCustomKey'
+			googleAnalyticsUniversalId: 'UA-XXXXXXXX',
+			googleAnalytics4Id: 'G-XXXXXXXX'
 		},
 		theme: {
 			primary: '#14cabf',
 			dark: '#131f37',
+			medium: '#b0bfd9',
+			light: '#fff'
 		}
 	}
 </script>
@@ -82,16 +91,20 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 ```
 
-2. Add `CookieLibrary` to your html passing a configuration variable with desired settings as shown in example below. You can just add `theme` object to it, no need to define other available variables in type `SKCMConfiguration`:
+2. Add `CookieLibrary` to your svelte file passing a configuration variable with desired settings as shown in the example below.<br/>
+   You can use the library without any configuration or you can pass a `theme` to the configuration:
+
 
 ```
 <script lang='ts'>
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
-	let configuration: SKCMConfiguration = {
+    	const configuration: SKCMConfiguration = {
 		theme: {
 			primary: '#14cabf',
-			light: '#fff',
+			dark: '#131f37',
+			medium: '#b0bfd9',
+			light: '#fff'
 		}
 	}
 </script>
@@ -103,38 +116,50 @@ import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 
 ## Available configuration
 
-Custom configuration variable must be of type `SKCMConfiguration`. All available props are shown below:
+Custom configuration must be of type `SKCMConfiguration`. All available props are shown below:
+
 
 ```
-let configuration: SKCMConfiguration = {
+SKCMConfiguration = {
 	disclaimer: {
-		title?: string,
-		body?: string,
-		policyText?: string,
-		policyUrl?: string,
-		acceptButtonText?: string,
-		rejectButtonText?: string,
-	},
+		title?: string
+		body?: string
+		policyText?: string
+		policyUrl?: string
+		acceptButtonText?: string
+		rejectButtonText?: string
+	}
 	services: {
-		googleAnalyticsUniversalId?: string,
+		googleAnalyticsUniversalId?: string
 		googleAnalytics4Id?: string
-	},
+		adCookiesEnabled?: boolean
+		customCookies?: {
+			name: string
+			provider: string
+			providerUrl: string
+			purpose: string
+			expiry: string
+			type: string
+			showDisclaimerIfMissing?: boolean
+		}[]
+	}
 	theme: {
-		primary?: string,
-		dark?: string,
-		medium?: string,
-		light?: string,
+		primary?: string
+		dark?: string
+		medium?: string
+		light?: string
 	}
 }
+
 ```
 
 ### Popup props
 
 `title`: The title of the popup. Default value: "Cookie Preferences".
 
-`body`: The body of the popup. Default value: "For an optimal website experience, we use cookies and similar technologies to show personalized content, offer features and collect statistics. Clicking on "Accept" allows us to process this data and share it with third parties according to our privacy policy. You can view and change the current settings at any time.".
+`body`: By using this site, you agree with our use of cookies.".
 
-`policyText`: Text that links to Privacy Policy. Default value: "Read our cookie policy".
+`policyText`: Text that links to Privacy Policy. Default value: "Read our Cookie Policy".
 
 `policyUrl`: Privacy Policy url. Default value: "https://iota.org/privacy-policy".
 
@@ -144,9 +169,32 @@ let configuration: SKCMConfiguration = {
 
 ### Services props
 
-`googleAnalyticsUniversalId`: Your custom Google Analytics Universal key.
+`googleAnalyticsUniversalId`: Your Google Analytics Universal key.
 
-`googleAnalytics4Id`:Your custom Google Analytics 4 key.
+`googleAnalytics4Id`: Your Google Analytics 4 key.
+
+`adCookiesEnabled`: Whether cookies with the category `Advertising` should be set in the browser and shown in the library.
+
+`customCookies`: Cookies that should be present in the `Necessary Cookies` table to inform the user their usage. To configure them see below.
+
+### Custom Cookies
+
+You can configure your own cookies to appear in the Cookie Library. You just have to add an array with your custom cookies to the Cookie Disclaimer.
+It follows the configuration below:
+
+`name`: The name of the Cookie.
+
+`provider`: Provider's name.
+
+`providerUrl`: An url to the provider's website.
+
+`purpose`: The reason for the cookie usage.
+
+`expiry`: Time that the cookie with remain in the user's browser since it's creation.
+
+`type`: The type of the cookie.
+
+`showDisclaimerIfMissing`: If set to true, the disclaimer will show up if the cookie name is not present in the visitors browser. This could be useful in a situation where you recently implemented a cookie in your website and want to show the disclaimer to your previous visitors. By default this is `false`.
 
 ### Theme props
 
@@ -163,3 +211,10 @@ A 4-colour palette has been predefined following IOTA's style guide. You may ove
 ## Release Package
 
 `npm run package && cd package && npm publish --access=public`
+
+<hr/>
+
+<div align="center">
+	Made with :heart: by Boxfish Studio. </br></br>
+	<img src="https://avatars.githubusercontent.com/u/36508409?s=200&v=4" alt="Boxfish Logo" width="50" height="50"/>
+</div>
