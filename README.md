@@ -3,9 +3,7 @@
 	<p>Sveltekit Cookie Manager is an easy-use node package to help control the visitor's cookie consent.</p>
 </div>
 
-
 ## Disclaimer
-
 
 **SvelteKit Cookie Manager is currently in pre-alpha version and under development**
 
@@ -39,7 +37,9 @@ Enables cookie management of following services:
 ```
 $ npm i @boxfish-studio/sveltekit-cookie-manager
 ```
+
 or yarn
+
 ```
 $ yarn add @boxfish-studio/sveltekit-cookie-manager
 ```
@@ -94,7 +94,6 @@ import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 2. Add `CookieLibrary` to your svelte file passing a configuration variable with desired settings as shown in the example below.<br/>
    You can use the library without any configuration or you can pass a `theme` to the configuration:
 
-
 ```
 <script lang='ts'>
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
@@ -117,7 +116,6 @@ import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 ## Available configuration
 
 Custom configuration must be of type `SKCMConfiguration`. All available props are shown below:
-
 
 ```
 SKCMConfiguration = {
