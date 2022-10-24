@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script lang="ts">
 	import { CookieLibrary } from '$components'
 	import type { SKCMConfiguration } from '$lib/app/types'
 

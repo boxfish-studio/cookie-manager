@@ -1,5 +1,5 @@
 import { COOKIE_EXPIRATION_DAYS, GOOGLE_ANALYTICS_EXPIRATION_DAYS } from './constants'
-import { browser } from '$app/env'
+import { browser } from '$app/environment'
 import { get } from 'svelte/store'
 import { configuredServices, servicesInitialized } from './store'
 import { SupportedService } from './types'

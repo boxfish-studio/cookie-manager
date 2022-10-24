@@ -28,7 +28,12 @@
 	}
 
 	onMount(() => {
-		initConfiguredServices(googleAnalyticsUniversalId, googleAnalytics4Id, customCookies, adCookiesEnabled)
+		initConfiguredServices(
+			googleAnalyticsUniversalId,
+			googleAnalytics4Id,
+			customCookies,
+			adCookiesEnabled
+		)
 		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()
 		} else {
