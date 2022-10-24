@@ -28,7 +28,6 @@
 				href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
 				target="_blank"
 				rel="noopener noreferrer"
-			>
 				><span id="skcm-link__span"
 					>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span
 				></a

@@ -13,7 +13,7 @@
 			]
 		},
 		{
-			"id": "necessaryCookies",
+			"id": "necessary-cookies",
 			"title": "Necessary Cookies",
 			"body": [
 				{
@@ -22,7 +22,7 @@
 			]
 		},
 		{
-			"id": "additionalCookies",
+			"id": "additional-cookies",
 			"title": "Additional Cookies",
 			"body": [
 				{
@@ -31,7 +31,7 @@
 			]
 		},
 		{
-			"id": "updatePreferences",
+			"id": "update-preferences",
 			"body": [
 				{
 					"paragraph": "In the setting below you can select if you accept the above listed additional cookies. You can change this setting at any time."
