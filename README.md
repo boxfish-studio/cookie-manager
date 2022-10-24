@@ -5,8 +5,6 @@
 
 ## Disclaimer
 
-**SvelteKit Cookie Manager is currently in pre-alpha version and under development**
-
 Minimum required SvelteKit version: `1.0.0-next.445`.
 
 ## About The Project
