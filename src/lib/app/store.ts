@@ -54,10 +54,10 @@ export function initConfiguredServices(
 		})
 		_necessaryCookies.push(SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE)
 	}
+	_necessaryCookies = _necessaryCookies.map((cookie) => ({ ...cookie, provider: provider.name, providerUrl: provider.url }))
 	if (customNecessaryCookies) {
 		_necessaryCookies = [..._necessaryCookies, ...customNecessaryCookies]
 	}
-	_necessaryCookies = _necessaryCookies.map((cookie) => ({ ...cookie, provider: provider.name, providerUrl: provider.url }))
 
 	if (!adCookiesEnabled) {
 		const filteredCookies = _configuredServices.map((service) => ({
