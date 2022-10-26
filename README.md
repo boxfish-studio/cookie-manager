@@ -159,7 +159,7 @@ SKCMConfiguration = {
 
 `policyText`: Text that links to Privacy Policy. Default value: "Read our Cookie Policy".
 
-`policyUrl`: Privacy Policy url.
+`policyUrl`: Privacy Policy url. Default value: "/privacy-policy".
 
 `acceptButtonText`: Text shown in 'Accept' button. Default value: "Accept Additional Cookies".
 
