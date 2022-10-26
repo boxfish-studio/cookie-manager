@@ -18,6 +18,7 @@ export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	title: 'Cookie Preferences',
 	body: 'By using this site, you agree with our use of cookies.',
 	policyText: 'Read our Cookie Policy',
+	policyUrl: '/privacy-policy',
 	acceptButtonText: 'Accept Additional Cookies',
 	rejectButtonText: 'Reject Additional Cookies'
 }
