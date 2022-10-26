@@ -1,14 +1,18 @@
-import type { DisclaimerConfiguration, Theme } from './types'
+import type { DisclaimerConfiguration, Theme, CookieProvider } from './types'
 
 export const COOKIE_EXPIRATION_DAYS = 30
 export const GOOGLE_ANALYTICS_EXPIRATION_DAYS = 28
 export const COOKIE_NAME_PREFIX = 'skcm-'
 
+export const GOOGLE_COOKIE_PROVIDER: CookieProvider = {
+	name: 'Google',
+	url: 'https://policies.google.com/privacy'
+}
+
 export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	title: 'Cookie Preferences',
 	body: 'By using this site, you agree with our use of cookies.',
 	policyText: 'Read our Cookie Policy',
-	policyUrl: 'https://iota.org/privacy-policy',
 	acceptButtonText: 'Accept Additional Cookies',
 	rejectButtonText: 'Reject Additional Cookies'
 }

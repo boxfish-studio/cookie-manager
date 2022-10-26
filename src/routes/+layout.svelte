@@ -3,6 +3,10 @@
 	import type { SKCMConfiguration } from '$lib/app/types'
 
 	let configuration: SKCMConfiguration = {
+		provider: {
+			name: 'IOTA',
+			url: 'https://www.iota.org/privacy-policy',
+		},
 		disclaimer: {
 			title: 'Custom Title',
 			body: 'Custom Body'
@@ -11,7 +15,7 @@
 			googleAnalyticsUniversalId: 'UA-XXXXXXXXX',
 			googleAnalytics4Id: 'G-XXXXXXX',
 			adCookiesEnabled: true,
-			customCookies: [
+			customNecessaryCookies: [
 				{
 					name: '1st Cookie Test',
 					provider: 'Boxfish',
