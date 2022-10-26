@@ -50,7 +50,7 @@ export type ServicesConfiguration = {
 export type SKCMConfiguration = {
 	disclaimer?: DisclaimerConfiguration
 	services?: ServicesConfiguration
-	provider: CookieProvider
+	provider?: CookieProvider
 	theme?: Theme
 }
 

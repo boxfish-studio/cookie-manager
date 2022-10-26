@@ -3,10 +3,6 @@
 	import type { SKCMConfiguration } from '$lib/app/types'
 
 	let configuration: SKCMConfiguration = {
-		provider: {
-			name: 'IOTA',
-			url: 'https://www.iota.org/privacy-policy',
-		},
 		disclaimer: {
 			title: 'Custom Title',
 			body: 'Custom Body'

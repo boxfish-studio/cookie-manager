@@ -9,6 +9,11 @@ export const GOOGLE_COOKIE_PROVIDER: CookieProvider = {
 	url: 'https://policies.google.com/privacy'
 }
 
+export const SKCM_COOKIE_PROVIDER: CookieProvider = {
+	name: 'SKCM',
+	url: 'https://github.com/boxfish-studio/sveltekit-cookie-mananger'
+}
+
 export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	title: 'Cookie Preferences',
 	body: 'By using this site, you agree with our use of cookies.',

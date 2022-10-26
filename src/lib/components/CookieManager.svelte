@@ -29,7 +29,6 @@
 
 	onMount(() => {
 		initConfiguredServices(
-			configuration?.provider,
 			googleAnalyticsUniversalId,
 			googleAnalytics4Id,
 			customNecessaryCookies,

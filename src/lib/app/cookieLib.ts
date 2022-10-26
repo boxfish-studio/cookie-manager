@@ -3,12 +3,15 @@ import {
 	COOKIE_NAME_PREFIX,
 	GOOGLE_ANALYTICS_EXPIRATION_DAYS,
 	GOOGLE_COOKIE_PROVIDER,
+	SKCM_COOKIE_PROVIDER
 } from './constants'
+import { CookieCategory, CookieType } from './enums'
 import type { ServiceCookie } from './types'
-import {CookieCategory, CookieType} from './enums'
 
 export const SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 	name: `${COOKIE_NAME_PREFIX}-ga-universal`,
+	provider: SKCM_COOKIE_PROVIDER.name,
+	providerUrl: SKCM_COOKIE_PROVIDER.url,
 	purpose:
 		'Stores the user´s Google Analytics Universal cookies consent state for the current domain',
 	expiry: COOKIE_EXPIRATION_DAYS + ' days',
@@ -18,6 +21,8 @@ export const SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE: ServiceCookie = {
 
 export const SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE: ServiceCookie = {
 	name: `${COOKIE_NAME_PREFIX}-ga-4`,
+	provider: SKCM_COOKIE_PROVIDER.name,
+	providerUrl: SKCM_COOKIE_PROVIDER.url,
 	purpose: 'Stores the user´s Google Analytics 4 cookies consent state for the current domain',
 	expiry: COOKIE_EXPIRATION_DAYS + ' days',
 	type: CookieType.HTTP,
