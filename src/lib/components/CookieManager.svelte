@@ -13,7 +13,7 @@
 
 	export let configuration: SKCMConfiguration
 
-	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customCookies, adCookiesEnabled } =
+	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customNecessaryCookies, adCookiesEnabled } =
 		configuration?.services ?? {})
 
 	// TODO: improve this
@@ -31,8 +31,8 @@
 		initConfiguredServices(
 			googleAnalyticsUniversalId,
 			googleAnalytics4Id,
-			customCookies,
-			adCookiesEnabled
+			customNecessaryCookies,
+			adCookiesEnabled,
 		)
 		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()

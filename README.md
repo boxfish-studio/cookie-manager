@@ -131,7 +131,7 @@ SKCMConfiguration = {
 		googleAnalyticsUniversalId?: string
 		googleAnalytics4Id?: string
 		adCookiesEnabled?: boolean
-		customCookies?: {
+		customNecessaryCookies?: {
 			name: string
 			provider: string
 			providerUrl: string
@@ -159,7 +159,7 @@ SKCMConfiguration = {
 
 `policyText`: Text that links to Privacy Policy. Default value: "Read our Cookie Policy".
 
-`policyUrl`: Privacy Policy url. Default value: "https://iota.org/privacy-policy".
+`policyUrl`: Privacy Policy url. Default value: "/privacy-policy".
 
 `acceptButtonText`: Text shown in 'Accept' button. Default value: "Accept Additional Cookies".
 
@@ -173,7 +173,7 @@ SKCMConfiguration = {
 
 `adCookiesEnabled`: Whether cookies with the category `Advertising` should be set in the browser and shown in the library.
 
-`customCookies`: Cookies that should be present in the `Necessary Cookies` table to inform the user their usage. To configure them see below.
+`customNecessaryCookies`: Cookies that should be present in the `Necessary Cookies` table to inform the user their usage. To configure them see below.
 
 ### Custom Cookies
 
@@ -196,7 +196,7 @@ It follows the configuration below:
 
 ### Theme props
 
-A 4-colour palette has been predefined following IOTA's style guide. You may overwrite these values in your custom configuration variable.
+A 4-colour palette has been predefined following a custom style guide. You may overwrite these values in your custom configuration variable.
 
 `primary`: Used in buttons backgrounds, anchors. Default value: `#14cabf` (teal).
 
