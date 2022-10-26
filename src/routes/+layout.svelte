@@ -11,7 +11,7 @@
 			googleAnalyticsUniversalId: 'UA-XXXXXXXXX',
 			googleAnalytics4Id: 'G-XXXXXXX',
 			adCookiesEnabled: true,
-			customCookies: [
+			customNecessaryCookies: [
 				{
 					name: '1st Cookie Test',
 					provider: 'Boxfish',

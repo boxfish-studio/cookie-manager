@@ -25,22 +25,23 @@
 
 <div id="skcm-cookie-library" {style}>
 	{#each information as section}
-		{#if section?.title}
-			<h4>{section?.title}</h4>
-			<hr />
-		{/if}
-		{#if section?.body}
-			{#each section?.body as paragraphs}
-				<p>
-					{paragraphs?.paragraph}
-				</p>
-			{/each}
-		{/if}
-		{#if section?.id === 'necessaryCookies'}
-			<NecessaryCookies />
-		{:else if section?.id === 'additionalCookies'}
-			<AdditionalCookies />
-		{/if}
+		<section id="skcm-cookie-library__{section?.id}">
+			{#if section?.title}
+				<h4>{section?.title}</h4>
+			{/if}
+			{#if section?.body}
+				{#each section?.body as paragraphs}
+					<p>
+						{paragraphs?.paragraph}
+					</p>
+				{/each}
+			{/if}
+			{#if section?.id === 'necessary-cookies'}
+				<NecessaryCookies />
+			{:else if section?.id === 'additional-cookies'}
+				<AdditionalCookies />
+			{/if}
+		</section>
 	{/each}
 
 	<div id="skcm-cookie-library__preferences">

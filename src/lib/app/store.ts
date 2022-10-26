@@ -5,7 +5,8 @@ import {
 	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
 	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
 } from './cookieLib'
-import { CookieCategory, Service, ServiceCookie } from './types'
+import { CookieCategory } from './enums'
+import type { Service, ServiceCookie } from './types'
 import { SupportedService } from './types'
 import { getCookie } from './utils'
 
@@ -29,7 +30,7 @@ export const additionalCookies: Readable<ServiceCookie[]> = derived(
 export function initConfiguredServices(
 	googleAnalyticsUniversalId?: string,
 	googleAnalytics4Id?: string,
-	customCookies?: ServiceCookie[],
+	customNecessaryCookies?: ServiceCookie[],
 	adCookiesEnabled?: boolean
 ): void {
 	let _configuredServices: Service[] = []
@@ -52,8 +53,8 @@ export function initConfiguredServices(
 		})
 		_necessaryCookies.push(SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE)
 	}
-	if (customCookies) {
-		_necessaryCookies = [..._necessaryCookies, ...customCookies]
+	if (customNecessaryCookies) {
+		_necessaryCookies = [..._necessaryCookies, ...customNecessaryCookies]
 	}
 	if (!adCookiesEnabled) {
 		const filteredCookies = _configuredServices.map((service) => ({

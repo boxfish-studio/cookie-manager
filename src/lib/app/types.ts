@@ -1,7 +1,9 @@
+import type { CookieCategory } from './'
+
 export enum SupportedService {
 	GoogleAnalyticsUniversal = 'googleAnalyticsUniversal',
 	GoogleAnalytics4 = 'googleAnalytics4',
-	CustomCookie = 'customCookies'
+	CustomCookie = 'customNecessaryCookies'
 }
 
 export type Service = {
@@ -13,9 +15,9 @@ export type Service = {
 
 export type ServiceCookie = {
 	name: string
-	provider: string
 	category?: CookieCategory
-	providerUrl: string
+	provider?: string
+	providerUrl?: string
 	purpose: string
 	expiry: string
 	type: string
@@ -42,7 +44,7 @@ export type ServicesConfiguration = {
 	googleAnalyticsUniversalId?: string
 	googleAnalytics4Id?: string
 	adCookiesEnabled?: boolean
-	customCookies?: ServiceCookie[]
+	customNecessaryCookies?: ServiceCookie[]
 }
 
 export type SKCMConfiguration = {
@@ -51,15 +53,13 @@ export type SKCMConfiguration = {
 	theme?: Theme
 }
 
+export type CookieProvider = {
+	name: string
+	url: string
+}
+
 declare global {
 	interface Window {
 		dataLayer: any
 	}
-}
-
-export enum CookieCategory {
-	Functionality = 'Functionality',
-	Statistics = 'Statistics',
-	Marketing = 'Marketing',
-	Advertising = 'Advertising'
 }
