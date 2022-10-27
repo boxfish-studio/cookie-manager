@@ -7,7 +7,6 @@
 		<thead>
 			<tr>
 				<th> Name </th>
-				<th> Provider </th>
 				<th> Purpose </th>
 				<th> Expiry </th>
 				<th> Type </th>
@@ -17,11 +16,6 @@
 			{#each $necessaryCookies as cookie}
 				<tr>
 					<td> {cookie?.name}</td>
-					<td
-						><a href={cookie?.providerUrl} target="_blank" rel="noopener noreferrer nofollow">
-							{cookie?.provider}</a
-						>
-					</td>
 					<td> {cookie?.purpose} </td>
 					<td> {cookie?.expiry} </td>
 					<td> {cookie?.type} </td>
