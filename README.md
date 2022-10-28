@@ -90,6 +90,17 @@ You can also use the library without any configuration or you can pass a `theme`
 <CookieLibrary {configuration} />
 ```
 
+### Using the internal store
+
+You can use the `servicesInitialized` writable to know whether the services are running or not.
+
+```ts
+import { servicesInitialized } from '@boxfish-studio/sveltekit-cookie-manager'
+import { get } from 'svelte/store'
+
+const isRunning = get(servicesInitialized);
+```
+
 ## Configuration 🪛
 
 Custom configuration must be of type `SKCMConfiguration`. All available props are shown below:
