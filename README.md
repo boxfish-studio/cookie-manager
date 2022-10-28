@@ -152,12 +152,14 @@ type SKCMConfiguration = {
 
 ### Services props
 
-| Name                       | Description                                                                                                               | Default value | Required |
-|----------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------|----------|
-| googleAnalyticsUniversalId | Your Google Analytics Universal key                                                                                       |               | Yes      |
-| googleAnalytics4Id         | Your Google Analytics 4 key                                                                                               |               | Yes      |
-| adCookiesEnabled           | Whether cookies with the category Advertising should be set in the browser and shown in the library                       | true          | No       |
-| customNecessaryCookies     | Cookies that should be present in the Necessary Cookies table to inform the user their usage. To configure them see below |               | No       |
+You must use `googleAnalyticsUniversalId` or `googleAnalytics4Id`.
+
+| Name                       | Description                                                                                                               | Default value |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------|
+| googleAnalyticsUniversalId | Your Google Analytics Universal key                                                                                       |               |
+| googleAnalytics4Id         | Your Google Analytics 4 key                                                                                               |               |
+| adCookiesEnabled           | Whether cookies with the category Advertising should be set in the browser and shown in the library                       | true          |
+| customNecessaryCookies     | Cookies that should be present in the Necessary Cookies table to inform the user their usage. To configure them see below |               |
 ### Custom necessary cookies
 
 You can configure extra cookies that will also appear in the Cookie library by specifying them in the `customNecessaryCookies` property.
@@ -167,7 +169,7 @@ They accept the following options:
 |------------------------|----------------------------------------------------------------------------|---------------|----------|-----------------------------|
 | name                   | Name of the cookie                                                         |               | Yes      | Boxfish Cookie              |
 | provider               | Name of it's provider                                                      |               | No       | Boxfish                     |
-| providerUrl            | URL of it's provider                                                       |               | No       | httos://boxfish.studio      |
+| providerUrl            | URL of it's provider                                                       |               | No       | https://boxfish.studio      |
 | purpose                | Usage of the cookie                                                        |               | Yes      | "Stores the user's consent" |
 | expiry                 | Time that the cookie with remain in the user's browser since it's creation |               | Yes      | "30 days"                   |
 | type                   | Type of cookie                                                             |               | Yes      | "HTTP"                      |
