@@ -1,63 +1,48 @@
 <div align="center">
-	<h1>Sveltekit Cookie Manager</h1>
-	<p>Sveltekit Cookie Manager is an easy-use node package to help control the visitor's cookie consent.</p>
+	<h1>Sveltekit Cookie Manager 🍪</h1>
+	<p>Sveltekit Cookie Manager is an easy-use Svelte package to help control the visitor's cookie consent.</p>
 </div>
 
-## Disclaimer
+### Disclaimer
 
 Minimum required SvelteKit version: `1.0.0-next.445`.
 
-## About The Project
+## About 📝
 
-Sveltekit Cookie Manager reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package.
-Enables cookie management of following services:
+**Sveltekit Cookie Manager** reduces the workload of creating and mantaining multiple cookie consents by centralizing them into this package. Enables cookie management of following services:
 
 - Google Analytics Universal.
 - Google Analytics 4.
 
-### Features
-
-- Display a customizable popup to accept or reject cookies. Pop up consists of:
-  - Title, body, accept/reject buttons and a link to Privacy Policy page.
+## Features ✨
+- Display a customizable popup to accept or reject cookies.
 - Create a cookie library showing:
   - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name and url, cookie category, purpose, expiry and type.
   - Radio inputs (allow or reject all cookies) and a button to update preferences.
 
-### Built with
+## Installation 🧰
 
-- Sveltekit.
-- Typescript.
-
-<br/>
-
-## Installation
-
-```
+```shell
 $ npm i @boxfish-studio/sveltekit-cookie-manager
 ```
 
 or yarn
 
-```
+```shell
 $ yarn add @boxfish-studio/sveltekit-cookie-manager
 ```
 
 <br/>
 
-## How to use
+## How to use 📝
 
-### Show popup
+### Show a popup
 
-1. Import `CookieManager` component
+Import the `CookieManager` component to your Svelte page and pass the configuration with your desired settings:
 
-```
-import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
-```
-
-2. Add `CookieManager` to your svelte page passing a configuration variable with your desired settings as shown in example below:
-
-```
+```svelte
 <script lang='ts'>
+	import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
 	const configuration: SKCMConfiguration = {
@@ -81,22 +66,18 @@ import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 <CookieManager {configuration} />
 ```
 
-### Show cookie library
+### Show the cookie library
 
-1. Import `CookieLibrary` component
+Import the `CookieLibrary` component to your svelte file and pass the configuration with your desired settings, as shown in the example below.
 
-```
-import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
-```
+You can also use the library without any configuration or you can pass a `theme` to the configuration:
 
-2. Add `CookieLibrary` to your svelte file passing a configuration variable with desired settings as shown in the example below.<br/>
-   You can use the library without any configuration or you can pass a `theme` to the configuration:
-
-```
+```svelte
 <script lang='ts'>
+	import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
-    	const configuration: SKCMConfiguration = {
+	const configuration: SKCMConfiguration = {
 		theme: {
 			primary: '#14cabf',
 			dark: '#131f37',
@@ -109,14 +90,23 @@ import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 <CookieLibrary {configuration} />
 ```
 
-<br/>
+### Using the internal store
 
-## Available configuration
+You can use the `servicesInitialized` writable to know whether the services are running or not.
+
+```ts
+import { servicesInitialized } from '@boxfish-studio/sveltekit-cookie-manager'
+import { get } from 'svelte/store'
+
+const isRunning = get(servicesInitialized);
+```
+
+## Configuration 🪛
 
 Custom configuration must be of type `SKCMConfiguration`. All available props are shown below:
 
-```
-SKCMConfiguration = {
+```ts
+type SKCMConfiguration = {
 	disclaimer: {
 		title?: string
 		body?: string
@@ -149,60 +139,57 @@ SKCMConfiguration = {
 
 ```
 
-### Popup props
+### Disclaimer props
 
-`title`: The title of the popup. Default value: "Cookie Preferences".
-
-`body`: By using this site, you agree with our use of cookies.".
-
-`policyText`: Text that links to Privacy Policy. Default value: "Read our Cookie Policy".
-
-`policyUrl`: Privacy Policy url. Default value: "/privacy-policy".
-
-`acceptButtonText`: Text shown in 'Accept' button. Default value: "Accept Additional Cookies".
-
-`rejectButtonText`: Text shown in 'Reject' button. Default value: "Reject Additional Cookies".
+| Name             | Description                       | Default value                                            |
+|------------------|-----------------------------------|----------------------------------------------------------|
+| title            | The title of the popup            | "Cookie Preferences"                                     |
+| body             | Body message of the popup         | "By using this site, you agree with our use of cookies." |
+| policyText       | Text that links to Privacy Policy | "Read our Cookie Policy"                                 |
+| policyUrl        | Privacy Policy url                | "/privacy-policy"                                        |
+| acceptButtonText | Text shown in 'Accept' button     | "Accept Additional Cookies"                              |
+| rejectButtonText | Text shown in 'Reject' button     | "Reject Additional Cookies"                              |
 
 ### Services props
 
-`googleAnalyticsUniversalId`: Your Google Analytics Universal key.
+You must use `googleAnalyticsUniversalId` or `googleAnalytics4Id`.
 
-`googleAnalytics4Id`: Your Google Analytics 4 key.
+| Name                       | Description                                                                                                               | Default value |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------|
+| googleAnalyticsUniversalId | Your Google Analytics Universal key                                                                                       |               |
+| googleAnalytics4Id         | Your Google Analytics 4 key                                                                                               |               |
+| adCookiesEnabled           | Whether cookies with the category Advertising should be set in the browser and shown in the library                       | true          |
+| customNecessaryCookies     | Cookies that should be present in the Necessary Cookies table to inform the user their usage. To configure them see below |               |
+### Custom necessary cookies
 
-`adCookiesEnabled`: Whether cookies with the category `Advertising` should be set in the browser and shown in the library.
+You can configure extra cookies that will also appear in the Cookie library by specifying them in the `customNecessaryCookies` property.
+They accept the following options:
 
-`customNecessaryCookies`: Cookies that should be present in the `Necessary Cookies` table to inform the user their usage. To configure them see below.
-
-### Custom Cookies
-
-You can configure your own cookies to appear in the Cookie Library. You just have to add an array with your custom cookies to the Cookie Disclaimer.
-It follows the configuration below:
-
-`name`: The name of the Cookie.
-
-`provider`: Provider's name.
-
-`providerUrl`: An url to the provider's website.
-
-`purpose`: The reason for the cookie usage.
-
-`expiry`: Time that the cookie with remain in the user's browser since it's creation.
-
-`type`: The type of the cookie.
-
-`showDisclaimerIfMissing`: If set to true, the disclaimer will show up if the cookie name is not present in the visitors browser. This could be useful in a situation where you recently implemented a cookie in your website and want to show the disclaimer to your previous visitors. By default this is `false`.
+| Name                   | Description                                                                | Default value | Required | Example                     |
+|------------------------|----------------------------------------------------------------------------|---------------|----------|-----------------------------|
+| name                   | Name of the cookie                                                         |               | Yes      | Boxfish Cookie              |
+| provider               | Name of it's provider                                                      |               | No       | Boxfish                     |
+| providerUrl            | URL of it's provider                                                       |               | No       | https://boxfish.studio      |
+| purpose                | Usage of the cookie                                                        |               | Yes      | "Stores the user's consent" |
+| expiry                 | Time that the cookie with remain in the user's browser since it's creation |               | Yes      | "30 days"                   |
+| type                   | Type of cookie                                                             |               | Yes      | "HTTP"                      |
+| showDisclamerIfMissing | Show the accept/reject popup if this cookie is missing                     | false         | No       | true                        |
 
 ### Theme props
 
 A 4-colour palette has been predefined following a custom style guide. You may overwrite these values in your custom configuration variable.
 
-`primary`: Used in buttons backgrounds, anchors. Default value: `#14cabf` (teal).
+| Name    | Description                                           | Default value   |
+|---------|-------------------------------------------------------|-----------------|
+| primary | Used in buttons backgrounds, anchors                  | #14cabf (teal)  |
+| dark    | Used in headings, body                                | #131f37 (black) |
+| medium  | Used in table headings, table borders                 | #b0bfd9 (gray)  |
+| light   | Used in banner background colour, buttons text colour | #fff (white)    |
 
-`dark`: Used in headings, body. Default value: `#131f37` (black).
+### Built with
 
-`medium`: Used in table headings, table borders. Default value: `#b0bfd9` (gray).
-
-`light`: Used in banner background colour, buttons text colour. Default value: `#fff` (white).
+- Sveltekit.
+- Typescript.
 
 ## Release Package
 
