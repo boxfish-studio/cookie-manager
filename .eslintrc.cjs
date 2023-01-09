@@ -110,7 +110,7 @@ module.exports = {
 			parserOptions: {
 				...parserOptions,
 				extraFileExtensions: ['.svelte'],
-				project: './tsconfig.lint.json',
+				project: './tsconfig.json',
 				tsconfigRootDir: './'
 			},
 			plugins: ['@typescript-eslint', 'svelte3'],
