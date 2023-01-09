@@ -39,6 +39,7 @@
 		"**/*.{js,ts,svelte,scss}": "npx prettier --write"
 	},
 	"dependencies": {
-		"@babel/eslint-parser": "^7.19.1"
+		"@babel/eslint-parser": "^7.19.1",
+		"@babel/core": "^7.20.7"
 	}
 }
