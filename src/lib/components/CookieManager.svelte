@@ -32,7 +32,7 @@
 			googleAnalyticsUniversalId,
 			googleAnalytics4Id,
 			customNecessaryCookies,
-			adCookiesEnabled,
+			adCookiesEnabled
 		)
 		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()

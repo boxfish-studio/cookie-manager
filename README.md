@@ -15,6 +15,7 @@ Minimum required SvelteKit version: `1.0.0-next.445`.
 - Google Analytics 4.
 
 ## Features ✨
+
 - Display a customizable popup to accept or reject cookies.
 - Create a cookie library showing:
   - Tables with details about site's necessary cookies and additional cookies: cookie name, provider name and url, cookie category, purpose, expiry and type.
@@ -41,7 +42,7 @@ $ yarn add @boxfish-studio/sveltekit-cookie-manager
 Import the `CookieManager` component to your Svelte page and pass the configuration with your desired settings:
 
 ```svelte
-<script lang='ts'>
+<script lang="ts">
 	import { CookieManager } from '@boxfish-studio/sveltekit-cookie-manager'
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
@@ -73,7 +74,7 @@ Import the `CookieLibrary` component to your svelte file and pass the configurat
 You can also use the library without any configuration or you can pass a `theme` to the configuration:
 
 ```svelte
-<script lang='ts'>
+<script lang="ts">
 	import { CookieLibrary } from '@boxfish-studio/sveltekit-cookie-manager'
 	import type { SKCMConfiguration } from '@boxfish-studio/sveltekit-cookie-manager'
 
@@ -98,7 +99,7 @@ You can use the `servicesInitialized` writable to know whether the services are 
 import { servicesInitialized } from '@boxfish-studio/sveltekit-cookie-manager'
 import { get } from 'svelte/store'
 
-const isRunning = get(servicesInitialized);
+const isRunning = get(servicesInitialized)
 ```
 
 ## Configuration 🪛
@@ -136,13 +137,12 @@ type SKCMConfiguration = {
 		light?: string
 	}
 }
-
 ```
 
 ### Disclaimer props
 
 | Name             | Description                       | Default value                                            |
-|------------------|-----------------------------------|----------------------------------------------------------|
+| ---------------- | --------------------------------- | -------------------------------------------------------- |
 | title            | The title of the popup            | "Cookie Preferences"                                     |
 | body             | Body message of the popup         | "By using this site, you agree with our use of cookies." |
 | policyText       | Text that links to Privacy Policy | "Read our Cookie Policy"                                 |
@@ -155,18 +155,19 @@ type SKCMConfiguration = {
 You must use `googleAnalyticsUniversalId` or `googleAnalytics4Id`.
 
 | Name                       | Description                                                                                                               | Default value |
-|----------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------|
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | googleAnalyticsUniversalId | Your Google Analytics Universal key                                                                                       |               |
 | googleAnalytics4Id         | Your Google Analytics 4 key                                                                                               |               |
 | adCookiesEnabled           | Whether cookies with the category Advertising should be set in the browser and shown in the library                       | true          |
 | customNecessaryCookies     | Cookies that should be present in the Necessary Cookies table to inform the user their usage. To configure them see below |               |
+
 ### Custom necessary cookies
 
 You can configure extra cookies that will also appear in the Cookie library by specifying them in the `customNecessaryCookies` property.
 They accept the following options:
 
 | Name                   | Description                                                                | Default value | Required | Example                     |
-|------------------------|----------------------------------------------------------------------------|---------------|----------|-----------------------------|
+| ---------------------- | -------------------------------------------------------------------------- | ------------- | -------- | --------------------------- |
 | name                   | Name of the cookie                                                         |               | Yes      | Boxfish Cookie              |
 | provider               | Name of it's provider                                                      |               | No       | Boxfish                     |
 | providerUrl            | URL of it's provider                                                       |               | No       | https://boxfish.studio      |
@@ -180,7 +181,7 @@ They accept the following options:
 A 4-colour palette has been predefined following a custom style guide. You may overwrite these values in your custom configuration variable.
 
 | Name    | Description                                           | Default value   |
-|---------|-------------------------------------------------------|-----------------|
+| ------- | ----------------------------------------------------- | --------------- |
 | primary | Used in buttons backgrounds, anchors                  | #14cabf (teal)  |
 | dark    | Used in headings, body                                | #131f37 (black) |
 | medium  | Used in table headings, table borders                 | #b0bfd9 (gray)  |

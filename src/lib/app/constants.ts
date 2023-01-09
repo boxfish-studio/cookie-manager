@@ -9,7 +9,7 @@ export const GOOGLE_COOKIE_PROVIDER: CookieProvider = {
 	url: 'https://policies.google.com/privacy'
 }
 
-export const SKCM_COOKIE_PROVIDER_NAME = "SKCM";
+export const SKCM_COOKIE_PROVIDER_NAME = 'SKCM'
 
 export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	title: 'Cookie Preferences',
