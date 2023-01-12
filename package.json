@@ -35,8 +35,8 @@
 	},
 	"type": "module",
 	"lint-staged": {
-		".{ts,js,svelte}": "eslint --cache --fix",
-		"**/*.{js,ts,svelte,scss}": "npx prettier --write"
+		"*.{js,ts,svelte,scss}": "prettier --write",
+		"*.{ts,js,svelte}": "eslint --cache --fix"
 	},
 	"dependencies": {
 		"@babel/eslint-parser": "^7.19.1",
