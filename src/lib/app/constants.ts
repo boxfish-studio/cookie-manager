@@ -9,15 +9,15 @@ export const GOOGLE_COOKIE_PROVIDER: CookieProvider = {
 	url: 'https://policies.google.com/privacy'
 }
 
-export const SKCM_COOKIE_PROVIDER_NAME = "SKCM";
+export const SKCM_COOKIE_PROVIDER_NAME = 'SKCM'
 
 export const DEFAULT_DISCLAIMER_CONFIG: DisclaimerConfiguration = {
 	title: 'Cookie Preferences',
 	body: 'By using this site, you agree with our use of cookies.',
 	policyText: 'Read our Cookie Policy',
 	policyUrl: '/privacy-policy',
-	acceptButtonText: 'Accept Additional Cookies',
-	rejectButtonText: 'Reject Additional Cookies'
+	acceptButtonText: 'Accept all',
+	rejectButtonText: 'Reject all'
 }
 
 export const DEFAULT_THEME_COLORS: Theme = {

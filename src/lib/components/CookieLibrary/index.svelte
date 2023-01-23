@@ -47,11 +47,11 @@
 	<div id="skcm-cookie-library__preferences">
 		<label id="skcm-cookie-library__preferences--reject">
 			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
-			Reject
+			Reject all
 		</label>
 		<label id="skcm-cookie-library__preferences--allow">
 			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
-			Allow
+			Allow all
 		</label>
 		<Button
 			onClick={updatePreferences}
