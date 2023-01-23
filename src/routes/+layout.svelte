@@ -2,7 +2,7 @@
 	import { CookieManager } from '$components'
 	import type { SKCMConfiguration } from '$lib/app/types'
 
-	let configuration: SKCMConfiguration = {
+	const configuration: SKCMConfiguration = {
 		disclaimer: {
 			title: 'Custom Title',
 			body: 'Custom Body'

@@ -16,15 +16,12 @@ export const servicesInitialized: Writable<boolean> = writable(false)
 export const necessaryCookies: Writable<ServiceCookie[]> = writable([])
 export const additionalCookies: Readable<ServiceCookie[]> = derived(
 	configuredServices,
-	($configuredServices) => {
-		return $configuredServices.reduce((accumulator, service) => {
+	($configuredServices) =>
+		$configuredServices.reduce((accumulator, service) => {
 			const cookiesName = accumulator.map((cookie) => cookie.name)
-			const serviceCookies = service.cookies.filter((cookie) => {
-				return !cookiesName.includes(cookie.name)
-			})
+			const serviceCookies = service.cookies.filter((cookie) => !cookiesName.includes(cookie.name))
 			return accumulator.concat(serviceCookies)
 		}, [])
-	}
 )
 
 export function initConfiguredServices(
