@@ -12,6 +12,8 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@babel/eslint-parser": "^7.19.1",
+		"@babel/core": "^7.20.7",
 		"@sveltejs/adapter-auto": "1.0.0",
 		"@sveltejs/kit": "1.0.7",
 		"@sveltejs/package": "^1.0.2",
@@ -37,9 +39,5 @@
 	"lint-staged": {
 		"*.{js,ts,svelte,scss}": "prettier --write",
 		"*.{ts,js,svelte}": "eslint --cache --fix"
-	},
-	"dependencies": {
-		"@babel/eslint-parser": "^7.19.1",
-		"@babel/core": "^7.20.7"
 	}
 }
