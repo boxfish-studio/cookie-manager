@@ -26,6 +26,7 @@ export const setCookie = (name: string, val: string, expDays: number): void => {
 	date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000)
 	document.cookie = name + '=' + value + '; expires=' + date.toUTCString() + '; path=/'
 }
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function deleteCookie(name: string) {
 	const date = new Date()
 	date.setTime(date.getTime() + -1 * 24 * 60 * 60 * 1000)

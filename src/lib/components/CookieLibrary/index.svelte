@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$lib/app/types'

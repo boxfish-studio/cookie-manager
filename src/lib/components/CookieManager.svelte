@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { page } from '$app/stores'
 	import { initializeServices, updatePathGA } from '$lib/app/services'
 	import { initConfiguredServices, showCookieDisclaimer } from '$lib/app/store'
