@@ -26,6 +26,7 @@ export const setCookie = (name: string, val: string, expDays: number): void => {
 	date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000)
 	document.cookie = name + '=' + value + '; expires=' + date.toUTCString() + '; path=/'
 }
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function deleteCookie(name: string) {
 	const date = new Date()
 	date.setTime(date.getTime() + -1 * 24 * 60 * 60 * 1000)
@@ -59,12 +60,10 @@ export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
 		setCookie(neededCookies[i]?.name, value, COOKIE_EXPIRATION_DAYS)
 	}
 	// enable services
-	const _configuredServices = get(configuredServices)?.map((service) => {
-		return {
-			...service,
-			enabled: value === 'true'
-		}
-	})
+	const _configuredServices = get(configuredServices)?.map((service) => ({
+		...service,
+		enabled: value === 'true'
+	}))
 	configuredServices.set(_configuredServices)
 }
 
@@ -73,11 +72,10 @@ export const isServiceEnabled = (serviceType: SupportedService): boolean => {
 	return serviceConfig?.enabled
 }
 
-export const formatStyles = (theme: Theme): string => {
-	return Object.entries(theme)
+export const formatStyles = (theme: Theme): string =>
+	Object.entries(theme)
 		.map((colorVariable) => `--${colorVariable[0]}:${colorVariable[1]};`)
 		.join(' ')
-}
 
 export const getInlineStyle = (theme: Theme = {}): string => {
 	const mergedTheme = { ...DEFAULT_THEME_COLORS, ...theme }

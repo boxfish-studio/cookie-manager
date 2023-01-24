@@ -67,7 +67,7 @@ export const removeGoogleAnalytics = (id: string): void => {
 	}
 }
 
-export const updatePathGA = (id: string, path): void => {
+export const updatePathGA = (id: string, path: string): void => {
 	function gtag(key: string, value: unknown, { page_path: string }) {
 		// eslint-disable-next-line prefer-rest-params
 		window.dataLayer.push(arguments)

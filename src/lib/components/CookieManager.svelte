@@ -1,8 +1,9 @@
 <script lang="ts">
+	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { page } from '$app/stores'
 	import { initializeServices, updatePathGA } from '$lib/app/services'
 	import { initConfiguredServices, showCookieDisclaimer } from '$lib/app/store'
-	import { SKCMConfiguration, SupportedService } from '$lib/app/types'
+	import { type SKCMConfiguration, SupportedService } from '$lib/app/types'
 	import {
 		hasAllNeededNecessaryCookies,
 		isServiceEnabled,
@@ -32,7 +33,7 @@
 			googleAnalyticsUniversalId,
 			googleAnalytics4Id,
 			customNecessaryCookies,
-			adCookiesEnabled,
+			adCookiesEnabled
 		)
 		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()

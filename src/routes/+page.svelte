@@ -4,7 +4,7 @@
 
 	export const prerender = true
 
-	let configuration: SKCMConfiguration = {
+	const configuration: SKCMConfiguration = {
 		theme: {
 			light: '#fff',
 			dark: '#131f37',

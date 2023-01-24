@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { initializeServices, stopServices } from '$lib/app/services'
 	import { showCookieDisclaimer } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$lib/app/types'
@@ -47,11 +48,11 @@
 	<div id="skcm-cookie-library__preferences">
 		<label id="skcm-cookie-library__preferences--reject">
 			<input type="radio" bind:group={hasAllowedCookies} value={'false'} />
-			Reject
+			Reject all
 		</label>
 		<label id="skcm-cookie-library__preferences--allow">
 			<input type="radio" bind:group={hasAllowedCookies} value={'true'} />
-			Allow
+			Allow all
 		</label>
 		<Button
 			onClick={updatePreferences}
