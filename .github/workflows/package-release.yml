@@ -1,0 +1,83 @@
+name: SvelteKit Cookie Manager Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish-npm-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm run build
+      - run: npm run package
+      - run: cd package && npm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  github_draft_release:
+    needs: publish-npm-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Fetch tags
+        run: |
+          if git rev-parse --is-shallow-repository | grep -q 'true'; then
+            git fetch --prune --unshallow --tags -f
+          else
+            git fetch --prune --tags -f
+          fi
+      - name: Build changelog
+        id: build_changelog
+        run: |
+          # Create a CHANGELOG.md file
+          echo "# What's Changed" > CHANGELOG.md
+
+          # Check the number of app tags and get the previous tag
+          n_tags=$(git tag -l 'v*' --sort=-v:refname | wc -l)
+          prev_tag=$(git tag -l 'v*' --sort=-v:refname | sed '2q;d')
+
+          # Determine the last commit based on the number of tags
+          if [ $n_tags -eq 1 ]; then
+            # If there's only one tag, the last commit is the first one
+            last_commit=$(git rev-list --max-parents=0 HEAD)
+          else
+            # If there's more than one tag, the last commit is the one before the latest tag
+            last_commit=$(git rev-list -n 1 $prev_tag)
+          fi
+
+          # Set the maximum number of tries to the number of commits for protection
+          max_tries=$(git rev-list --count HEAD)
+
+          # Iterate through the commits, starting from the latest
+          i=0
+          while [ $(git rev-parse HEAD~$i) != $last_commit ] && [ $i -lt $((max_tries-1)) ]; do
+            # Add the commit message to the CHANGELOG.md file
+            echo '- ' $(git show -s --format=%s HEAD~$i) >> CHANGELOG.md
+            i=$((i+1))
+          done
+
+          # Add the full changelog URL to the CHANGELOG.md file
+          echo >> CHANGELOG.md
+          compare=""
+          if [ $n_tags -eq 1 ]; then
+            compare=$last_commit
+          else
+            compare=$prev_tag
+          fi
+          compare="${compare}...$(git tag -l 'v*' --sort=-v:refname | sed '1q;d')"
+          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${compare}" >> CHANGELOG.md
+      - name: Create draft release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: SvelteKit Cookie Manager ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body_path: CHANGELOG.md
+          draft: true
