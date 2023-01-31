@@ -5,7 +5,7 @@
 
 ### Disclaimer
 
-Minimum required SvelteKit version: `1.0.0-next.445`.
+Minimum required SvelteKit version: `1.0.0-next.581`.
 
 ## About 📝
 
