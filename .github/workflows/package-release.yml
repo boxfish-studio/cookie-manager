@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Fetch tags
+      - name: Prepare repository tags
         run: |
           if git rev-parse --is-shallow-repository | grep -q 'true'; then
             git fetch --prune --unshallow --tags -f
@@ -37,34 +37,30 @@ jobs:
       - name: Build changelog
         id: build_changelog
         run: |
-          # Create a CHANGELOG.md file
+          echo "Building changelog..."
+
+          # Create a changelog file with a header:
           echo "# What's Changed" > CHANGELOG.md
-
-          # Check the number of app tags and get the previous tag
-          n_tags=$(git tag -l 'v*' --sort=-v:refname | wc -l)
-          prev_tag=$(git tag -l 'v*' --sort=-v:refname | sed '2q;d')
-
-          # Determine the last commit based on the number of tags
+          # Check repository tags and the last tagged commit
+          n_tags=`git tag -l 'v*' --sort=-v:refname | wc -l`
+          prev_tag=`git tag -l 'v*' --sort=-v:refname | sed '2q;d'`
           if [ $n_tags -eq 1 ]; then
-            # If there's only one tag, the last commit is the first one
-            last_commit=$(git rev-list --max-parents=0 HEAD)
+            last_commit=`git rev-list --max-parents=0 HEAD`
           else
-            # If there's more than one tag, the last commit is the one before the latest tag
-            last_commit=$(git rev-list -n 1 $prev_tag)
+            last_commit=`git rev-list -n 1 $prev_tag`
           fi
 
-          # Set the maximum number of tries to the number of commits for protection
-          max_tries=$(git rev-list --count HEAD)
-
-          # Iterate through the commits, starting from the latest
+          # Fill the changelog file with the commits since the last tag
+          # Set max tries to equal the maximum number of commits as protection
+          max_tries=`git rev-list --count HEAD`
           i=0
-          while [ $(git rev-parse HEAD~$i) != $last_commit ] && [ $i -lt $((max_tries-1)) ]; do
-            # Add the commit message to the CHANGELOG.md file
-            echo '- ' $(git show -s --format=%s HEAD~$i) >> CHANGELOG.md
+          while [ `git rev-parse HEAD~$i` != $last_commit ] && [ $i -lt $((max_tries-1)) ]
+          do
+            echo '- ' `git show -s --format=%s HEAD~$i` >> CHANGELOG.md
             i=$((i+1))
           done
 
-          # Add the full changelog URL to the CHANGELOG.md file
+          # Set the complete changelog url
           echo >> CHANGELOG.md
           compare=""
           if [ $n_tags -eq 1 ]; then
@@ -72,8 +68,10 @@ jobs:
           else
             compare=$prev_tag
           fi
-          compare="${compare}...$(git tag -l 'v*' --sort=-v:refname | sed '1q;d')"
+          compare="${compare}...`git tag -l 'v*' --sort=-v:refname | sed '1q;d'`"
           echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${compare}" >> CHANGELOG.md
+
+          echo "Changelog built successfully."
       - name: Create draft release
         uses: softprops/action-gh-release@v1
         with:
