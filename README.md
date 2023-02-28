@@ -1,7 +1,5 @@
-<div align="center">
-	<h1>Sveltekit Cookie Manager 🍪</h1>
-	<p>Sveltekit Cookie Manager is an easy-use Svelte package to help control the visitor's cookie consent.</p>
-</div>
+# Sveltekit Cookie Manager 🍪
+Sveltekit Cookie Manager is an easy-use Svelte package to help control the visitor's cookie consent.
 
 ### Disclaimer
 
