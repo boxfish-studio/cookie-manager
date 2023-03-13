@@ -1,4 +1,5 @@
 # Sveltekit Cookie Manager 🍪
+
 Sveltekit Cookie Manager is an easy-use Svelte package to help control the visitor's cookie consent.
 
 ### Disclaimer
