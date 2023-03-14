@@ -1,6 +1,11 @@
 {
 	"name": "@boxfish-studio/sveltekit-cookie-manager",
 	"version": "1.0.3",
+	"author": "Boxfish Studio <info@boxfish.studio>",
+	"license": "Apache-2.0",
+	"repository": "github:boxfish-studio/sveltekit-cookie-manager",
+	"homepage": "https://github.com/boxfish-studio/sveltekit-cookie-manager",
+	"bugs": "https://github.com/boxfish-studio/sveltekit-cookie-manager/issues",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
