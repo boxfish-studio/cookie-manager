@@ -199,7 +199,6 @@ A 4-colour palette has been predefined following a custom style guide. You may o
 
 [Apache 2.0](./LICENSE) &copy; [Boxfish Studio]
 
-
 [Boxfish Studio]: https://boxfish.studio
 
 <hr/>
