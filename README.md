@@ -195,6 +195,12 @@ A 4-colour palette has been predefined following a custom style guide. You may o
 
 `npm run package && cd package && npm publish --access=public`
 
+## License
+
+[Apache 2.0](./LICENSE) &copy; [Boxfish Studio]
+
+[Boxfish Studio]: https://boxfish.studio
+
 <hr/>
 
 <div align="center">
