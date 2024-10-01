@@ -1,6 +1,6 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-    env: {
-        es6: true,
-    },
-};
+	env: {
+		es6: true
+	}
+}

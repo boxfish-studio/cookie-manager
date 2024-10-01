@@ -14,13 +14,13 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'prettier',
 		'eslint:recommended',
-		'plugin:svelte/recommended', 
+		'plugin:svelte/recommended'
 	],
 	parser: '@typescript-eslint/parser',
 	plugins: ['only-warn', '@typescript-eslint/eslint-plugin'],
 	parserOptions: {
 		extraFileExtensions: ['.svelte'],
-		project,
+		project
 	},
 	env: {
 		node: true,
@@ -35,11 +35,11 @@ module.exports = {
 	ignorePatterns: ['node_modules', 'dist'],
 	overrides: [
 		{
-		  files: ["*.svelte"],
-		  parser: "svelte-eslint-parser",
-		  parserOptions: {
-			parser: "@typescript-eslint/parser",
-		  },
-		},
-	  ],
+			files: ['*.svelte'],
+			parser: 'svelte-eslint-parser',
+			parserOptions: {
+				parser: '@typescript-eslint/parser'
+			}
+		}
+	]
 }

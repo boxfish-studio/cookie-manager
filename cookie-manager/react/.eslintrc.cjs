@@ -1,10 +1,10 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
 	globals: {
-		React: true,
+		React: true
 	},
 	root: true,
-	extends: ['@repo/eslint-config/index.js','plugin:react/recommended'],
+	extends: ['@repo/eslint-config/index.js', 'plugin:react/recommended'],
 	parser: '@typescript-eslint/parser',
 	settings: {
 		react: {

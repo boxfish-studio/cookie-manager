@@ -77,7 +77,7 @@ const typescriptEslintRules = {
 }
 
 module.exports = {
-    eslintRules,
-    eslintRulesOnlyTypescript,
-    typescriptEslintRules
+	eslintRules,
+	eslintRulesOnlyTypescript,
+	typescriptEslintRules
 }

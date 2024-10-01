@@ -1,1 +1,1 @@
-module.exports=require("@repo/lint-staged-config")
+module.exports = require('@repo/lint-staged-config')

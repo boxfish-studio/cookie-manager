@@ -9,7 +9,7 @@ module.exports = {
 		'eslint:recommended',
 		'prettier',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:import/recommended',
+		'plugin:import/recommended'
 	],
 	plugins: ['only-warn', '@typescript-eslint/eslint-plugin'],
 	env: {
@@ -33,6 +33,6 @@ module.exports = {
 	overrides: [
 		{
 			files: ['*.js?(x)', '*.ts?(x)']
-		},
+		}
 	]
 }
