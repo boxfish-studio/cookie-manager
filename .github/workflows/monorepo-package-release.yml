@@ -1,0 +1,125 @@
+name: Notification Manager package release
+
+on:
+  push:
+    tags:
+      - 'react-cookie-manager@[0-9]+.[0-9]+.[0-9]+'
+      - 'sveltekit-cookie-manager@[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish-npm-package:
+    outputs:
+      library_dir: ${{ steps.detect_tag.outputs.library_dir }}
+      tag: ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - name: Detect tag and set variable
+        id: detect_tag
+        run: |
+          # Set the library name based on the tag
+          if [[ ${{ github.ref }} =~ ^refs/tags/(.*)-cookie-manager.* ]]; then
+            library_name=${BASH_REMATCH[1]}
+            echo "library_dir=$library_name" >> "$GITHUB_OUTPUT"
+          else
+            echo "Invalid tag"
+            exit 1
+          fi
+
+      - name: Publish package
+        # The package directory is the library name e.g "apps/sveltekit | apps/react"
+        run: |
+          cd cookie-manager/${{ steps.detect_tag.outputs.library_dir }} && \
+          pnpm i && \
+          pnpm package && \
+          cp ../../LICENSE ../../NOTICE . && \
+          npm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  github_draft_release:
+    needs: publish-npm-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Prepare repository tags
+        run: |
+          # Fetch all tags
+          if git rev-parse --is-shallow-repository | grep -q 'true'; then
+            git fetch --prune --unshallow --tags -f
+          else
+            git fetch --prune --tags -f
+          fi
+      - name: Build changelog
+        id: build_changelog
+        run: |
+          echo "Building changelog..."
+
+          # Create a changelog file with a header:
+          echo "# What's Changed" > CHANGELOG.md
+
+          # Get the current tag from the workflow
+          current_tag="${{ needs.publish-npm-package.outputs.tag }}"
+
+          # Extract the tag type from the current tag
+          current_tag_type=$(echo "$current_tag" | awk -F'@' '{print $1}')
+
+          library_tags=$(git tag -l "$current_tag_type@*" --sort=-v:refname)
+
+          tag_array=()
+          while IFS= read -r line; do
+            tag_array+=("$line")
+          done <<< "$library_tags"
+
+          current_tag_index=-1
+          for i in "${!tag_array[@]}"; do
+            if [ "${tag_array[$i]}" == "$current_tag" ]; then
+              current_tag_index=$i
+              break
+            fi
+          done
+
+          if [ "$current_tag_index" -eq -1 ]; then
+            echo "Current tag $current_tag not found in the available tags."
+            exit 1
+          fi
+
+          if [ "$current_tag_index" -lt $((${#tag_array[@]} - 1)) ]; then
+            prev_tag="${tag_array[$((current_tag_index + 1))]}"
+          else
+            prev_tag=$(git rev-list --max-parents=0 HEAD)
+          fi
+
+          last_commit=$(git rev-list -n 1 "$prev_tag")
+
+          # Fill the changelog file with the commits since the last tag
+          # Set max tries to equal the maximum number of commits as protection
+          max_tries=$(git rev-list --count HEAD)
+          i=0
+          while [ "$(git rev-parse HEAD~$i)" != "$last_commit" ] && [ $i -lt $((max_tries-1)) ]; do
+            commit_message=$(git show -s --format=%s HEAD~$i)
+            echo "- $commit_message" >> CHANGELOG.md
+            i=$((i+1))
+          done
+
+          # Set the complete changelog URL
+          echo >> CHANGELOG.md
+          compare="${prev_tag}...${current_tag}"
+
+          echo "Appending full changelog URL to CHANGELOG.md..."
+          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${compare}" >> CHANGELOG.md
+
+          echo "Changelog built successfully."
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: '@boxfish-studio/${{ github.ref_name }}'
+          tag_name: ${{ github.ref_name }}
+          body_path: CHANGELOG.md
+          draft: true

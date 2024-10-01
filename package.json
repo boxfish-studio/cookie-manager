@@ -1,51 +1,25 @@
 {
-	"name": "@boxfish-studio/sveltekit-cookie-manager",
-	"version": "1.0.3",
-	"author": "Boxfish Studio <info@boxfish.studio>",
-	"license": "Apache-2.0",
-	"repository": "github:boxfish-studio/sveltekit-cookie-manager",
-	"homepage": "https://github.com/boxfish-studio/sveltekit-cookie-manager",
-	"bugs": "https://github.com/boxfish-studio/sveltekit-cookie-manager/issues",
+	"name": "@boxfish-studio/cookie-managers",
+	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"package": "svelte-package",
-		"preview": "vite preview",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
+		"build": "turbo build",
+		"dev": "turbo dev",
+		"lint": "turbo lint",
+		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"format-all": "prettier --write \".\"",
+		"manypkg": "manypkg",
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"sass": "^1.57.1",
-		"svelte": "^3.55.0"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.20.7",
-		"@babel/eslint-parser": "^7.19.1",
-		"@sveltejs/adapter-auto": "1.0.0",
-		"@sveltejs/kit": "1.0.7",
-		"@sveltejs/package": "^1.0.2",
-		"@typescript-eslint/eslint-plugin": "^5.48.0",
-		"@typescript-eslint/parser": "^5.48.0",
-		"eslint": "^8.31.0",
-		"eslint-config-prettier": "^8.6.0",
-		"eslint-plugin-svelte3": "^4.0.0",
+		"@manypkg/cli": "^0.21.4",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.1.0",
-		"node-sass": "^8.0.0",
-		"prettier": "^2.8.2",
-		"prettier-plugin-svelte": "^2.9.0",
-		"svelte-check": "^3.0.2",
-		"svelte-preprocess": "^5.0.0",
-		"tslib": "^2.4.1",
-		"typescript": "^4.9.4",
-		"vite": "^4.0.4"
+		"prettier": "^3.2.5",
+		"turbo": "^2.1.2",
+		"typescript": "^5.4.5"
 	},
-	"type": "module",
-	"lint-staged": {
-		"*.{js,ts,svelte,scss}": "prettier --write",
-		"*.{ts,js,svelte}": "eslint --cache --fix"
+	"packageManager": "pnpm@9.10.0",
+	"engines": {
+		"node": ">=16"
 	}
 }

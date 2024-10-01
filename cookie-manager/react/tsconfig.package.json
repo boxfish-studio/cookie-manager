@@ -1,0 +1,14 @@
+{
+	"extends": "@repo/typescript-config/react.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@components": ["src/lib/components"],
+			"@components/*": ["src/lib/components/*"],
+			"@core": ["src/lib/cookie-core"],
+			"@core/*": ["src/lib/cookie-core/*"]
+		}
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
+}

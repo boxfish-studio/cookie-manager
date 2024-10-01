@@ -1,9 +1,12 @@
-name: SvelteKit Cookie Manager Release
+name: Cookie Manager Release
 
 on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
+
+env:
+  PACKAGE_DIR: ./apps/svelte/package
 
 jobs:
   publish-npm-package:
@@ -14,10 +17,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm run build
-      - run: npm run package
-      - run: cd package && npm publish --access=public
+      - run: pnpm install
+      - run: cd $PACKAGE_DIR && pnpm build && pnpm package
+      - run: cd $PACKAGE_DIR && cd package && npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
