@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+yarn.lock
+node_modules
+dist
+.svelte-kit
+.turbo

@@ -1,0 +1,50 @@
+{
+	"name": "@boxfish-studio/react-cookie-manager",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"main": "./dist/index.umd.js",
+	"module": "./dist/index.es.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"import": "./dist/index.es.js",
+			"require": "./dist/index.umd.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./dist/style.css": "./dist/style.css"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "tsc -b && vite build",
+		"preview": "vite preview",
+		"lint": "eslint .",
+		"build:package": "tsc -d && cross-env BUILDING_PACKAGE=true vite build"
+	},
+	"dependencies": {
+		"cross-env": "^7.0.3",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
+	},
+	"devDependencies": {
+		"@repo/eslint-config": "workspace:*",
+		"@repo/lint-staged-config": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"@types/node": "^20.16.5",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"@vitejs/plugin-react": "^4.3.1",
+		"@vitejs/plugin-react-swc": "^3.7.0",
+		"autoprefixer": "^10.4.20",
+		"eslint": "^8.57.1",
+		"postcss": "^8.4.47",
+		"tailwindcss": "^3.4.12",
+		"typescript": "^5.4.5",
+		"vite": "^4.4.11",
+		"vite-plugin-dts": "^3.9.1",
+		"vite-tsconfig-paths": "^4.2.1"
+	}
+}

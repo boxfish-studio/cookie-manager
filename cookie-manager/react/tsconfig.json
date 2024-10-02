@@ -1,0 +1,15 @@
+{
+	"extends": "@repo/typescript-config/react.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"allowImportingTsExtensions": true,
+		"paths": {
+			"@components": ["src/lib/components"],
+			"@components/*": ["src/lib/components/*"],
+			"@core": ["../core"],
+			"@core/*": ["../core/*"]
+		}
+	},
+	"include": ["src", "*.config.js", "*.config.ts"],
+	"exclude": ["node_modules"]
+}

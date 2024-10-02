@@ -1,0 +1,3 @@
+packages:
+  - 'cookie-manager/*'
+  - 'packages/*'
