@@ -1,10 +1,4 @@
-import type { CookieCategory } from './enums'
-
-export enum SupportedService {
-	GoogleAnalyticsUniversal = 'googleAnalyticsUniversal',
-	GoogleAnalytics4 = 'googleAnalytics4',
-	CustomCookie = 'customNecessaryCookies'
-}
+import type { CookieCategory, SupportedService } from './enums'
 
 export type Service = {
 	type: SupportedService

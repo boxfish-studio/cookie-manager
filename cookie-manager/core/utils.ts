@@ -1,5 +1,5 @@
+import type { Service, ServiceCookie, Theme } from './types'
 import { DEFAULT_THEME_COLORS } from './constants'
-import type { Theme } from './types'
 
 /*
  * General utils for managing cookies in Typescript.
@@ -13,13 +13,14 @@ export function getCookie(name: string): string | undefined {
 		return parts?.pop()?.split(';')?.shift() ?? undefined
 	}
 }
+
 export const setCookie = (name: string, val: string, expDays: number): void => {
 	const date = new Date()
 	const value = val
 	date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000)
 	document.cookie = name + '=' + value + '; expires=' + date.toUTCString() + '; path=/'
 }
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 export function deleteCookie(name: string) {
 	const date = new Date()
 	date.setTime(date.getTime() + -1 * 24 * 60 * 60 * 1000)
@@ -34,4 +35,13 @@ export const formatStyles = (theme: Theme): string =>
 export const getInlineStyle = (theme: Theme = {}): string => {
 	const mergedTheme = { ...DEFAULT_THEME_COLORS, ...theme }
 	return formatStyles(mergedTheme)
+}
+
+export function getAdditionalCookiesFromConfiguredServices(services: Service[]): ServiceCookie[] {
+	return services.reduce((accumulator, service) => {
+		const cookiesName = accumulator.map((cookie) => cookie.name)
+		const serviceCookies =
+			service?.cookies?.filter((cookie) => !cookiesName.includes(cookie.name)) ?? []
+		return accumulator.concat(serviceCookies)
+	}, [] as ServiceCookie[])
 }

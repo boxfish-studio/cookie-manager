@@ -1,17 +1,21 @@
 <script lang="ts">
 	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { page } from '$app/stores'
-	import { initializeServices, updatePathGA } from '$lib/app/services'
+	import { SupportedService } from '$core/enums'
+	import type { Service, ServiceCookie, SKCMConfiguration } from '$core/types'
+	import { initializeServices } from '$lib/app/services'
+	import { updatePathGA } from '$core/clientSideOnly'
 	import {
-		initConfiguredServices,
 		showCookieDisclaimer,
 		hasAllNeededNecessaryCookies,
 		isServiceEnabled,
-		submitNecessaryCookies
+		submitNecessaryCookies,
+		configuredServices,
+		necessaryCookies
 	} from '$lib/app/store'
-	import { type SKCMConfiguration, SupportedService } from '$core/types'
 	import { onMount } from 'svelte'
 	import { Disclaimer } from './'
+	import { initConfiguredServices } from '$core/services'
 
 	export let configuration: SKCMConfiguration
 
@@ -30,12 +34,19 @@
 	}
 
 	onMount(() => {
-		initConfiguredServices(
+		function onServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
+			configuredServices.set(services)
+			necessaryCookies.set(cookies)
+		}
+
+		initConfiguredServices({
 			googleAnalyticsUniversalId,
 			googleAnalytics4Id,
 			customNecessaryCookies,
-			adCookiesEnabled
-		)
+			adCookiesEnabled,
+			onServicesInitialized
+		})
+
 		if (hasAllNeededNecessaryCookies()) {
 			initializeServices()
 		} else {

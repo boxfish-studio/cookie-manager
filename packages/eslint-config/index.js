@@ -1,22 +1,70 @@
+/* eslint-env es2022 */
 const { resolve } = require('node:path')
-const { eslintRules, typescriptEslintRules } = require('./rules')
+const { eslintRules, typescriptEslintRules, eslintRulesOnlyTypescript } = require('./rules')
 
 const project = resolve(process.cwd(), 'tsconfig.json')
 
+const env = {
+	browser: true,
+	es2017: true,
+	node: true,
+	es6: true
+}
+
+const parserOptions = {
+	ecmaVersion: 'latest',
+	sourceType: 'module'
+}
+
+const config = {
+	extends: ['eslint:recommended', 'prettier'],
+	parser: '@babel/eslint-parser',
+	plugins: ['only-warn'],
+	parserOptions: {
+		...parserOptions,
+		requireConfigFile: false,
+		project
+	},
+	rules: {
+		...eslintRules
+	}
+}
+
+const tsOverrides = {
+	files: ['*.ts?(x)'],
+	extends: [
+		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/recommended-requiring-type-checking',
+		'plugin:import/recommended',
+		'plugin:import-x/recommended'
+	],
+
+	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		...parserOptions,
+		project
+	},
+	plugins: ['@typescript-eslint/eslint-plugin', 'import'],
+	rules: {
+		...eslintRules,
+		...eslintRulesOnlyTypescript,
+		...typescriptEslintRules
+	},
+	settings: {
+		'import/parsers': {
+			'@typescript-eslint/parser': ['.ts', '.tsx']
+		},
+		'import-x/resolver': {
+			typescript: true,
+			node: true
+		}
+	}
+}
+
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-	extends: [
-		'eslint:recommended',
-		'prettier',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:import/recommended'
-	],
-	plugins: ['only-warn', '@typescript-eslint/eslint-plugin'],
-	env: {
-		node: true,
-		browser: true,
-		es6: true
-	},
+	env,
 	settings: {
 		'import/resolver': {
 			typescript: {
@@ -24,15 +72,7 @@ module.exports = {
 			}
 		}
 	},
-	parser: '@typescript-eslint/parser',
-	rules: {
-		...eslintRules,
-		...typescriptEslintRules
-	},
+	...config,
 	ignorePatterns: ['node_modules/', 'dist/'],
-	overrides: [
-		{
-			files: ['*.js?(x)', '*.ts?(x)']
-		}
-	]
+	overrides: [tsOverrides]
 }

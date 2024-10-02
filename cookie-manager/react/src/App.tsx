@@ -1,4 +1,4 @@
-import { CookieLibrary, CookieManager } from '@components'
+import { CookieManager, CookieLibrary } from '@components'
 import { SKCMConfiguration } from '@core/types'
 
 function App(): React.JSX.Element {
@@ -35,8 +35,8 @@ function App(): React.JSX.Element {
 	}
 	return (
 		<>
-			<CookieLibrary configuration={configuration} />
 			<CookieManager configuration={configuration} />
+			<CookieLibrary configuration={configuration} />
 		</>
 	)
 }

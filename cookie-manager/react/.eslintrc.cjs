@@ -12,6 +12,7 @@ module.exports = {
 		}
 	},
 	parserOptions: {
-		project: true
+		project: true,
+		ecmaVersion: 8
 	}
 }

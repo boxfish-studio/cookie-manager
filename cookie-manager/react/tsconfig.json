@@ -4,6 +4,10 @@
 		"baseUrl": "./",
 		"allowImportingTsExtensions": true,
 		"paths": {
+			"@lib": ["src/lib"],
+			"@lib/*": ["src/lib/*"],
+			"@app": ["src/lib/app"],
+			"@app/*": ["src/lib/app/*"],
 			"@components": ["src/lib/components"],
 			"@components/*": ["src/lib/components/*"],
 			"@core": ["../core"],
