@@ -27,34 +27,6 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  cookie-manager/nextjs:
-    dependencies:
-      next:
-        specifier: 14.2.14
-        version: 14.2.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.3)
-      react:
-        specifier: ^18
-        version: 18.3.1
-      react-dom:
-        specifier: ^18
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@boxfish-studio/react-cookie-manager':
-        specifier: workspace:*
-        version: link:../react
-      '@types/node':
-        specifier: ^20
-        version: 20.16.5
-      '@types/react':
-        specifier: ^18
-        version: 18.3.8
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.3.0
-      typescript:
-        specifier: ^5
-        version: 5.4.5
-
   cookie-manager/react:
     dependencies:
       react:
@@ -185,6 +157,34 @@ importers:
       vite:
         specifier: ^4.4.11
         version: 4.5.5(@types/node@20.16.5)(sass@1.79.3)
+
+  demo/nextjs:
+    dependencies:
+      next:
+        specifier: 14.2.14
+        version: 14.2.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.3)
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@boxfish-studio/react-cookie-manager':
+        specifier: workspace:*
+        version: link:../../cookie-manager/react
+      '@types/node':
+        specifier: ^20
+        version: 20.16.5
+      '@types/react':
+        specifier: ^18
+        version: 18.3.8
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.0
+      typescript:
+        specifier: ^5
+        version: 5.4.5
 
   packages/eslint-config:
     devDependencies:
