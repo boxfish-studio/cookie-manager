@@ -38,7 +38,7 @@ interface InitConfiguredServicesArgs {
 		necessaryCookies: ServiceCookie[]
 	) => void
 }
-export function initConfiguredServices({
+export function initializeConfiguredServices({
 	services: {
 		googleAnalyticsUniversalId,
 		googleAnalytics4Id,
@@ -81,11 +81,11 @@ export function initConfiguredServices({
 	onConfiguredServicesInitialized?.(_configuredServices, _necessaryCookies)
 }
 
-export const stopServices = (
+export function stopCoreServices(
 	configuredServices: Service[],
 	removeAdditionalCookiesCb: () => void,
 	setServicesInitialized: (bool: boolean) => void
-): void => {
+): void {
 	const googleAnalyticsUniversalConfig = configuredServices?.find(
 		({ type }) => type === SupportedService.GoogleAnalyticsUniversal
 	)
@@ -99,12 +99,12 @@ export const stopServices = (
 	setServicesInitialized?.(false)
 }
 
-export const submitNecessaryCookies = (
+export function setNecessaryCookies(
 	value: 'true' | 'false',
 	configuredServices: Service[],
 	necessaryCookies: ServiceCookie[],
 	setConfiguredServices: (services: Service[]) => void
-): void => {
+): void {
 	const SKCM_NECESSARY_COOKIES: string[] = [
 		SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
 		SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name
@@ -125,7 +125,7 @@ export const submitNecessaryCookies = (
 	setConfiguredServices(_configuredServices)
 }
 
-export const removeAdditionalCookies = (necessaryCookies: ServiceCookie[]): void => {
+export function clearAdditionalCookies(necessaryCookies: ServiceCookie[]): void {
 	const _necessaryCookies = necessaryCookies.map((cookie) => cookie.name)
 	document.cookie
 		?.split('; ')
@@ -138,7 +138,7 @@ export const removeAdditionalCookies = (necessaryCookies: ServiceCookie[]): void
 }
 
 // Check user has all needed necessary cookies already set
-export const hasAllNeededNecessaryCookies = (necessaryCookies: ServiceCookie[]): boolean => {
+export function checkAllRequiredCookies(necessaryCookies: ServiceCookie[]): boolean {
 	const neededCookies = necessaryCookies?.filter((cookie) => cookie?.showDisclaimerIfMissing) ?? []
 	for (let i = 0; i < neededCookies?.length; i++) {
 		if (!getCookie(neededCookies[i].name)?.length) {

@@ -2,9 +2,9 @@ import { type Readable, type Writable, derived, get, writable } from 'svelte/sto
 import { SupportedService } from '$core/enums'
 import type { Service, ServiceCookie } from '$core/types'
 import {
-	submitNecessaryCookies as _submitNecessaryCookies,
-	removeAdditionalCookies as _removeAdditionalCookies,
-	hasAllNeededNecessaryCookies as _hasAllNeededNecessaryCookies
+	setNecessaryCookies,
+	clearAdditionalCookies,
+	checkAllRequiredCookies
 } from '$core/services'
 import {
 	INITIAL_ADDITIONAL_COOKIES,
@@ -27,15 +27,10 @@ export const additionalCookies: Readable<ServiceCookie[]> = derived(
 
 // Check user has all needed necessary cookies already set
 export const hasAllNeededNecessaryCookies = (): boolean =>
-	_hasAllNeededNecessaryCookies(get(necessaryCookies))
+	checkAllRequiredCookies(get(necessaryCookies))
 
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
-	_submitNecessaryCookies(
-		value,
-		get(configuredServices),
-		get(necessaryCookies),
-		configuredServices.set
-	)
+	setNecessaryCookies(value, get(configuredServices), get(necessaryCookies), configuredServices.set)
 }
 
 export const isServiceEnabled = (serviceType: SupportedService): boolean => {
@@ -44,5 +39,5 @@ export const isServiceEnabled = (serviceType: SupportedService): boolean => {
 }
 
 export const removeAdditionalCookies = (): void => {
-	_removeAdditionalCookies(get(necessaryCookies))
+	clearAdditionalCookies(get(necessaryCookies))
 }

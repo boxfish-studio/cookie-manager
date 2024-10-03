@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import type { Service, ServiceCookie, SKCMConfiguration } from '@core/types'
 import { useCookieManagerContext } from '@lib/app/context'
 import {
-	hasAllNeededNecessaryCookies,
-	initConfiguredServices,
-	submitNecessaryCookies
+	checkAllRequiredCookies,
+	initializeConfiguredServices,
+	setNecessaryCookies
 } from '@core/services'
 import { useManageServices } from '@lib/app/hooks'
 import { Disclaimer } from '..'
@@ -18,7 +18,7 @@ export function CookieManager({ configuration }: CookieManagerProps): React.JSX.
 	const { initializeServices } = useManageServices()
 
 	useEffect(() => {
-		initConfiguredServices({
+		initializeConfiguredServices({
 			services: configuration?.services,
 			onConfiguredServicesInitialized
 		})
@@ -30,7 +30,7 @@ export function CookieManager({ configuration }: CookieManagerProps): React.JSX.
 	}, [])
 
 	useEffect(() => {
-		const canInitializeServices = hasAllNeededNecessaryCookies(necessaryCookies.value)
+		const canInitializeServices = checkAllRequiredCookies(necessaryCookies.value)
 		if (canInitializeServices) {
 			initializeServices()
 		} else {
@@ -39,7 +39,7 @@ export function CookieManager({ configuration }: CookieManagerProps): React.JSX.
 	}, [necessaryCookies.value])
 
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		submitNecessaryCookies(
+		setNecessaryCookies(
 			value,
 			configuredServices.value,
 			necessaryCookies.value,

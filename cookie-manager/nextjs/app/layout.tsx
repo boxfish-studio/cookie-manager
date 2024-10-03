@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import { Disclaimer } from './components/CookieManager'
 import { ContextProviders } from './components/Contexts'
 import './globals.css'
+import Link from 'next/link'
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -29,6 +30,10 @@ export default function RootLayout({
 		<html lang="en">
 			<ContextProviders>
 				<body className={`${geistSans.variable} ${geistMono.variable}`}>
+					<nav>
+						<Link href="/">Home</Link> | <Link href="/test-page">Test Page</Link> |{' '}
+						<Link href="/cookie-library">Cookie Library</Link>
+					</nav>
 					{children}
 					<Disclaimer />
 				</body>

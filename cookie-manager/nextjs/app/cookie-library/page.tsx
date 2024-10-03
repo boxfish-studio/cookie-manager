@@ -1,9 +1,9 @@
 'use client'
 
-import { CookieLibrary } from '@boxfish-studio/react-cookie-manager'
+import { CookieLibrary, SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
 
 export default function Page() {
-	const configuration: React.ComponentProps<typeof CookieLibrary>['configuration'] = {
+	const configuration: SKCMConfiguration = {
 		theme: {
 			primary: '#14cabf',
 			dark: '#131f37',

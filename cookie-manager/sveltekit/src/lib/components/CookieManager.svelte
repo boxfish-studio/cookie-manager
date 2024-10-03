@@ -3,13 +3,13 @@
 	import { page } from '$app/stores'
 	import { SupportedService } from '$core/enums'
 	import type { Service, ServiceCookie, SKCMConfiguration } from '$core/types'
-	import { initializeServices } from '$lib/app/services'
+	import { initServices } from '$lib/app/services'
 	import { updatePathGA } from '$core/clientSideOnly'
 	import {
 		showCookieDisclaimer,
 		hasAllNeededNecessaryCookies,
 		isServiceEnabled,
-		submitNecessaryCookies,
+		setNecessaryCookies,
 		configuredServices,
 		necessaryCookies
 	} from '$lib/app/store'
@@ -48,16 +48,16 @@
 		})
 
 		if (hasAllNeededNecessaryCookies()) {
-			initializeServices()
+			initServices()
 		} else {
 			showCookieDisclaimer.set(true)
 		}
 	})
 
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		submitNecessaryCookies(value)
+		setNecessaryCookies(value)
 		if (value === 'true') {
-			initializeServices()
+			initServices()
 		}
 		showCookieDisclaimer.set(false)
 	}

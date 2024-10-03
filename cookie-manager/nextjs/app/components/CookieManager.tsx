@@ -1,15 +1,24 @@
 'use client'
 
-import { CookieManager } from '@boxfish-studio/react-cookie-manager'
+import {
+	CookieManager,
+	SKCMConfiguration,
+	useUpdatePathGA
+} from '@boxfish-studio/react-cookie-manager'
+import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function Disclaimer() {
-	const configuration: React.ComponentProps<typeof CookieManager>['configuration'] = {
+	const updatePageGA = useUpdatePathGA()
+	const pathname = usePathname()
+
+	const configuration: SKCMConfiguration = {
 		disclaimer: {
 			title: 'This website uses cookies',
 			body: 'By using this site, you agree with our use of cookies'
 		},
 		services: {
-			googleAnalytics4Id: 'G-XXXXXXXX'
+			googleAnalytics4Id: 'G-XXXXXXXXXX'
 		},
 		theme: {
 			primary: '#14cabf',
@@ -18,6 +27,10 @@ export function Disclaimer() {
 			light: '#fff'
 		}
 	}
+
+	useEffect(() => {
+		updatePageGA(pathname)
+	}, [pathname])
 
 	return <CookieManager configuration={configuration} />
 }
