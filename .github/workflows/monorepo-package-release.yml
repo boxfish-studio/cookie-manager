@@ -1,4 +1,4 @@
-name: Notification Manager package release
+name: Notification Manager Package Release
 
 on:
   push:
@@ -30,14 +30,14 @@ jobs:
             exit 1
           fi
 
-      - name: Publish package
-        # The package directory is the library name e.g "apps/sveltekit | apps/react"
+      - name: Install Dependencies
+        run: pnpm i
+      - name: Build and Publish
+        # The package directory is the library name e.g "cookie-manager/sveltekit | cookie-manager/react"
         run: |
           cd cookie-manager/${{ steps.detect_tag.outputs.library_dir }} && \
-          pnpm i && \
           pnpm package && \
-          cp ../../LICENSE ../../NOTICE . && \
-          npm publish --access=public
+          pnpm package:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

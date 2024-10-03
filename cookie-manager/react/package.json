@@ -1,6 +1,11 @@
 {
 	"name": "@boxfish-studio/react-cookie-manager",
 	"version": "0.0.0",
+	"author": "Boxfish Studio <info@boxfish.studio>",
+	"license": "Apache-2.0",
+	"repository": "github:boxfish-studio/cookie-manager",
+	"homepage": "https://github.com/boxfish-studio/cookie-manager/cookie-manager/react",
+	"bugs": "https://github.com/boxfish-studio/cookie-manager/issues",
 	"type": "module",
 	"main": "./dist/index.umd.js",
 	"module": "./dist/index.es.js",
@@ -24,13 +29,11 @@
 		"build": "tsc -b && vite build",
 		"preview": "vite preview",
 		"lint": "eslint . --max-warnings 0",
-		"pre-package": "cp ../core ./src/lib/cookie-core -r",
-		"build:package": "tsc -d && cross-env BUILDING_PACKAGE=true vite build",
-		"postpackage": "pnpm clean:postpackage",
-		"clean:postpackage": "rm -rf ./src/lib/cookie-core",
+		"prepackage": "cp ../core ./src/lib/cookie-core -r",
+		"package": "tsc -d && cross-env BUILDING_PACKAGE=true vite build",
+		"postpackage": "rm -rf ./src/lib/cookie-core",
 		"clean": "rm -rf ./src/lib/cookie-core ./dist",
-		"package": "pnpm pre-package && pnpm build:package && pnpm postpackage",
-		"prepublishOnly": "pnpm clean && pnpm package"
+		"package:publish": "pnpm publish --access public  --no-git-checks"
 	},
 	"dependencies": {
 		"react": "^18.3.1",
