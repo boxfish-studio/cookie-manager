@@ -150,7 +150,7 @@ importers:
         version: 5.1.4(@babel/core@7.25.2)(postcss-load-config@4.0.2(postcss@8.4.47))(postcss@8.4.47)(sass@1.79.3)(svelte@3.59.2)(typescript@5.4.5)
       tslib:
         specifier: ^2.4.1
-        version: 2.6.2
+        version: 2.7.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -3053,9 +3053,6 @@ packages:
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
 
-  tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
@@ -3959,7 +3956,7 @@ snapshots:
   '@sveltejs/vite-plugin-svelte-inspector@1.0.4(@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3)))(svelte@3.59.2)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@3.59.2)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3))
-      debug: 4.3.4
+      debug: 4.3.7
       svelte: 3.59.2
       vite: 4.5.5(@types/node@20.16.5)(sass@1.79.3)
     transitivePeerDependencies:
@@ -3968,7 +3965,7 @@ snapshots:
   '@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3))':
     dependencies:
       '@sveltejs/vite-plugin-svelte-inspector': 1.0.4(@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3)))(svelte@3.59.2)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3))
-      debug: 4.3.4
+      debug: 4.3.7
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.11
@@ -4045,24 +4042,24 @@ snapshots:
 
   '@types/babel__core@7.20.5':
     dependencies:
-      '@babel/parser': 7.23.3
-      '@babel/types': 7.23.3
+      '@babel/parser': 7.25.6
+      '@babel/types': 7.25.6
       '@types/babel__generator': 7.6.8
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.20.6
 
   '@types/babel__generator@7.6.8':
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.25.6
 
   '@types/babel__template@7.4.4':
     dependencies:
-      '@babel/parser': 7.23.3
-      '@babel/types': 7.23.3
+      '@babel/parser': 7.25.6
+      '@babel/types': 7.25.6
 
   '@types/babel__traverse@7.20.6':
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.25.6
 
   '@types/cookie@0.5.4': {}
 
@@ -5505,7 +5502,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   lowercase-keys@3.0.0: {}
 
@@ -5622,7 +5619,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   node-releases@2.0.13: {}
 
@@ -5737,7 +5734,7 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   path-browserify@1.0.1: {}
 
@@ -6164,7 +6161,7 @@ snapshots:
 
   sucrase@3.35.0:
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/gen-mapping': 0.3.5
       commander: 4.1.1
       glob: 10.4.5
       lines-and-columns: 1.2.4
@@ -6188,7 +6185,7 @@ snapshots:
 
   svelte-check@3.8.6(@babel/core@7.25.2)(postcss-load-config@4.0.2(postcss@8.4.47))(postcss@8.4.47)(sass@1.79.3)(svelte@3.59.2):
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.25
       chokidar: 3.6.0
       picocolors: 1.1.0
       sade: 1.8.1
@@ -6323,8 +6320,6 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tslib@2.6.2: {}
-
   tslib@2.7.0: {}
 
   turbo-darwin-64@2.1.2:
@@ -6442,7 +6437,7 @@ snapshots:
       '@microsoft/api-extractor': 7.43.0(@types/node@20.16.5)
       '@rollup/pluginutils': 5.1.0(rollup@3.29.5)
       '@vue/language-core': 1.8.27(typescript@5.4.5)
-      debug: 4.3.4
+      debug: 4.3.7
       kolorist: 1.8.0
       magic-string: 0.30.11
       typescript: 5.4.5
@@ -6463,7 +6458,7 @@ snapshots:
 
   vite-tsconfig-paths@4.2.1(typescript@5.4.5)(vite@4.5.5(@types/node@20.16.5)(sass@1.79.3)):
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.7
       globrex: 0.1.2
       tsconfck: 2.1.2(typescript@5.4.5)
     optionalDependencies:
