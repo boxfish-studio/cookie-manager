@@ -4,7 +4,7 @@
 	"author": "Boxfish Studio <info@boxfish.studio>",
 	"license": "Apache-2.0",
 	"repository": "github:boxfish-studio/cookie-manager",
-	"homepage": "https://github.com/boxfish-studio/cookie-manager/cookie-manager/react",
+	"homepage": "https://github.com/boxfish-studio/cookie-manager/tree/main/cookie-manager/react#readme",
 	"bugs": "https://github.com/boxfish-studio/cookie-manager/issues",
 	"type": "module",
 	"main": "./dist/index.umd.js",
