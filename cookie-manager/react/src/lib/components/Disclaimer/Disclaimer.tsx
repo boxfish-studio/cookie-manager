@@ -1,8 +1,7 @@
-// import { useEffect, useState } from 'react'
 import { DEFAULT_DISCLAIMER_CONFIG } from '@core/constants'
 import type { DisclaimerConfiguration, Theme } from '@core/types'
-// import { getInlineStyle } from '@core/utils'
 import { Button } from '..'
+import { parseThemeColors } from '@lib/app/parseStyles'
 import './Disclaimer.css'
 
 interface DisclaimerProps {
@@ -14,21 +13,18 @@ interface DisclaimerProps {
 
 export function Disclaimer({
 	configuration = {},
+	theme,
 	allowCookies,
 	declineCookies
 }: DisclaimerProps): React.JSX.Element {
-	// const [style, setStyle] = useState<string>('')
 	const { title, body, policyUrl, policyText, acceptButtonText, rejectButtonText } = {
 		...DEFAULT_DISCLAIMER_CONFIG,
 		...configuration
 	}
-
-	// useEffect(() => {
-	// 	setStyle(getInlineStyle(theme))
-	// }, [theme])
+	const styles = parseThemeColors(theme)
 
 	return (
-		<div id="skcm-cookie-disclaimer">
+		<div id="skcm-cookie-disclaimer" style={styles}>
 			<div id="skcm-cookie-disclaimer__body">
 				{title && <h6 id="skcm-title">{title}</h6>}
 				<p id="skcm-body">

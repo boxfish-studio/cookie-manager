@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import type { Service, ServiceCookie, SKCMConfiguration } from '@core/types'
-import { Disclaimer } from '..'
 import { useCookieManagerContext } from '@lib/app/context'
 import {
 	hasAllNeededNecessaryCookies,
@@ -8,74 +7,61 @@ import {
 	submitNecessaryCookies
 } from '@core/services'
 import { useManageServices } from '@lib/app/hooks'
+import { Disclaimer } from '..'
 
 interface CookieManagerProps {
 	configuration: SKCMConfiguration
 }
 
 export function CookieManager({ configuration }: CookieManagerProps): React.JSX.Element {
-	const {
-		setConfiguredServices,
-		setNecessaryCookies,
-		necessaryCookies,
-		configuredServices,
-		showCookieDisclaimer,
-		setShowCookieDisclaimer
-	} = useCookieManagerContext()
+	const { necessaryCookies, configuredServices, showCookieDisclaimer } = useCookieManagerContext()
 	const { initializeServices } = useManageServices()
 
-	const {
-		googleAnalyticsUniversalId,
-		googleAnalytics4Id,
-		customNecessaryCookies,
-		adCookiesEnabled
-	} = configuration?.services ?? {}
-
 	useEffect(() => {
-		// eslint-disable-next-line no-console
-		console.log('CookieManager: useEffect')
-		function onServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
-			setConfiguredServices(services)
-			setNecessaryCookies(cookies)
-		}
 		initConfiguredServices({
-			googleAnalyticsUniversalId,
-			googleAnalytics4Id,
-			customNecessaryCookies,
-			adCookiesEnabled,
-			onServicesInitialized
+			services: configuration?.services,
+			onConfiguredServicesInitialized
 		})
 
-		const canInitializeServices = hasAllNeededNecessaryCookies(necessaryCookies)
+		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
+			configuredServices.setValue(services)
+			necessaryCookies.setValue(cookies)
+		}
+	}, [])
 
+	useEffect(() => {
+		const canInitializeServices = hasAllNeededNecessaryCookies(necessaryCookies.value)
 		if (canInitializeServices) {
 			initializeServices()
 		} else {
-			setShowCookieDisclaimer(true)
+			showCookieDisclaimer.setValue(true)
 		}
-		// eslint-disable-next-line no-console
-		console.log('CookieManager: useEffect end', { canInitializeServices, showCookieDisclaimer })
-	}, [necessaryCookies])
+	}, [necessaryCookies.value])
 
-	const handleSubmitNecessaryCookies = (value: 'true' | 'false') => {
-		submitNecessaryCookies(value, configuredServices, necessaryCookies, setConfiguredServices)
+	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
+		submitNecessaryCookies(
+			value,
+			configuredServices.value,
+			necessaryCookies.value,
+			configuredServices.setValue
+		)
 		if (value === 'true') {
 			initializeServices()
 		}
-		setShowCookieDisclaimer(false)
+		showCookieDisclaimer.setValue(false)
 	}
 
-	const allowCookies = () => {
+	function allowCookies(): void {
 		handleSubmitNecessaryCookies('true')
 	}
 
-	const declineCookies = () => {
+	function declineCookies(): void {
 		handleSubmitNecessaryCookies('false')
 	}
 
 	return (
 		<>
-			{showCookieDisclaimer && (
+			{showCookieDisclaimer.value && (
 				<Disclaimer
 					allowCookies={allowCookies}
 					declineCookies={declineCookies}

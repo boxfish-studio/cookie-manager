@@ -37,15 +37,19 @@ const tsOverrides = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/recommended-requiring-type-checking',
 		'plugin:import/recommended',
-		'plugin:import-x/recommended'
+		'plugin:import-x/recommended',
+		'plugin:react/recommended'
 	],
 
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		...parserOptions,
-		project
+		project,
+		ecmaFeatures: {
+			jsx: true
+		}
 	},
-	plugins: ['@typescript-eslint/eslint-plugin', 'import'],
+	plugins: ['@typescript-eslint/eslint-plugin', 'import', 'react'],
 	rules: {
 		...eslintRules,
 		...eslintRulesOnlyTypescript,

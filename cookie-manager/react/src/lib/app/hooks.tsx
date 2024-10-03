@@ -4,39 +4,30 @@ import {
 	stopServices as removeServices
 } from '@core/services'
 import { useCookieManagerContext } from './context'
-import { useCallback } from 'react'
 import { SupportedService } from '@core/enums'
 import { updatePathGA } from '@core/clientSideOnly'
+import { useCallback } from 'react'
 
-interface UseManageServices {
+export function useManageServices(): {
 	initializeServices: () => void
 	stopServices: () => void
-	isServiceEnabled: (service: SupportedService) => boolean
-}
+	removeUnnecessaryCookies: () => void
+} {
+	const { servicesInitialized, configuredServices, necessaryCookies } = useCookieManagerContext()
 
-export function useManageServices(): UseManageServices {
-	const {
-		servicesInitialized,
-		setServicesInitialized,
-		configuredServices,
-		removeUnnecessaryCookies
-	} = useCookieManagerContext()
+	const removeUnnecessaryCookies = useCallback(() => {
+		removeAdditionalCookies(necessaryCookies.value)
+	}, [necessaryCookies])
 
 	const initializeServices = useCallback(() => {
-		initServices(servicesInitialized, configuredServices, setServicesInitialized)
-	}, [servicesInitialized, configuredServices, setServicesInitialized])
+		initServices(servicesInitialized.value, configuredServices.value, servicesInitialized.setValue)
+	}, [necessaryCookies, configuredServices])
 
 	const stopServices = useCallback(() => {
-		removeServices(configuredServices, removeUnnecessaryCookies, setServicesInitialized)
-	}, [configuredServices, removeUnnecessaryCookies, setServicesInitialized])
+		removeServices(configuredServices.value, removeUnnecessaryCookies, servicesInitialized.setValue)
+	}, [configuredServices, necessaryCookies])
 
-	const isServiceEnabled = useCallback(
-		(service: SupportedService) =>
-			configuredServices.find(({ type }) => type === service)?.enabled ?? false,
-		[configuredServices]
-	)
-
-	return { initializeServices, stopServices, isServiceEnabled }
+	return { initializeServices, stopServices, removeUnnecessaryCookies }
 }
 
 interface UseUpdatePathGAProps {
@@ -48,29 +39,19 @@ export function useUpdatePathGA({
 	googleAnalyticsUniversalId,
 	googleAnalytics4Id
 }: UseUpdatePathGAProps): (pathname: string) => void {
-	const { isServiceEnabled } = useManageServices()
+	const { configuredServices } = useCookieManagerContext()
 
-	const cb = useCallback(
-		(pathname: string) => {
-			if (pathname) {
-				if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
-					updatePathGA(googleAnalyticsUniversalId, pathname)
-				} else if (isServiceEnabled(SupportedService.GoogleAnalytics4)) {
-					updatePathGA(googleAnalytics4Id, pathname)
-				}
+	function isServiceEnabled(service: SupportedService): boolean {
+		return configuredServices.value.find(({ type }) => type === service)?.enabled ?? false
+	}
+
+	return (pathname: string) => {
+		if (pathname) {
+			if (isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)) {
+				updatePathGA(googleAnalyticsUniversalId, pathname)
+			} else if (isServiceEnabled(SupportedService.GoogleAnalytics4)) {
+				updatePathGA(googleAnalytics4Id, pathname)
 			}
-		},
-		[googleAnalytics4Id, googleAnalyticsUniversalId]
-	)
-	return cb
-}
-
-export function useRemoveNecessaryCookies(): () => void {
-	const { necessaryCookies } = useCookieManagerContext()
-
-	const cb = useCallback(() => {
-		removeAdditionalCookies(necessaryCookies)
-	}, [necessaryCookies])
-
-	return cb
+		}
+	}
 }

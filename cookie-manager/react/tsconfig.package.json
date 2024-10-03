@@ -13,6 +13,6 @@
 			"@core/*": ["src/lib/cookie-core/*"]
 		}
 	},
-	"include": ["src"],
+	"include": ["src/lib"],
 	"exclude": ["node_modules"]
 }

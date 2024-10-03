@@ -4,7 +4,7 @@ import {
 	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
 } from './cookieLib'
 import { CookieCategory, SupportedService } from './enums'
-import type { Service, ServiceCookie } from './types'
+import type { Service, ServiceCookie, SKCMConfiguration } from './types'
 import { deleteCookie, getCookie, setCookie } from './utils'
 import { loadGoogleAnalytics, removeGoogleAnalytics } from './clientSideOnly'
 import { COOKIE_EXPIRATION_DAYS } from './constants'
@@ -14,20 +14,16 @@ export function initializeServices(
 	configuredServices: Service[],
 	setServicesInitialized: (bool: boolean) => void
 ): void {
-	console.log('before initializing services')
 	if (!servicesInitialized) {
-		console.log('initializing services')
 		const googleAnalyticsUniversalConfig = configuredServices.find(
 			({ type }) => type === SupportedService.GoogleAnalyticsUniversal
 		)
 		const googleAnalytics4Config = configuredServices.find(
 			({ type }) => type === SupportedService.GoogleAnalytics4
 		)
-		console.log('googleAnalyticsUniversalConfig', googleAnalyticsUniversalConfig)
 		if (googleAnalyticsUniversalConfig?.enabled) {
 			loadGoogleAnalytics(googleAnalyticsUniversalConfig.id, setServicesInitialized)
 		} else {
-			console.log('googleAnalytics4Config', googleAnalytics4Config)
 			if (googleAnalytics4Config?.enabled) {
 				loadGoogleAnalytics(googleAnalytics4Config.id, setServicesInitialized)
 			}
@@ -36,18 +32,20 @@ export function initializeServices(
 }
 
 interface InitConfiguredServicesArgs {
-	googleAnalyticsUniversalId?: string
-	googleAnalytics4Id?: string
-	customNecessaryCookies?: ServiceCookie[]
-	adCookiesEnabled?: boolean
-	onServicesInitialized: (configuredServices: Service[], necessaryCookies: ServiceCookie[]) => void
+	services: SKCMConfiguration['services']
+	onConfiguredServicesInitialized: (
+		configuredServices: Service[],
+		necessaryCookies: ServiceCookie[]
+	) => void
 }
 export function initConfiguredServices({
-	googleAnalyticsUniversalId,
-	googleAnalytics4Id,
-	customNecessaryCookies,
-	adCookiesEnabled,
-	onServicesInitialized
+	services: {
+		googleAnalyticsUniversalId,
+		googleAnalytics4Id,
+		adCookiesEnabled,
+		customNecessaryCookies
+	} = {},
+	onConfiguredServicesInitialized
 }: InitConfiguredServicesArgs): void {
 	let _configuredServices: Service[] = []
 	let _necessaryCookies: ServiceCookie[] = []
@@ -80,7 +78,7 @@ export function initConfiguredServices({
 		_configuredServices = filteredCookies
 	}
 
-	onServicesInitialized?.(_configuredServices, _necessaryCookies)
+	onConfiguredServicesInitialized?.(_configuredServices, _necessaryCookies)
 }
 
 export const stopServices = (

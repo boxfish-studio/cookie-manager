@@ -5,28 +5,29 @@ import { useManageServices } from '@lib/app/hooks'
 import { useCookieManagerContext } from '@lib/app/context'
 import { submitNecessaryCookies } from '@core/services'
 import { useState } from 'react'
+import { parseThemeColors } from '@lib/app/parseStyles'
 import './CookieLibrary.css'
 
 interface CookieLibraryProps {
 	configuration: SKCMConfiguration
 }
-export function CookieLibrary(_: CookieLibraryProps): React.JSX.Element {
-	const { configuredServices, necessaryCookies, setConfiguredServices, setShowCookieDisclaimer } =
-		useCookieManagerContext()
+export function CookieLibrary({ configuration: { theme } }: CookieLibraryProps): React.JSX.Element {
+	const { configuredServices, necessaryCookies, showCookieDisclaimer } = useCookieManagerContext()
 	const { initializeServices, stopServices } = useManageServices()
-
 	const [hasAllowedCookies, setHasAllowedCookies] = useState<'true' | 'false'>('false')
+
+	const styles = parseThemeColors(theme)
 
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
 			submitNecessaryCookies(
 				hasAllowedCookies,
-				configuredServices,
-				necessaryCookies,
-				setConfiguredServices
+				configuredServices.value,
+				necessaryCookies.value,
+				configuredServices.setValue
 			)
 			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
-			setShowCookieDisclaimer(false)
+			showCookieDisclaimer.setValue(false)
 		}
 	}
 
@@ -36,7 +37,7 @@ export function CookieLibrary(_: CookieLibraryProps): React.JSX.Element {
 
 	return (
 		<>
-			<div id="skcm-cookie-library">
+			<div id="skcm-cookie-library" style={styles}>
 				{information.map((section, sectionKey) => (
 					<section id={`skcm-cookie-library__${section?.id}`} key={sectionKey}>
 						{section?.title && <h4>{section?.title}</h4>}

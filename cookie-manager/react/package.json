@@ -1,6 +1,6 @@
 {
-	"name": "vmmad-test-package-react",
-	"version": "0.0.3",
+	"name": "@boxfish-studio/react-cookie-manager",
+	"version": "0.0.0",
 	"type": "module",
 	"main": "./dist/index.umd.js",
 	"module": "./dist/index.es.js",
@@ -33,9 +33,9 @@
 		"prepublishOnly": "pnpm clean && pnpm package"
 	},
 	"dependencies": {
-		"cross-env": "^7.0.3",
 		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
+		"react-dom": "^18.3.1",
+		"sass": "^1.57.1"
 	},
 	"devDependencies": {
 		"@repo/eslint-config": "workspace:*",
@@ -47,6 +47,7 @@
 		"@vitejs/plugin-react": "^4.3.1",
 		"@vitejs/plugin-react-swc": "^3.7.0",
 		"autoprefixer": "^10.4.20",
+		"cross-env": "^7.0.3",
 		"eslint": "^8.57.1",
 		"postcss": "^8.4.47",
 		"tailwindcss": "^3.4.12",
