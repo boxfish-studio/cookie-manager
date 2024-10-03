@@ -17,6 +17,12 @@
 		"package": {
 			"inputs": ["$TURBO_DEFAULT$"],
 			"outputs": ["package.json"]
+		},
+		"@boxfish-studio/react-cookie-manager#package": {},
+		"demo-nextjs#dev": {
+			"dependsOn": ["@boxfish-studio/react-cookie-manager#package"],
+			"inputs": ["$TURBO_DEFAULT$"],
+			"outputs": [".next/**", "!.next/cache/**"]
 		}
 	}
 }
