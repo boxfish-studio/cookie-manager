@@ -2,13 +2,13 @@
 
 import {
 	CookieManager,
-	SKCMConfiguration,
-	useUpdatePathGA
+	useUpdatePathGA,
+	type SKCMConfiguration
 } from '@boxfish-studio/react-cookie-manager'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
-export function Disclaimer() {
+export function Disclaimer(): React.JSX.Element {
 	const updatePageGA = useUpdatePathGA()
 	const pathname = usePathname()
 

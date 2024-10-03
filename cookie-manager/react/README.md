@@ -38,15 +38,15 @@ $ pnpm add @boxfish-studio/react-cookie-manager
 
 ## How to use 📝
 
-### Show a popup
+### Configure the Disclaimer
 
-Import the `CookieManager` component to your React page and pass the configuration with your desired theme settings:
+Import the `CookieManager` into a component in your React app and pass the configuration with your desired theme settings:
 
 ```tsx
+// Disclaimer.tsx
 'use client'
 
-import { CookieManager } from '@boxfish-studio/react-cookie-manager'
-import type { SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
+import { CookieManager, type SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
 
 export default function Disclaimer(): React.JSX.Element {
 	const configuration: SKCMConfiguration = {
@@ -80,8 +80,11 @@ Import the `useUpdatePathGA` hook and use it with your router of preference:
 'use client'
 
 import { useEffect } from 'react'
-import { CookieManager, useUpdatePathGA } from '@boxfish-studio/react-cookie-manager'
-import type { SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
+import {
+	CookieManager,
+	useUpdatePathGA,
+	type SKCMConfiguration
+} from '@boxfish-studio/react-cookie-manager'
 import { usePathname } from 'next/navigation'
 
 export default function Disclaimer(): React.JSX.Element {
@@ -100,6 +103,47 @@ export default function Disclaimer(): React.JSX.Element {
 }
 ```
 
+### Add the CookieManagerProvider
+
+Import the `CookieManagerProvider` and add it to the list of providers:
+
+```tsx
+// ContextProviders.tsx
+'use client'
+
+import { CookieManagerProvider } from '@boxfish-studio/react-cookie-manager'
+
+export function ContextProviders({ children }: React.PropsWithChildren): React.JSX.Element {
+	return <CookieManagerProvider>{children}</CookieManagerProvider>
+}
+```
+
+Then import it to your layout and add the `<Disclaimer />` component:
+
+```tsx
+// layout.tsx
+
+import { ContextProviders } from './ContextProviders.tsx'
+import { Disclaimer } from './components'
+
+export default function RootLayout({
+	children
+}: Readonly<{
+	children: React.ReactNode
+}>): React.JSX.Element {
+	return (
+		<ContextProviders>
+			<html lang="en">
+				<body>
+					{children}
+					<Disclaimer />
+				</body>
+			</html>
+		</ContextProviders>
+	)
+}
+```
+
 ### Show the cookie library
 
 Import the `CookieLibrary` component to your svelte file and pass the configuration with your desired settings, as shown in the example below.
@@ -109,7 +153,7 @@ You can also use the library without any configuration or you can pass a `theme`
 ```tsx
 'use client'
 
-import { CookieLibrary, SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
+import { CookieLibrary, type SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
 
 export default function CookieLibraryPage() {
 	const configuration: SKCMConfiguration = {

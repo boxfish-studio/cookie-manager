@@ -1,8 +1,8 @@
 'use client'
 
-import { CookieLibrary, SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
+import { CookieLibrary, type SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
 
-export default function Page() {
+export default function Page(): React.JSX.Element {
 	const configuration: SKCMConfiguration = {
 		theme: {
 			primary: '#14cabf',

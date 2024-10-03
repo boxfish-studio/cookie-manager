@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Disclaimer } from './components/CookieManager'
 import { ContextProviders } from './components/Contexts'
-import './globals.css'
 import Link from 'next/link'
+import './globals.css'
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -25,7 +25,7 @@ export default function RootLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode
-}>) {
+}>): React.JSX.Element {
 	return (
 		<html lang="en">
 			<ContextProviders>
