@@ -6,13 +6,22 @@
 	"repository": "github:boxfish-studio/sveltekit-cookie-manager",
 	"homepage": "https://github.com/boxfish-studio/sveltekit-cookie-manager",
 	"bugs": "https://github.com/boxfish-studio/sveltekit-cookie-manager/issues",
+	"svelte": "./index.js",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"svelte": "./index.js",
+			"default": "./index.js"
+		}
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"pre-package": "cp ../core ./src/lib/cookie-core -r",
+		"pre-package": "pnpm prepare && cp ../core ./src/lib/cookie-core -r",
 		"build:package": "pnpm pre-package && svelte-package",
 		"postpackage": "pnpm clean",
-		"clean": "rm -r ./package ./src/lib/cookie-core",
+		"clean": "rm -r ./src/lib/cookie-core",
+		"clean-all": "rm -r ./package ./src/lib/cookie-core",
 		"package": "cross-env BUILDING_PACKAGE=true pnpm build:package",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
