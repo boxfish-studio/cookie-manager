@@ -52,20 +52,14 @@ export function useUpdatePathGA(forceConfig?: UseUpdatePathGAProps): (pathname: 
 	return (pathname: string) => {
 		if (pathname) {
 			if (!googleAnalytics4Id && !googleAnalyticsUniversalId && currentService) {
-				// eslint-disable-next-line no-console
-				console.log('currentService.id', currentService.id)
 				updatePathGA(currentService.id, pathname)
 			} else {
 				if (
 					googleAnalyticsUniversalId &&
 					isServiceEnabled(SupportedService.GoogleAnalyticsUniversal)
 				) {
-					// eslint-disable-next-line no-console
-					console.log('googleAnalyticsUniversalId', googleAnalyticsUniversalId)
 					updatePathGA(googleAnalyticsUniversalId, pathname)
 				} else if (googleAnalytics4Id && isServiceEnabled(SupportedService.GoogleAnalytics4)) {
-					// eslint-disable-next-line no-console
-					console.log('googleAnalytics4Id', googleAnalytics4Id)
 					updatePathGA(googleAnalytics4Id, pathname)
 				}
 			}
