@@ -9,18 +9,17 @@
 		showCookieDisclaimer,
 		hasAllNeededNecessaryCookies,
 		isServiceEnabled,
-		setNecessaryCookies,
 		configuredServices,
-		necessaryCookies
+		necessaryCookies,
+		submitNecessaryCookies
 	} from '$lib/app/store'
 	import { onMount } from 'svelte'
 	import { Disclaimer } from './'
-	import { initConfiguredServices } from '$core/services'
+	import { initializeConfiguredServices } from '$core/services'
 
 	export let configuration: SKCMConfiguration
 
-	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customNecessaryCookies, adCookiesEnabled } =
-		configuration?.services ?? {})
+	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id } = configuration?.services ?? {})
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
@@ -34,17 +33,14 @@
 	}
 
 	onMount(() => {
-		function onServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
+		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
 			configuredServices.set(services)
 			necessaryCookies.set(cookies)
 		}
 
-		initConfiguredServices({
-			googleAnalyticsUniversalId,
-			googleAnalytics4Id,
-			customNecessaryCookies,
-			adCookiesEnabled,
-			onServicesInitialized
+		initializeConfiguredServices({
+			services: configuration.services,
+			onConfiguredServicesInitialized
 		})
 
 		if (hasAllNeededNecessaryCookies()) {
@@ -55,7 +51,7 @@
 	})
 
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		setNecessaryCookies(value)
+		submitNecessaryCookies(value)
 		if (value === 'true') {
 			initServices()
 		}
