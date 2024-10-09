@@ -15,7 +15,7 @@
 		"lint": "prettier --check . && eslint . --max-warnings 0",
 		"format": "prettier --write .",
 		"prepackage": "pnpm prepare:package && cp ../core ./src/lib/cookie-core -r",
-		"package": "svelte-package",
+		"package": "cross-env BUILDING_PACKAGE=true svelte-package",
 		"postpackage": "rm -rf ./src/lib/cookie-core && pnpm copyFiles",
 		"clean": "rm -r ./package ./src/lib/cookie-core",
 		"prepare": "svelte-kit sync",
