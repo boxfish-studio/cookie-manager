@@ -1,3 +1,9 @@
+export enum SupportedService {
+	GoogleAnalyticsUniversal = 'googleAnalyticsUniversal',
+	GoogleAnalytics4 = 'googleAnalytics4',
+	CustomCookie = 'customNecessaryCookies'
+}
+
 export enum CookieCategory {
 	Functionality = 'Functionality',
 	Statistics = 'Statistics',

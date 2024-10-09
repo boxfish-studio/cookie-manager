@@ -1,13 +1,14 @@
-import { defineConfig } from 'vite'
+import { BuildOptions, defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
 import tailwindcss from 'tailwindcss'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { libInjectCss } from 'vite-plugin-lib-inject-css'
 
 const isPackageProduction = process.env.BUILDING_PACKAGE === 'true'
 
-const packageBuildConfig = {
+const packageBuildConfig: BuildOptions = {
 	lib: {
 		entry: resolve(__dirname, './src/lib/index.ts'),
 		name: '@boxfish-studio/react-cookie-manager',
@@ -29,10 +30,12 @@ const packageBuildConfig = {
 const plugins = isPackageProduction
 	? [
 			tsconfigPaths({
-				root: __dirname
+				root: __dirname,
+				projects: ['./tsconfig.package.json']
 			}),
 			react(),
-			dts({ rollupTypes: true })
+			dts({ rollupTypes: true, tsconfigPath: './tsconfig.package.json' }),
+			libInjectCss()
 		]
 	: [
 			tsconfigPaths({

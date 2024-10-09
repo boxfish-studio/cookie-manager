@@ -1,3 +1,4 @@
+/* eslint-env es2022 */
 const eslintRules = {
 	'arrow-body-style': 'warn', // WARN b/c blocks style allows for readability and ensure scope
 	'arrow-spacing': 'error',

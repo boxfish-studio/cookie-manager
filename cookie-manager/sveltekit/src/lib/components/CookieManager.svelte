@@ -1,22 +1,25 @@
 <script lang="ts">
 	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { page } from '$app/stores'
-	import { initializeServices, updatePathGA } from '$lib/app/services'
+	import { SupportedService } from '$core/enums'
+	import type { Service, ServiceCookie, SKCMConfiguration } from '$core/types'
+	import { initServices } from '$lib/app/services'
+	import { updatePathGA } from '$core/clientSideOnly'
 	import {
-		initConfiguredServices,
 		showCookieDisclaimer,
 		hasAllNeededNecessaryCookies,
 		isServiceEnabled,
+		configuredServices,
+		necessaryCookies,
 		submitNecessaryCookies
 	} from '$lib/app/store'
-	import { type SKCMConfiguration, SupportedService } from '$core/types'
 	import { onMount } from 'svelte'
 	import { Disclaimer } from './'
+	import { initializeConfiguredServices } from '$core/services'
 
 	export let configuration: SKCMConfiguration
 
-	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id, customNecessaryCookies, adCookiesEnabled } =
-		configuration?.services ?? {})
+	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id } = configuration?.services ?? {})
 
 	// TODO: improve this
 	$: if ($page?.url.pathname) {
@@ -30,14 +33,18 @@
 	}
 
 	onMount(() => {
-		initConfiguredServices(
-			googleAnalyticsUniversalId,
-			googleAnalytics4Id,
-			customNecessaryCookies,
-			adCookiesEnabled
-		)
+		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
+			configuredServices.set(services)
+			necessaryCookies.set(cookies)
+		}
+
+		initializeConfiguredServices({
+			services: configuration.services,
+			onConfiguredServicesInitialized
+		})
+
 		if (hasAllNeededNecessaryCookies()) {
-			initializeServices()
+			initServices()
 		} else {
 			showCookieDisclaimer.set(true)
 		}
@@ -46,7 +53,7 @@
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
 		submitNecessaryCookies(value)
 		if (value === 'true') {
-			initializeServices()
+			initServices()
 		}
 		showCookieDisclaimer.set(false)
 	}
