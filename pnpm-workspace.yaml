@@ -1,3 +1,4 @@
 packages:
   - 'cookie-manager/*'
   - 'packages/*'
+  - 'demo/*'

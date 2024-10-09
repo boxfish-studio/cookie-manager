@@ -8,7 +8,10 @@
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"format-all": "prettier --write \".\"",
 		"manypkg": "manypkg",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"skcm": "turbo --filter \"@boxfish-studio/sveltekit-cookie-manager\"",
+		"rck": "turbo --filter \"@boxfish-studio/react-cookie-manager\"",
+		"demo-nextjs": "turbo --filter \"demo-nextjs\""
 	},
 	"dependencies": {
 		"@manypkg/cli": "^0.21.4",

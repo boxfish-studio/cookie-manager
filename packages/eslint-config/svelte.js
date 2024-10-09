@@ -1,3 +1,4 @@
+/* eslint-env es2022 */
 const { resolve } = require('node:path')
 const { eslintRules, typescriptEslintRules } = require('./rules')
 
