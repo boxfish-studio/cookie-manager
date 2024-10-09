@@ -33,7 +33,7 @@
 		"package": "tsc -d && cross-env BUILDING_PACKAGE=true vite build",
 		"postpackage": "rm -rf ./src/lib/cookie-core",
 		"clean": "rm -rf ./src/lib/cookie-core ./dist",
-		"package:publish": "pnpm publish --access public  --no-git-checks"
+		"package:publish": "pnpm publish --access public --no-git-checks"
 	},
 	"dependencies": {
 		"react": "^18.3.1",
