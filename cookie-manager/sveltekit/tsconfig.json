@@ -24,5 +24,5 @@
 		"allowJs": true,
 		"checkJs": true
 	},
-	"include": ["svelte.config.js", "vite.config.js", "src", "../core"]
+	"include": ["svelte.config.js", "vite.config.js", "src"]
 }
