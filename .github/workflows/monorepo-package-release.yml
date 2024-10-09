@@ -1,4 +1,4 @@
-name: Notification Manager Package Release
+name: Cookie Manager Package Release
 
 on:
   push:
