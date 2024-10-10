@@ -21,7 +21,7 @@ export function useManageServices(): {
 			configuredServices.value,
 			servicesInitialized.setValue
 		)
-	}, [necessaryCookies, configuredServices])
+	}, [configuredServices, servicesInitialized])
 
 	const stopServices = useCallback(() => {
 		stopCoreServices(
@@ -29,7 +29,7 @@ export function useManageServices(): {
 			removeUnnecessaryCookies,
 			servicesInitialized.setValue
 		)
-	}, [configuredServices, necessaryCookies])
+	}, [configuredServices, servicesInitialized, removeUnnecessaryCookies])
 
 	return { initializeServices: initServices, stopServices, removeUnnecessaryCookies }
 }
