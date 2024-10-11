@@ -25,7 +25,8 @@ export function CookieManagerProvider({ children }: React.PropsWithChildren): Re
 	}
 
 	useEffect(() => {
-		getAdditionalCookiesFromConfiguredServices(configuredServices)
+		const _additionalCookies = getAdditionalCookiesFromConfiguredServices(configuredServices)
+		setAdditionalCookies(_additionalCookies)
 	}, [configuredServices])
 
 	return <CookieManagerContext.Provider value={value}>{children}</CookieManagerContext.Provider>
