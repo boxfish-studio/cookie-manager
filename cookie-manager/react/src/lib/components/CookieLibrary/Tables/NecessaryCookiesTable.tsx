@@ -4,7 +4,7 @@ export function NecessaryCookiesTable(): React.JSX.Element {
 	const { necessaryCookies } = useCookieManagerContext()
 	return (
 		<>
-			{necessaryCookies.value?.length && (
+			{necessaryCookies.value?.length > 0 && (
 				<table id="skcm-necessary-cookies-table">
 					<thead>
 						<tr>

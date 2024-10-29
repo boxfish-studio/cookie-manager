@@ -36,7 +36,7 @@ export function CookieManager({ configuration }: CookieManagerProps): React.JSX.
 		} else {
 			showCookieDisclaimer.setValue(true)
 		}
-	}, [necessaryCookies.value])
+	}, [necessaryCookies.value, initializeServices])
 
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
 		setNecessaryCookies(
