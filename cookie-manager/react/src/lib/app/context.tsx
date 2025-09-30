@@ -1,13 +1,17 @@
 import type { Service, ServiceCookie } from '@core/types'
 import { createContext, useContext } from 'react'
-import type { StateManager } from './interfaces'
 
 export interface CookieManagerContextType {
-	servicesInitialized: StateManager<boolean>
-	configuredServices: StateManager<Service[]>
-	necessaryCookies: StateManager<ServiceCookie[]>
-	additionalCookies: StateManager<ServiceCookie[]>
-	showCookieDisclaimer: StateManager<boolean>
+	servicesInitialized: boolean
+	setServicesInitialized: (bool: boolean) => void
+	configuredServices: Service[]
+	setConfiguredServices: (services: Service[]) => void
+	necessaryCookies: ServiceCookie[]
+	setNecessaryCookies: (services: ServiceCookie[]) => void
+	additionalCookies: ServiceCookie[]
+	setAdditionalCookies: (services: ServiceCookie[]) => void
+	showCookieDisclaimer: boolean
+	setShowCookieDisclaimer: (services: boolean) => void
 }
 
 export const CookieManagerContext = createContext<CookieManagerContextType | null>(null)

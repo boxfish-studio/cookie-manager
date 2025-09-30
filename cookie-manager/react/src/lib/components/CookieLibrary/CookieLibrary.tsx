@@ -12,7 +12,8 @@ interface CookieLibraryProps {
 	configuration: SKCMConfiguration
 }
 export function CookieLibrary({ configuration: { theme } }: CookieLibraryProps): React.JSX.Element {
-	const { configuredServices, necessaryCookies, showCookieDisclaimer } = useCookieManagerContext()
+	const { configuredServices, necessaryCookies, setShowCookieDisclaimer, setConfiguredServices } =
+		useCookieManagerContext()
 	const { initializeServices, stopServices } = useManageServices()
 	const [hasAllowedCookies, setHasAllowedCookies] = useState<'true' | 'false'>('false')
 
@@ -22,12 +23,12 @@ export function CookieLibrary({ configuration: { theme } }: CookieLibraryProps):
 		if (hasAllowedCookies !== undefined) {
 			setNecessaryCookies(
 				hasAllowedCookies,
-				configuredServices.value,
-				necessaryCookies.value,
-				configuredServices.setValue
+				configuredServices,
+				necessaryCookies,
+				setConfiguredServices
 			)
 			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
-			showCookieDisclaimer.setValue(false)
+			setShowCookieDisclaimer(false)
 		}
 	}
 

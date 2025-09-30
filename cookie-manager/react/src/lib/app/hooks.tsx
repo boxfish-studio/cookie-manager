@@ -9,26 +9,19 @@ export function useManageServices(): {
 	stopServices: () => void
 	removeUnnecessaryCookies: () => void
 } {
-	const { servicesInitialized, configuredServices, necessaryCookies } = useCookieManagerContext()
+	const { servicesInitialized, setServicesInitialized, configuredServices, necessaryCookies } =
+		useCookieManagerContext()
 
 	const removeUnnecessaryCookies = useCallback(() => {
-		clearAdditionalCookies(necessaryCookies.value)
+		clearAdditionalCookies(necessaryCookies)
 	}, [necessaryCookies])
 
 	const initServices = useCallback(() => {
-		initializeServices(
-			servicesInitialized.value,
-			configuredServices.value,
-			servicesInitialized.setValue
-		)
+		initializeServices(servicesInitialized, configuredServices, setServicesInitialized)
 	}, [configuredServices, servicesInitialized])
 
 	const stopServices = useCallback(() => {
-		stopCoreServices(
-			configuredServices.value,
-			removeUnnecessaryCookies,
-			servicesInitialized.setValue
-		)
+		stopCoreServices(configuredServices, removeUnnecessaryCookies, setServicesInitialized)
 	}, [configuredServices, servicesInitialized, removeUnnecessaryCookies])
 
 	return { initializeServices: initServices, stopServices, removeUnnecessaryCookies }
@@ -43,10 +36,10 @@ export function useUpdatePathGA(forceConfig?: UseUpdatePathGAProps): (pathname: 
 	const { googleAnalyticsUniversalId, googleAnalytics4Id } = forceConfig ?? {}
 	const { configuredServices } = useCookieManagerContext()
 
-	const currentService = configuredServices.value.find(({ enabled }) => enabled)
+	const currentService = configuredServices.find(({ enabled }) => enabled)
 
 	function isServiceEnabled(service: SupportedService): boolean {
-		return configuredServices.value.find(({ type }) => type === service)?.enabled ?? false
+		return configuredServices.find(({ type }) => type === service)?.enabled ?? false
 	}
 
 	return (pathname: string) => {

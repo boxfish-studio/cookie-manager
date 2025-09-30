@@ -14,23 +14,32 @@ export function Disclaimer(): React.JSX.Element {
 
 	const configuration: SKCMConfiguration = {
 		disclaimer: {
-			title: 'This website uses cookies',
-			body: 'By using this site, you agree with our use of cookies'
+			title: undefined,
+			body: 'By using IOTA Names site, you agree with our use of cookies. ',
+			policyText: 'Read our Cookie Policy',
+			policyUrl: '/cookie-policy'
 		},
 		services: {
-			googleAnalytics4Id: 'G-XXXXXXXXXX'
-		},
-		theme: {
-			primary: '#14cabf',
-			dark: '#131f37',
-			medium: '#b0bfd9',
-			light: '#fff'
+			customNecessaryCookies: [
+				{
+					name: 'AMP_',
+					purpose: 'Amplitude Analytics - necessary for basic website functionality',
+					expiry: '1 year',
+					type: 'http',
+					showDisclaimerIfMissing: true
+				}
+			]
 		}
 	}
 
-	useEffect(() => {
-		updatePageGA(pathname)
-	}, [pathname])
-
-	return <CookieManager configuration={configuration} />
+	return (
+		<CookieManager
+			configuration={configuration}
+			onAcceptCookies={() => {
+				setTimeout(() => {
+					document.cookie = 'AMP_=true; path=/; max-age=31536000'
+				}, 1000)
+			}}
+		/>
+	)
 }

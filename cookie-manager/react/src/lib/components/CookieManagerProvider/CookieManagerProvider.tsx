@@ -6,7 +6,7 @@ import {
 	INITIAL_SHOW_COOKIE_DISCLAIMER
 } from '@core/initialStates'
 import { getAdditionalCookiesFromConfiguredServices } from '@core/utils'
-import { CookieManagerContext, CookieManagerContextType } from '@lib/app/context'
+import { CookieManagerContext } from '@lib/app/context'
 import { useEffect, useState } from 'react'
 
 export function CookieManagerProvider({ children }: React.PropsWithChildren): React.JSX.Element {
@@ -16,18 +16,27 @@ export function CookieManagerProvider({ children }: React.PropsWithChildren): Re
 	const [additionalCookies, setAdditionalCookies] = useState(INITIAL_ADDITIONAL_COOKIES)
 	const [showCookieDisclaimer, setShowCookieDisclaimer] = useState(INITIAL_SHOW_COOKIE_DISCLAIMER)
 
-	const value: CookieManagerContextType = {
-		servicesInitialized: { value: servicesInitialized, setValue: setServicesInitialized },
-		configuredServices: { value: configuredServices, setValue: setConfiguredServices },
-		necessaryCookies: { value: necessaryCookies, setValue: setNecessaryCookies },
-		additionalCookies: { value: additionalCookies, setValue: setAdditionalCookies },
-		showCookieDisclaimer: { value: showCookieDisclaimer, setValue: setShowCookieDisclaimer }
-	}
-
 	useEffect(() => {
 		const _additionalCookies = getAdditionalCookiesFromConfiguredServices(configuredServices)
 		setAdditionalCookies(_additionalCookies)
 	}, [configuredServices])
 
-	return <CookieManagerContext.Provider value={value}>{children}</CookieManagerContext.Provider>
+	return (
+		<CookieManagerContext.Provider
+			value={{
+				servicesInitialized,
+				setServicesInitialized,
+				configuredServices,
+				setConfiguredServices,
+				necessaryCookies,
+				setNecessaryCookies,
+				additionalCookies,
+				setAdditionalCookies,
+				showCookieDisclaimer,
+				setShowCookieDisclaimer
+			}}
+		>
+			{children}
+		</CookieManagerContext.Provider>
+	)
 }

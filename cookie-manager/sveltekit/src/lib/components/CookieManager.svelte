@@ -61,13 +61,13 @@
 	}
 
 	function allowCookies(): void {
-		handleSubmitNecessaryCookies('true')
 		onAcceptCookies()
+		handleSubmitNecessaryCookies('true')
 	}
 
 	function declineCookies(): void {
-		handleSubmitNecessaryCookies('false')
 		onDeclineCookies()
+		handleSubmitNecessaryCookies('false')
 	}
 </script>
 

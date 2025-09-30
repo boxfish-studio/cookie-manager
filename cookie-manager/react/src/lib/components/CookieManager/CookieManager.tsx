@@ -4,10 +4,19 @@ import { useCookieManagerContext } from '@lib/app/context'
 import {
 	checkAllRequiredCookies,
 	initializeConfiguredServices,
-	setNecessaryCookies
+	setNecessaryCookies as setNecessaryCookiesService
 } from '@core/services'
 import { useManageServices } from '@lib/app/hooks'
 import { Disclaimer } from '..'
+import {
+	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
+	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
+} from '@core/cookieLib'
+
+const SKCM_GOOGLE_NECESSARY_COOKIES: string[] = [
+	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
+	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name
+]
 
 interface CookieManagerProps {
 	configuration: SKCMConfiguration
@@ -20,7 +29,14 @@ export function CookieManager({
 	onAcceptCookies,
 	onDeclineCookies
 }: CookieManagerProps): React.JSX.Element {
-	const { necessaryCookies, configuredServices, showCookieDisclaimer } = useCookieManagerContext()
+	const {
+		necessaryCookies,
+		configuredServices,
+		showCookieDisclaimer,
+		setShowCookieDisclaimer,
+		setConfiguredServices,
+		setNecessaryCookies
+	} = useCookieManagerContext()
 	const { initializeServices } = useManageServices()
 
 	useEffect(() => {
@@ -30,46 +46,43 @@ export function CookieManager({
 		})
 
 		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
-			configuredServices.setValue(services)
-			necessaryCookies.setValue(cookies)
+			setConfiguredServices(services)
+			setNecessaryCookies(cookies)
 		}
 	}, [])
 
 	useEffect(() => {
-		const canInitializeServices = checkAllRequiredCookies(necessaryCookies.value)
+		const canInitializeServices = checkAllRequiredCookies(necessaryCookies)
 		if (canInitializeServices) {
 			initializeServices()
 		} else {
-			showCookieDisclaimer.setValue(true)
+			setShowCookieDisclaimer(true)
 		}
-	}, [necessaryCookies.value, initializeServices])
+	}, [necessaryCookies, initializeServices])
 
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		setNecessaryCookies(
-			value,
-			configuredServices.value,
-			necessaryCookies.value,
-			configuredServices.setValue
-		)
-		if (value === 'true') {
-			initializeServices()
+		if (necessaryCookies.some((element) => SKCM_GOOGLE_NECESSARY_COOKIES.includes(element.name))) {
+			setNecessaryCookiesService(value, configuredServices, necessaryCookies, setConfiguredServices)
+			if (value === 'true') {
+				initializeServices()
+			}
 		}
-		showCookieDisclaimer.setValue(false)
+		setShowCookieDisclaimer(false)
 	}
 
 	function allowCookies(): void {
-		handleSubmitNecessaryCookies('true')
 		onAcceptCookies?.()
+		handleSubmitNecessaryCookies('true')
 	}
 
 	function declineCookies(): void {
-		handleSubmitNecessaryCookies('false')
 		onDeclineCookies?.()
+		handleSubmitNecessaryCookies('false')
 	}
 
 	return (
 		<>
-			{showCookieDisclaimer.value && (
+			{showCookieDisclaimer && (
 				<Disclaimer
 					allowCookies={allowCookies}
 					declineCookies={declineCookies}

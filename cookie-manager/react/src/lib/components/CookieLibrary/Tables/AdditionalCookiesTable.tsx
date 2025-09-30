@@ -4,7 +4,7 @@ export function AdditionalCookiesTable(): React.JSX.Element {
 	const { additionalCookies } = useCookieManagerContext()
 	return (
 		<>
-			{additionalCookies.value?.length > 0 && (
+			{additionalCookies?.length > 0 && (
 				<table id="skcm-additional-cookies-table">
 					<thead>
 						<tr>
@@ -17,7 +17,7 @@ export function AdditionalCookiesTable(): React.JSX.Element {
 						</tr>
 					</thead>
 					<tbody>
-						{additionalCookies.value.map((cookie, index) => (
+						{additionalCookies.map((cookie, index) => (
 							<tr key={index}>
 								<td> {cookie?.name} </td>
 								<td>
