@@ -18,6 +18,8 @@
 	import { initializeConfiguredServices } from '$core/services'
 
 	export let configuration: SKCMConfiguration
+	export let onAcceptCookies: () => void = () => {}
+	export let onDeclineCookies: () => void = () => {}
 
 	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id } = configuration?.services ?? {})
 
@@ -60,10 +62,12 @@
 
 	function allowCookies(): void {
 		handleSubmitNecessaryCookies('true')
+		onAcceptCookies()
 	}
 
 	function declineCookies(): void {
 		handleSubmitNecessaryCookies('false')
+		onDeclineCookies()
 	}
 </script>
 

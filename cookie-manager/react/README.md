@@ -70,6 +70,50 @@ export default function Disclaimer(): React.JSX.Element {
 }
 ```
 
+### Run custom logic on Accept / Decline
+
+You can hook into the user's choice by passing optional `onAcceptCookies` and `onDeclineCookies` props.  
+This is useful to initialize third-party services, or to run any custom tracking logic.
+
+```tsx
+'use client'
+
+import { CookieManager, type SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
+
+export default function Disclaimer(): React.JSX.Element {
+	const configuration: SKCMConfiguration = {
+		disclaimer: {
+			title: 'This website uses cookies',
+			body: 'By using this site, you agree with our use of cookies'
+		},
+		services: {
+			customAnalyticsCookies: [
+				{
+					name: 'ANALYTICS_' + 'SERVICE_ID',
+					purpose: 'Analytics - tracks usage for basic website functionality',
+					expiry: '1 year',
+					type: 'http',
+					showDisclaimerIfMissing: true
+				}
+			]
+		}
+	}
+
+	return (
+		<CookieManager
+			configuration={configuration}
+			onAcceptCookies={() => {
+				// Initialize third-party services here
+				console.log('User accepted cookies')
+			}}
+			onDeclineCookies={() => {
+				console.log('User declined cookies')
+			}}
+		/>
+	)
+}
+```
+
 ### Control page navigation
 
 Import the `useUpdatePathGA` hook and use it with your router of preference:

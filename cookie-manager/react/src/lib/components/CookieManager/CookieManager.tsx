@@ -11,9 +11,15 @@ import { Disclaimer } from '..'
 
 interface CookieManagerProps {
 	configuration: SKCMConfiguration
+	onAcceptCookies?: () => void
+	onDeclineCookies?: () => void
 }
 
-export function CookieManager({ configuration }: CookieManagerProps): React.JSX.Element {
+export function CookieManager({
+	configuration,
+	onAcceptCookies,
+	onDeclineCookies
+}: CookieManagerProps): React.JSX.Element {
 	const { necessaryCookies, configuredServices, showCookieDisclaimer } = useCookieManagerContext()
 	const { initializeServices } = useManageServices()
 
@@ -53,10 +59,12 @@ export function CookieManager({ configuration }: CookieManagerProps): React.JSX.
 
 	function allowCookies(): void {
 		handleSubmitNecessaryCookies('true')
+		onAcceptCookies?.()
 	}
 
 	function declineCookies(): void {
 		handleSubmitNecessaryCookies('false')
+		onDeclineCookies?.()
 	}
 
 	return (
