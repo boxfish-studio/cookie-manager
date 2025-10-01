@@ -1,10 +1,10 @@
 'use client'
-
 import {
 	CookieManager,
 	useUpdatePathGA,
 	type SKCMConfiguration
 } from '@boxfish-studio/react-cookie-manager'
+import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
 export function Disclaimer(): React.JSX.Element {
@@ -13,32 +13,23 @@ export function Disclaimer(): React.JSX.Element {
 
 	const configuration: SKCMConfiguration = {
 		disclaimer: {
-			title: undefined,
-			body: 'By using IOTA Names site, you agree with our use of cookies. ',
-			policyText: 'Read our Cookie Policy',
-			policyUrl: '/cookie-policy'
+			title: 'This website uses cookies',
+			body: 'By using this site, you agree with our use of cookies'
 		},
 		services: {
-			customNecessaryCookies: [
-				{
-					name: 'AMP_njdsaknjdsak',
-					purpose: 'Amplitude Analytics - necessary for basic website functionality',
-					expiry: '1 year',
-					type: 'http',
-					showDisclaimerIfMissing: true
-				}
-			]
+			googleAnalytics4Id: 'G-XXXXXXXXXX'
+		},
+		theme: {
+			primary: '#14cabf',
+			dark: '#131f37',
+			medium: '#b0bfd9',
+			light: '#fff'
 		}
 	}
 
-	return (
-		<CookieManager
-			configuration={configuration}
-			onAcceptCookies={() => {
-				setTimeout(() => {
-					document.cookie = 'AMP_njdsaknjdsak=true; path=/; max-age=31536000'
-				}, 1000)
-			}}
-		/>
-	)
+	useEffect(() => {
+		updatePageGA(pathname)
+	}, [pathname])
+
+	return <CookieManager configuration={configuration} />
 }

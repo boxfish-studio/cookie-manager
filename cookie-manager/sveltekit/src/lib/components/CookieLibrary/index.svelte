@@ -8,6 +8,8 @@
 	import { information } from '$core/cookies.json'
 
 	export let configuration: SKCMConfiguration = {}
+	export let onAcceptCookies: () => void = () => {}
+	export let onDeclineCookies: () => void = () => {}
 
 	let hasAllowedCookies: 'true' | 'false'
 	let style: string = ''
@@ -18,7 +20,15 @@
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
 			submitNecessaryCookies(hasAllowedCookies)
-			hasAllowedCookies === 'true' ? initServices() : stopServices()
+
+			if (hasAllowedCookies === 'true') {
+				initServices()
+				onAcceptCookies()
+			} else {
+				stopServices()
+				onDeclineCookies()
+			}
+
 			showCookieDisclaimer.set(false)
 		}
 	}

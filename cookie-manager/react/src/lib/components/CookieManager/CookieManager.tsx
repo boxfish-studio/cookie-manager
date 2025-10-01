@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import type { Service, ServiceCookie, SKCMConfiguration } from '@core/types'
+import type { SKCMConfiguration } from '@core/types'
 import { useCookieManagerContext } from '@lib/app/context'
 import {
 	checkAllRequiredCookies,
