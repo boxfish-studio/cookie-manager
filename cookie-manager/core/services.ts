@@ -9,7 +9,7 @@ import { deleteCookie, getCookie, setCookie } from './utils'
 import { loadGoogleAnalytics, removeGoogleAnalytics } from './clientSideOnly'
 import { COOKIE_EXPIRATION_DAYS } from './constants'
 
-export function initializeServices(
+export function initializeGoogleAnalytics(
 	servicesInitialized: boolean,
 	configuredServices: Service[],
 	setServicesInitialized: (bool: boolean) => void
@@ -21,64 +21,62 @@ export function initializeServices(
 		const googleAnalytics4Config = configuredServices.find(
 			({ type }) => type === SupportedService.GoogleAnalytics4
 		)
+
 		if (googleAnalyticsUniversalConfig?.enabled) {
-			loadGoogleAnalytics(googleAnalyticsUniversalConfig.id, setServicesInitialized)
+			loadGoogleAnalytics(googleAnalyticsUniversalConfig.id)
+			setServicesInitialized(true)
 		} else {
 			if (googleAnalytics4Config?.enabled) {
-				loadGoogleAnalytics(googleAnalytics4Config.id, setServicesInitialized)
+				loadGoogleAnalytics(googleAnalytics4Config.id)
+				setServicesInitialized(true)
 			}
 		}
 	}
 }
 
-interface InitConfiguredServicesArgs {
-	services: SKCMConfiguration['services']
-	onConfiguredServicesInitialized: (
-		configuredServices: Service[],
-		necessaryCookies: ServiceCookie[]
-	) => void
-}
-export function initializeConfiguredServices({
-	services: {
+export function initializeConfiguredServices(services: SKCMConfiguration['services'] = {}): {
+	configuredServices: Service[]
+	necessaryCookies: ServiceCookie[]
+} {
+	const {
 		googleAnalyticsUniversalId,
 		googleAnalytics4Id,
 		adCookiesEnabled,
 		customNecessaryCookies
-	} = {},
-	onConfiguredServicesInitialized
-}: InitConfiguredServicesArgs): void {
-	let _configuredServices: Service[] = []
-	let _necessaryCookies: ServiceCookie[] = []
+	} = services
+
+	let configuredServices: Service[] = []
+	let necessaryCookies: ServiceCookie[] = []
 	if (googleAnalyticsUniversalId) {
-		_configuredServices.push({
+		configuredServices.push({
 			type: SupportedService.GoogleAnalyticsUniversal,
 			id: googleAnalyticsUniversalId,
 			enabled: getCookie(SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name) === 'true',
 			cookies: GoogleOwnCookies.GoogleAnalyticsUniversal
 		})
-		_necessaryCookies.push(SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE)
+		necessaryCookies.push(SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE)
 	}
 	if (googleAnalytics4Id) {
-		_configuredServices.push({
+		configuredServices.push({
 			type: SupportedService.GoogleAnalytics4,
 			id: googleAnalytics4Id,
 			enabled: getCookie(SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name) === 'true',
 			cookies: GoogleOwnCookies.GoogleAnalytics4
 		})
-		_necessaryCookies.push(SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE)
+		necessaryCookies.push(SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE)
 	}
 	if (customNecessaryCookies) {
-		_necessaryCookies = [..._necessaryCookies, ...customNecessaryCookies]
+		necessaryCookies = [...necessaryCookies, ...customNecessaryCookies]
 	}
 	if (!adCookiesEnabled) {
-		const filteredCookies = _configuredServices.map((service) => ({
+		const filteredCookies = configuredServices.map((service) => ({
 			...service,
 			cookies: service?.cookies?.filter((cookie) => cookie?.category !== CookieCategory.Advertising)
 		}))
-		_configuredServices = filteredCookies
+		configuredServices = filteredCookies
 	}
 
-	onConfiguredServicesInitialized?.(_configuredServices, _necessaryCookies)
+	return { configuredServices, necessaryCookies }
 }
 
 export function stopCoreServices(
@@ -99,11 +97,9 @@ export function stopCoreServices(
 	setServicesInitialized?.(false)
 }
 
-export function setNecessaryCookies(
+export function updateBrowserCookies(
 	value: 'true' | 'false',
-	configuredServices: Service[],
-	necessaryCookies: ServiceCookie[],
-	setConfiguredServices: (services: Service[]) => void
+	necessaryCookies: ServiceCookie[]
 ): void {
 	const SKCM_NECESSARY_COOKIES: string[] = [
 		SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
@@ -117,12 +113,6 @@ export function setNecessaryCookies(
 	for (let i = 0; i < neededCookies?.length; i++) {
 		setCookie(neededCookies[i]?.name, value, COOKIE_EXPIRATION_DAYS)
 	}
-	// enable services
-	const _configuredServices = configuredServices?.map((service) => ({
-		...service,
-		enabled: value === 'true'
-	}))
-	setConfiguredServices(_configuredServices)
 }
 
 export function clearAdditionalCookies(necessaryCookies: ServiceCookie[]): void {

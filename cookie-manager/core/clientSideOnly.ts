@@ -1,10 +1,7 @@
 import { Service } from './types'
 import { GOOGLE_ANALYTICS_EXPIRATION_DAYS } from './constants'
 
-export const loadGoogleAnalytics = (
-	id: Service['id'],
-	setServicesInitialized: (bool: boolean) => void
-): void => {
+export const loadGoogleAnalytics = (id: Service['id']): void => {
 	function gtag(_key: string, _value: unknown, _config?: { cookie_expires: number }) {
 		// eslint-disable-next-line prefer-rest-params
 		window.dataLayer.push(arguments)
@@ -17,7 +14,6 @@ export const loadGoogleAnalytics = (
 	const script = document.createElement('script')
 	script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`
 	document.body.appendChild(script)
-	setServicesInitialized(true)
 }
 
 export const removeGoogleAnalytics = (id: Service['id']): void => {

@@ -4,9 +4,9 @@ import { useCookieManagerContext } from '@lib/app/context'
 import {
 	checkAllRequiredCookies,
 	initializeConfiguredServices,
-	setNecessaryCookies as setNecessaryCookiesService
+	initializeGoogleAnalytics,
+	updateBrowserCookies
 } from '@core/services'
-import { useManageServices } from '@lib/app/hooks'
 import { Disclaimer } from '..'
 import {
 	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
@@ -30,6 +30,8 @@ export function CookieManager({
 	onDeclineCookies
 }: CookieManagerProps): React.JSX.Element {
 	const {
+		servicesInitialized,
+		setServicesInitialized,
 		necessaryCookies,
 		configuredServices,
 		showCookieDisclaimer,
@@ -37,36 +39,37 @@ export function CookieManager({
 		setConfiguredServices,
 		setNecessaryCookies
 	} = useCookieManagerContext()
-	const { initializeServices } = useManageServices()
 
 	useEffect(() => {
-		initializeConfiguredServices({
-			services: configuration?.services,
-			onConfiguredServicesInitialized
-		})
+		const { configuredServices: services, necessaryCookies: cookies } =
+			initializeConfiguredServices(configuration?.services)
 
-		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
-			setConfiguredServices(services)
-			setNecessaryCookies(cookies)
-		}
-	}, [])
+		setConfiguredServices(services)
+		setNecessaryCookies(cookies)
 
-	useEffect(() => {
-		const canInitializeServices = checkAllRequiredCookies(necessaryCookies)
-		if (canInitializeServices) {
-			initializeServices()
+		const hasAllRequiredCookies = checkAllRequiredCookies(cookies)
+		if (hasAllRequiredCookies) {
+			initializeGoogleAnalytics(servicesInitialized, services, setServicesInitialized)
 		} else {
 			setShowCookieDisclaimer(true)
 		}
-	}, [necessaryCookies, initializeServices])
+	}, [])
 
 	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
 		if (necessaryCookies.some((element) => SKCM_GOOGLE_NECESSARY_COOKIES.includes(element.name))) {
-			setNecessaryCookiesService(value, configuredServices, necessaryCookies, setConfiguredServices)
+			updateBrowserCookies(value, necessaryCookies)
+
+			const updatedServices = configuredServices.map((service) => ({
+				...service,
+				enabled: value === 'true'
+			}))
+			setConfiguredServices(updatedServices)
+
 			if (value === 'true') {
-				initializeServices()
+				initializeGoogleAnalytics(servicesInitialized, updatedServices, setServicesInitialized)
 			}
 		}
+
 		setShowCookieDisclaimer(false)
 	}
 

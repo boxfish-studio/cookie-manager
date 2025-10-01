@@ -1,42 +1,63 @@
 import { CookieManager, CookieLibrary } from '@components'
 import { SKCMConfiguration } from '@core/types'
+import { useEffect } from 'react'
 
 function App(): React.JSX.Element {
+	useEffect(() => {
+		document.cookie.split(';').forEach((c) => {
+			document.cookie = c
+				.replace(/^ +/, '')
+				.replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
+		})
+	}, [])
 	const configuration: SKCMConfiguration = {
 		disclaimer: {
 			title: 'Custom Title',
 			body: 'Custom Body'
 		},
 		services: {
-			googleAnalyticsUniversalId: 'UA-XXXXXXXXX',
-			googleAnalytics4Id: 'G-XXXXXXX',
-			adCookiesEnabled: true,
+			googleAnalytics4Id: 'G-XXXXXXXXXX',
 			customNecessaryCookies: [
 				{
-					name: '1st Cookie Test',
-					provider: 'Boxfish',
-					providerUrl: 'boxfish.studio',
-					purpose: 'Stores the user´s preferences.',
-					expiry: '2 months',
-					type: 'HTTP',
-					showDisclaimerIfMissing: true
-				},
-				{
-					name: 'Cookie 2',
-					provider: 'Boxfish',
-					providerUrl: 'boxfish.studio',
-					purpose: 'Stores the user´s cookies consent state for the current domain',
-					expiry: '30 days',
-					type: 'HTTP',
+					name: 'AMP_njdsaknjdsak',
+					purpose: 'Amplitude Analytics - necessary for basic website functionality',
+					expiry: '1 year',
+					type: 'http',
 					showDisclaimerIfMissing: true
 				}
 			]
 		}
 	}
+
 	return (
 		<>
-			<CookieManager configuration={configuration} />
-			<CookieLibrary configuration={configuration} />
+			<CookieManager
+				configuration={configuration}
+				onAcceptCookies={() => {
+					setTimeout(() => {
+						// console.log('Cookie set!')
+					}, 1000)
+				}}
+				onDeclineCookies={() => {
+					setTimeout(() => {
+						// console.log('Cookie NOT SET!')
+					}, 1000)
+				}}
+			/>
+
+			<CookieLibrary
+				configuration={configuration}
+				onAcceptCookies={() => {
+					setTimeout(() => {
+						// console.log('Cookie set!')
+					}, 1000)
+				}}
+				onDeclineCookies={() => {
+					setTimeout(() => {
+						// console.log('Cookie NOT SET!')
+					}, 1000)
+				}}
+			/>
 		</>
 	)
 }

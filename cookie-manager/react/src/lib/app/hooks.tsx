@@ -1,31 +1,6 @@
-import { initializeServices, clearAdditionalCookies, stopCoreServices } from '@core/services'
 import { useCookieManagerContext } from './context'
 import { SupportedService } from '@core/enums'
 import { updatePathGA } from '@core/clientSideOnly'
-import { useCallback } from 'react'
-
-export function useManageServices(): {
-	initializeServices: () => void
-	stopServices: () => void
-	removeUnnecessaryCookies: () => void
-} {
-	const { servicesInitialized, setServicesInitialized, configuredServices, necessaryCookies } =
-		useCookieManagerContext()
-
-	const removeUnnecessaryCookies = useCallback(() => {
-		clearAdditionalCookies(necessaryCookies)
-	}, [necessaryCookies])
-
-	const initServices = useCallback(() => {
-		initializeServices(servicesInitialized, configuredServices, setServicesInitialized)
-	}, [configuredServices, servicesInitialized])
-
-	const stopServices = useCallback(() => {
-		stopCoreServices(configuredServices, removeUnnecessaryCookies, setServicesInitialized)
-	}, [configuredServices, servicesInitialized, removeUnnecessaryCookies])
-
-	return { initializeServices: initServices, stopServices, removeUnnecessaryCookies }
-}
 
 interface UseUpdatePathGAProps {
 	googleAnalyticsUniversalId?: string

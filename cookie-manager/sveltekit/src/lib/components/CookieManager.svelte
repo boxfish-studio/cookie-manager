@@ -35,15 +35,11 @@
 	}
 
 	onMount(() => {
-		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
-			configuredServices.set(services)
-			necessaryCookies.set(cookies)
-		}
+		const { configuredServices: services, necessaryCookies: cookies } =
+			initializeConfiguredServices(configuration.services)
 
-		initializeConfiguredServices({
-			services: configuration.services,
-			onConfiguredServicesInitialized
-		})
+		configuredServices.set(services)
+		necessaryCookies.set(cookies)
 
 		if (hasAllNeededNecessaryCookies()) {
 			initServices()

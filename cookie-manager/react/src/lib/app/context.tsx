@@ -3,15 +3,15 @@ import { createContext, useContext } from 'react'
 
 export interface CookieManagerContextType {
 	servicesInitialized: boolean
-	setServicesInitialized: (bool: boolean) => void
+	setServicesInitialized: React.Dispatch<React.SetStateAction<boolean>>
 	configuredServices: Service[]
-	setConfiguredServices: (services: Service[]) => void
+	setConfiguredServices: React.Dispatch<React.SetStateAction<Service[]>>
 	necessaryCookies: ServiceCookie[]
-	setNecessaryCookies: (services: ServiceCookie[]) => void
+	setNecessaryCookies: React.Dispatch<React.SetStateAction<ServiceCookie[]>>
 	additionalCookies: ServiceCookie[]
-	setAdditionalCookies: (services: ServiceCookie[]) => void
+	setAdditionalCookies: React.Dispatch<React.SetStateAction<ServiceCookie[]>>
 	showCookieDisclaimer: boolean
-	setShowCookieDisclaimer: (services: boolean) => void
+	setShowCookieDisclaimer: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const CookieManagerContext = createContext<CookieManagerContextType | null>(null)

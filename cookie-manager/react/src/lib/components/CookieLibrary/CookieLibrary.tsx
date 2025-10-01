@@ -1,33 +1,60 @@
 import type { SKCMConfiguration } from '@core/types'
 import { information } from '@core/cookies.json'
 import { AdditionalCookiesTable, Button, NecessaryCookiesTable } from '..'
-import { useManageServices } from '@lib/app/hooks'
 import { useCookieManagerContext } from '@lib/app/context'
-import { setNecessaryCookies } from '@core/services'
+import {
+	updateBrowserCookies as updateNecessaryCookies,
+	stopCoreServices,
+	clearAdditionalCookies,
+	initializeGoogleAnalytics
+} from '@core/services'
 import { useState } from 'react'
 import { parseThemeColors } from '@lib/app/parseStyles'
 import './CookieLibrary.css'
 
 interface CookieLibraryProps {
 	configuration: SKCMConfiguration
+	onAcceptCookies?: () => void
+	onDeclineCookies?: () => void
 }
-export function CookieLibrary({ configuration: { theme } }: CookieLibraryProps): React.JSX.Element {
-	const { configuredServices, necessaryCookies, setShowCookieDisclaimer, setConfiguredServices } =
-		useCookieManagerContext()
-	const { initializeServices, stopServices } = useManageServices()
+export function CookieLibrary({
+	configuration,
+	onAcceptCookies,
+	onDeclineCookies
+}: CookieLibraryProps): React.JSX.Element {
+	const {
+		servicesInitialized,
+		configuredServices,
+		necessaryCookies,
+		setShowCookieDisclaimer,
+		setConfiguredServices,
+		setServicesInitialized
+	} = useCookieManagerContext()
 	const [hasAllowedCookies, setHasAllowedCookies] = useState<'true' | 'false'>('false')
 
-	const themeStyles = parseThemeColors(theme)
+	const themeStyles = parseThemeColors(configuration.theme)
 
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
-			setNecessaryCookies(
-				hasAllowedCookies,
-				configuredServices,
-				necessaryCookies,
-				setConfiguredServices
-			)
-			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
+			updateNecessaryCookies(hasAllowedCookies, necessaryCookies)
+
+			const updatedServices = configuredServices.map((service) => ({
+				...service,
+				enabled: hasAllowedCookies === 'true'
+			}))
+			setConfiguredServices(updatedServices)
+
+			if (hasAllowedCookies === 'true') {
+				onAcceptCookies?.()
+				initializeGoogleAnalytics(servicesInitialized, updatedServices, setServicesInitialized)
+			} else {
+				onDeclineCookies?.()
+				stopCoreServices(
+					updatedServices,
+					() => clearAdditionalCookies(necessaryCookies),
+					setServicesInitialized
+				)
+			}
 			setShowCookieDisclaimer(false)
 		}
 	}

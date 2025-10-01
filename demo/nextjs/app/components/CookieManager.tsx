@@ -5,7 +5,6 @@ import {
 	useUpdatePathGA,
 	type SKCMConfiguration
 } from '@boxfish-studio/react-cookie-manager'
-import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
 export function Disclaimer(): React.JSX.Element {
@@ -22,7 +21,7 @@ export function Disclaimer(): React.JSX.Element {
 		services: {
 			customNecessaryCookies: [
 				{
-					name: 'AMP_',
+					name: 'AMP_njdsaknjdsak',
 					purpose: 'Amplitude Analytics - necessary for basic website functionality',
 					expiry: '1 year',
 					type: 'http',
@@ -37,7 +36,7 @@ export function Disclaimer(): React.JSX.Element {
 			configuration={configuration}
 			onAcceptCookies={() => {
 				setTimeout(() => {
-					document.cookie = 'AMP_=true; path=/; max-age=31536000'
+					document.cookie = 'AMP_njdsaknjdsak=true; path=/; max-age=31536000'
 				}, 1000)
 			}}
 		/>
