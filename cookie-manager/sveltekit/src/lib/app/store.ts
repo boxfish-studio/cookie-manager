@@ -2,10 +2,11 @@ import { type Readable, type Writable, derived, get, writable } from 'svelte/sto
 import { SupportedService } from '$core/enums'
 import type { Service, ServiceCookie } from '$core/types'
 import {
-	updateBrowserCookies,
+	applyCookieManagerNecessaryCookies,
 	clearAdditionalCookies,
 	checkAllRequiredCookies,
-	initializeGoogleAnalytics
+	initializeGoogleAnalytics,
+	stopCoreServices
 } from '$core/services'
 import {
 	INITIAL_ADDITIONAL_COOKIES,
@@ -15,15 +16,6 @@ import {
 	INITIAL_SHOW_COOKIE_DISCLAIMER
 } from '$core/initialStates'
 import { getAdditionalCookiesFromConfiguredServices } from '$core/utils'
-import {
-	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
-	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
-} from '$core/cookieLib'
-
-const SKCM_GOOGLE_NECESSARY_COOKIES: string[] = [
-	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
-	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name
-]
 
 export const showCookieDisclaimer: Writable<boolean> = writable(INITIAL_SHOW_COOKIE_DISCLAIMER)
 export const configuredServices: Writable<Service[]> = writable(INITIAL_CONFIGURED_SERVICES)
@@ -35,25 +27,25 @@ export const additionalCookies: Readable<ServiceCookie[]> = derived(
 	INITIAL_ADDITIONAL_COOKIES
 )
 
-// Check user has all needed necessary cookies already set
-export const hasAllNeededNecessaryCookies = (): boolean =>
-	checkAllRequiredCookies(get(necessaryCookies))
-
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
-	if (
-		get(necessaryCookies).some((element) => SKCM_GOOGLE_NECESSARY_COOKIES.includes(element.name))
-	) {
-		updateBrowserCookies(value, get(necessaryCookies))
+	const _necessaryCookies = get(necessaryCookies)
+	const _configuredServices = get(configuredServices)
+	const _servicesInitialized = get(servicesInitialized)
 
-		const updatedServices = get(configuredServices).map((service) => ({
-			...service,
-			enabled: value === 'true'
-		}))
-		configuredServices.set(updatedServices)
+	applyCookieManagerNecessaryCookies(value, _necessaryCookies)
 
-		if (value === 'true') {
-			initializeGoogleAnalytics(get(servicesInitialized), updatedServices, servicesInitialized.set)
-		}
+	const updatedServices = _configuredServices.map((service) => ({
+		...service,
+		enabled: value === 'true'
+	}))
+	configuredServices.set(updatedServices)
+
+	if (value === 'true') {
+		initializeGoogleAnalytics(_servicesInitialized, updatedServices, servicesInitialized.set)
+	} else {
+		stopCoreServices(updatedServices)
+		clearAdditionalCookies(_necessaryCookies)
+		servicesInitialized.set(false)
 	}
 
 	showCookieDisclaimer.set(false)

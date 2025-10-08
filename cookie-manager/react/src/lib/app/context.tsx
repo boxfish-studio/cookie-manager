@@ -23,3 +23,9 @@ export function useCookieManagerContext(): CookieManagerContextType {
 	}
 	return context
 }
+
+export function useCookieManager(): Pick<CookieManagerContextType, 'servicesInitialized'> {
+	const { servicesInitialized } = useCookieManagerContext()
+
+	return { servicesInitialized }
+}

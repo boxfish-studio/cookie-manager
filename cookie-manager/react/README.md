@@ -215,14 +215,14 @@ export default function CookieLibraryPage() {
 
 ### Using the internal store
 
-You can use the `useCookieManagerContext` hook to know whether the services are running or not.
+You can use the `useCookieManager` hook to know whether the services are running or not.
 
 ```tsx
-import { useCookieManagerContext } from '@boxfish-studio/react-cookie-manager'
+import { useCookieManager } from '@boxfish-studio/react-cookie-manager'
 
 export function Component() {
-	const { servicesInitialized } = useCookieManagerContext()
-	const isRunning = servicesInitialized.value
+	const { servicesInitialized } = useCookieManager()
+	const isRunning = servicesInitialized
 
 	// ...
 }

@@ -1,6 +1,12 @@
 import { useCookieManagerContext } from './context'
 import { SupportedService } from '@core/enums'
 import { updatePathGA } from '@core/clientSideOnly'
+import {
+	applyCookieManagerNecessaryCookies,
+	clearAdditionalCookies,
+	initializeGoogleAnalytics,
+	stopCoreServices
+} from '@core/services'
 
 interface UseUpdatePathGAProps {
 	googleAnalyticsUniversalId?: string
@@ -32,5 +38,36 @@ export function useUpdatePathGA(forceConfig?: UseUpdatePathGAProps): (pathname: 
 				}
 			}
 		}
+	}
+}
+
+export function useSubmitNecessaryCookies(): (value: 'true' | 'false') => void {
+	const {
+		necessaryCookies,
+		configuredServices,
+		servicesInitialized,
+		setServicesInitialized,
+		setConfiguredServices,
+		setShowCookieDisclaimer
+	} = useCookieManagerContext()
+
+	return (value: 'true' | 'false') => {
+		applyCookieManagerNecessaryCookies(value, necessaryCookies)
+
+		const updatedServices = configuredServices.map((service) => ({
+			...service,
+			enabled: value === 'true'
+		}))
+
+		if (value === 'true') {
+			initializeGoogleAnalytics(servicesInitialized, updatedServices, setServicesInitialized)
+		} else {
+			stopCoreServices(updatedServices)
+			clearAdditionalCookies(necessaryCookies)
+			setServicesInitialized(false)
+		}
+
+		setConfiguredServices(updatedServices)
+		setShowCookieDisclaimer(false)
 	}
 }

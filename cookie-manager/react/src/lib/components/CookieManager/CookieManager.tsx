@@ -4,19 +4,10 @@ import { useCookieManagerContext } from '@lib/app/context'
 import {
 	checkAllRequiredCookies,
 	initializeConfiguredServices,
-	initializeGoogleAnalytics,
-	updateBrowserCookies
+	initializeGoogleAnalytics
 } from '@core/services'
 import { Disclaimer } from '..'
-import {
-	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE,
-	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE
-} from '@core/cookieLib'
-
-const SKCM_GOOGLE_NECESSARY_COOKIES: string[] = [
-	SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
-	SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name
-]
+import { useSubmitNecessaryCookies } from '@lib/app'
 
 interface CookieManagerProps {
 	configuration: SKCMConfiguration
@@ -32,13 +23,12 @@ export function CookieManager({
 	const {
 		servicesInitialized,
 		setServicesInitialized,
-		necessaryCookies,
-		configuredServices,
 		showCookieDisclaimer,
 		setShowCookieDisclaimer,
 		setConfiguredServices,
 		setNecessaryCookies
 	} = useCookieManagerContext()
+	const submitNecessaryCookies = useSubmitNecessaryCookies()
 
 	useEffect(() => {
 		const { configuredServices: services, necessaryCookies: cookies } =
@@ -55,32 +45,14 @@ export function CookieManager({
 		}
 	}, [])
 
-	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		if (necessaryCookies.some((element) => SKCM_GOOGLE_NECESSARY_COOKIES.includes(element.name))) {
-			updateBrowserCookies(value, necessaryCookies)
-
-			const updatedServices = configuredServices.map((service) => ({
-				...service,
-				enabled: value === 'true'
-			}))
-			setConfiguredServices(updatedServices)
-
-			if (value === 'true') {
-				initializeGoogleAnalytics(servicesInitialized, updatedServices, setServicesInitialized)
-			}
-		}
-
-		setShowCookieDisclaimer(false)
-	}
-
 	function allowCookies(): void {
 		onAcceptCookies?.()
-		handleSubmitNecessaryCookies('true')
+		submitNecessaryCookies('true')
 	}
 
 	function declineCookies(): void {
 		onDeclineCookies?.()
-		handleSubmitNecessaryCookies('false')
+		submitNecessaryCookies('false')
 	}
 
 	return (

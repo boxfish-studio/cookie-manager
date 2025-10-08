@@ -79,11 +79,7 @@ export function initializeConfiguredServices(services: SKCMConfiguration['servic
 	return { configuredServices, necessaryCookies }
 }
 
-export function stopCoreServices(
-	configuredServices: Service[],
-	removeAdditionalCookiesCb: () => void,
-	setServicesInitialized: (bool: boolean) => void
-): void {
+export function stopCoreServices(configuredServices: Service[]): void {
 	const googleAnalyticsUniversalConfig = configuredServices?.find(
 		({ type }) => type === SupportedService.GoogleAnalyticsUniversal
 	)
@@ -92,18 +88,15 @@ export function stopCoreServices(
 	)
 	removeGoogleAnalytics(googleAnalytics4Config?.id)
 	removeGoogleAnalytics(googleAnalyticsUniversalConfig?.id)
-	removeAdditionalCookiesCb()
-
-	setServicesInitialized?.(false)
 }
 
-export function updateBrowserCookies(
+export function applyCookieManagerNecessaryCookies(
 	value: 'true' | 'false',
 	necessaryCookies: ServiceCookie[]
 ): void {
-	const SKCM_NECESSARY_COOKIES: string[] = [
-		SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE?.name,
-		SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE?.name
+	const SKCM_NECESSARY_COOKIES = [
+		SKCM_GA_GOOGLE_ANALYTICS_UNIVERSAL_COOKIE.name,
+		SKCM_GA_GOOGLE_ANALYTICS_4_COOKIE.name
 	]
 	// set cookies
 	const neededCookies =

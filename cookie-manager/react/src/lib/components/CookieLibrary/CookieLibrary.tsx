@@ -1,15 +1,9 @@
 import type { SKCMConfiguration } from '@core/types'
 import { information } from '@core/cookies.json'
 import { AdditionalCookiesTable, Button, NecessaryCookiesTable } from '..'
-import { useCookieManagerContext } from '@lib/app/context'
-import {
-	updateBrowserCookies as updateNecessaryCookies,
-	stopCoreServices,
-	clearAdditionalCookies,
-	initializeGoogleAnalytics
-} from '@core/services'
 import { useState } from 'react'
 import { parseThemeColors } from '@lib/app/parseStyles'
+import { useSubmitNecessaryCookies } from '@lib/app'
 import './CookieLibrary.css'
 
 interface CookieLibraryProps {
@@ -22,40 +16,20 @@ export function CookieLibrary({
 	onAcceptCookies,
 	onDeclineCookies
 }: CookieLibraryProps): React.JSX.Element {
-	const {
-		servicesInitialized,
-		configuredServices,
-		necessaryCookies,
-		setShowCookieDisclaimer,
-		setConfiguredServices,
-		setServicesInitialized
-	} = useCookieManagerContext()
+	const submitNecessaryCookies = useSubmitNecessaryCookies()
 	const [hasAllowedCookies, setHasAllowedCookies] = useState<'true' | 'false'>('false')
 
 	const themeStyles = parseThemeColors(configuration.theme)
 
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
-			updateNecessaryCookies(hasAllowedCookies, necessaryCookies)
-
-			const updatedServices = configuredServices.map((service) => ({
-				...service,
-				enabled: hasAllowedCookies === 'true'
-			}))
-			setConfiguredServices(updatedServices)
-
 			if (hasAllowedCookies === 'true') {
 				onAcceptCookies?.()
-				initializeGoogleAnalytics(servicesInitialized, updatedServices, setServicesInitialized)
 			} else {
 				onDeclineCookies?.()
-				stopCoreServices(
-					updatedServices,
-					() => clearAdditionalCookies(necessaryCookies),
-					setServicesInitialized
-				)
 			}
-			setShowCookieDisclaimer(false)
+
+			submitNecessaryCookies(hasAllowedCookies)
 		}
 	}
 
