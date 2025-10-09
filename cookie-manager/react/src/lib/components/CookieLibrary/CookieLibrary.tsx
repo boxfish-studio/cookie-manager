@@ -1,33 +1,30 @@
 import type { SKCMConfiguration } from '@core/types'
 import { information } from '@core/cookies.json'
 import { AdditionalCookiesTable, Button, NecessaryCookiesTable } from '..'
-import { useManageServices } from '@lib/app/hooks'
-import { useCookieManagerContext } from '@lib/app/context'
-import { setNecessaryCookies } from '@core/services'
 import { useState } from 'react'
 import { parseThemeColors } from '@lib/app/parseStyles'
+import { useSubmitNecessaryCookies } from '@lib/app'
 import './CookieLibrary.css'
 
 interface CookieLibraryProps {
 	configuration: SKCMConfiguration
 }
-export function CookieLibrary({ configuration: { theme } }: CookieLibraryProps): React.JSX.Element {
-	const { configuredServices, necessaryCookies, showCookieDisclaimer } = useCookieManagerContext()
-	const { initializeServices, stopServices } = useManageServices()
+export function CookieLibrary({ configuration }: CookieLibraryProps): React.JSX.Element {
+	const submitNecessaryCookies = useSubmitNecessaryCookies()
 	const [hasAllowedCookies, setHasAllowedCookies] = useState<'true' | 'false'>('false')
 
-	const themeStyles = parseThemeColors(theme)
+	const { onAcceptCookies, onDeclineCookies } = configuration
+	const themeStyles = parseThemeColors(configuration.theme)
 
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
-			setNecessaryCookies(
-				hasAllowedCookies,
-				configuredServices.value,
-				necessaryCookies.value,
-				configuredServices.setValue
-			)
-			hasAllowedCookies === 'true' ? initializeServices() : stopServices()
-			showCookieDisclaimer.setValue(false)
+			if (hasAllowedCookies === 'true') {
+				onAcceptCookies?.()
+			} else {
+				onDeclineCookies?.()
+			}
+
+			submitNecessaryCookies(hasAllowedCookies)
 		}
 	}
 

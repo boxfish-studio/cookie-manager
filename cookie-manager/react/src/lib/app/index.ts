@@ -1,3 +1,2 @@
-export * from './context'
-export * from './interfaces'
+export { useCookieManager } from './context'
 export * from './hooks'

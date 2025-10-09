@@ -1,7 +1,6 @@
 <script lang="ts">
 	/* eslint-disable @typescript-eslint/no-unsafe-argument */
-	import { initServices, stopServices } from '$lib/app/services'
-	import { showCookieDisclaimer, submitNecessaryCookies } from '$lib/app/store'
+	import { submitNecessaryCookies } from '$lib/app/store'
 	import type { SKCMConfiguration } from '$core/types'
 	import { getInlineStyle } from '$core/utils'
 	import { AdditionalCookies, Button, NecessaryCookies } from '../'
@@ -17,9 +16,13 @@
 
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
+			if (hasAllowedCookies === 'true') {
+				configuration.onAcceptCookies?.()
+			} else {
+				configuration.onDeclineCookies?.()
+			}
+
 			submitNecessaryCookies(hasAllowedCookies)
-			hasAllowedCookies === 'true' ? initServices() : stopServices()
-			showCookieDisclaimer.set(false)
 		}
 	}
 </script>

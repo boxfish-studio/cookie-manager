@@ -2,20 +2,24 @@
 	/* eslint-disable @typescript-eslint/no-unsafe-argument */
 	import { page } from '$app/stores'
 	import { SupportedService } from '$core/enums'
-	import type { Service, ServiceCookie, SKCMConfiguration } from '$core/types'
-	import { initServices } from '$lib/app/services'
+	import type { SKCMConfiguration } from '$core/types'
 	import { updatePathGA } from '$core/clientSideOnly'
 	import {
 		showCookieDisclaimer,
-		hasAllNeededNecessaryCookies,
 		isServiceEnabled,
 		configuredServices,
 		necessaryCookies,
-		submitNecessaryCookies
+		submitNecessaryCookies,
+		servicesInitialized
 	} from '$lib/app/store'
 	import { onMount } from 'svelte'
 	import { Disclaimer } from './'
-	import { initializeConfiguredServices } from '$core/services'
+	import {
+		checkAllRequiredCookies,
+		initializeConfiguredServices,
+		initializeGoogleAnalytics
+	} from '$core/services'
+	import { get } from 'svelte/store'
 
 	export let configuration: SKCMConfiguration
 
@@ -33,37 +37,28 @@
 	}
 
 	onMount(() => {
-		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
-			configuredServices.set(services)
-			necessaryCookies.set(cookies)
-		}
+		const { configuredServices: services, necessaryCookies: cookies } =
+			initializeConfiguredServices(configuration.services)
 
-		initializeConfiguredServices({
-			services: configuration.services,
-			onConfiguredServicesInitialized
-		})
+		configuredServices.set(services)
+		necessaryCookies.set(cookies)
 
-		if (hasAllNeededNecessaryCookies()) {
-			initServices()
+		const hasAllRequiredCookies = checkAllRequiredCookies(cookies)
+		if (hasAllRequiredCookies) {
+			initializeGoogleAnalytics(get(servicesInitialized), services, servicesInitialized.set)
 		} else {
 			showCookieDisclaimer.set(true)
 		}
 	})
 
-	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		submitNecessaryCookies(value)
-		if (value === 'true') {
-			initServices()
-		}
-		showCookieDisclaimer.set(false)
-	}
-
 	function allowCookies(): void {
-		handleSubmitNecessaryCookies('true')
+		configuration.onAcceptCookies?.()
+		submitNecessaryCookies('true')
 	}
 
 	function declineCookies(): void {
-		handleSubmitNecessaryCookies('false')
+		configuration.onDeclineCookies?.()
+		submitNecessaryCookies('false')
 	}
 </script>
 

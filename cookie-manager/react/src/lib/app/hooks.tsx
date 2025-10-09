@@ -1,38 +1,12 @@
-import { initializeServices, clearAdditionalCookies, stopCoreServices } from '@core/services'
 import { useCookieManagerContext } from './context'
 import { SupportedService } from '@core/enums'
 import { updatePathGA } from '@core/clientSideOnly'
-import { useCallback } from 'react'
-
-export function useManageServices(): {
-	initializeServices: () => void
-	stopServices: () => void
-	removeUnnecessaryCookies: () => void
-} {
-	const { servicesInitialized, configuredServices, necessaryCookies } = useCookieManagerContext()
-
-	const removeUnnecessaryCookies = useCallback(() => {
-		clearAdditionalCookies(necessaryCookies.value)
-	}, [necessaryCookies])
-
-	const initServices = useCallback(() => {
-		initializeServices(
-			servicesInitialized.value,
-			configuredServices.value,
-			servicesInitialized.setValue
-		)
-	}, [configuredServices, servicesInitialized])
-
-	const stopServices = useCallback(() => {
-		stopCoreServices(
-			configuredServices.value,
-			removeUnnecessaryCookies,
-			servicesInitialized.setValue
-		)
-	}, [configuredServices, servicesInitialized, removeUnnecessaryCookies])
-
-	return { initializeServices: initServices, stopServices, removeUnnecessaryCookies }
-}
+import {
+	applyCookieManagerNecessaryCookies,
+	clearAdditionalCookies,
+	initializeGoogleAnalytics,
+	stopCoreServices
+} from '@core/services'
 
 interface UseUpdatePathGAProps {
 	googleAnalyticsUniversalId?: string
@@ -43,10 +17,10 @@ export function useUpdatePathGA(forceConfig?: UseUpdatePathGAProps): (pathname: 
 	const { googleAnalyticsUniversalId, googleAnalytics4Id } = forceConfig ?? {}
 	const { configuredServices } = useCookieManagerContext()
 
-	const currentService = configuredServices.value.find(({ enabled }) => enabled)
+	const currentService = configuredServices.find(({ enabled }) => enabled)
 
 	function isServiceEnabled(service: SupportedService): boolean {
-		return configuredServices.value.find(({ type }) => type === service)?.enabled ?? false
+		return configuredServices.find(({ type }) => type === service)?.enabled ?? false
 	}
 
 	return (pathname: string) => {
@@ -64,5 +38,36 @@ export function useUpdatePathGA(forceConfig?: UseUpdatePathGAProps): (pathname: 
 				}
 			}
 		}
+	}
+}
+
+export function useSubmitNecessaryCookies(): (value: 'true' | 'false') => void {
+	const {
+		necessaryCookies,
+		configuredServices,
+		servicesInitialized,
+		setServicesInitialized,
+		setConfiguredServices,
+		setShowCookieDisclaimer
+	} = useCookieManagerContext()
+
+	return (value: 'true' | 'false') => {
+		applyCookieManagerNecessaryCookies(value, necessaryCookies)
+
+		const updatedServices = configuredServices.map((service) => ({
+			...service,
+			enabled: value === 'true'
+		}))
+
+		if (value === 'true') {
+			initializeGoogleAnalytics(servicesInitialized, updatedServices, setServicesInitialized)
+		} else {
+			stopCoreServices(updatedServices)
+			clearAdditionalCookies(necessaryCookies)
+			setServicesInitialized(false)
+		}
+
+		setConfiguredServices(updatedServices)
+		setShowCookieDisclaimer(false)
 	}
 }

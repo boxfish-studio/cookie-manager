@@ -70,6 +70,45 @@ export default function Disclaimer(): React.JSX.Element {
 }
 ```
 
+### Run custom logic on Accept / Decline
+
+If you need to initialize third-party services, or to run any custom tracking logic depending on the user choice, pass `onAcceptCookies` or `onDeclineCookies` to your `SKCMConfiguration`.
+
+```tsx
+'use client'
+
+import { CookieManager, type SKCMConfiguration } from '@boxfish-studio/react-cookie-manager'
+
+export default function Disclaimer(): React.JSX.Element {
+	const configuration: SKCMConfiguration = {
+		disclaimer: {
+			title: 'This website uses cookies',
+			body: 'By using this site, you agree with our use of cookies'
+		},
+		services: {
+			customAnalyticsCookies: [
+				{
+					name: 'ANALYTICS_' + 'SERVICE_ID',
+					purpose: 'Analytics - tracks usage for basic website functionality',
+					expiry: '1 year',
+					type: 'http',
+					showDisclaimerIfMissing: true
+				}
+			]
+		},
+		onAcceptCookies: () => {
+			// Initialize third-party services here
+			console.log('User accepted cookies')
+		},
+		onDeclineCookies: () => {
+			console.log('User declined cookies')
+		}
+	}
+
+	return <CookieManager configuration={configuration} />
+}
+```
+
 ### Control page navigation
 
 Import the `useUpdatePathGA` hook and use it with your router of preference:
@@ -132,14 +171,14 @@ export default function RootLayout({
 	children: React.ReactNode
 }>): React.JSX.Element {
 	return (
-		<ContextProviders>
-			<html lang="en">
-				<body>
+		<html lang="en">
+			<body>
+				<ContextProviders>
 					{children}
 					<Disclaimer />
-				</body>
-			</html>
-		</ContextProviders>
+				</ContextProviders>
+			</body>
+		</html>
 	)
 }
 ```
@@ -171,14 +210,14 @@ export default function CookieLibraryPage() {
 
 ### Using the internal store
 
-You can use the `useCookieManagerContext` hook to know whether the services are running or not.
+You can use the `useCookieManager` hook to know whether the services are running or not.
 
 ```tsx
-import { useCookieManagerContext } from '@boxfish-studio/react-cookie-manager'
+import { useCookieManager } from '@boxfish-studio/react-cookie-manager'
 
 export function Component() {
-	const { servicesInitialized } = useCookieManagerContext()
-	const isRunning = servicesInitialized.value
+	const { servicesInitialized } = useCookieManager()
+	const isRunning = servicesInitialized
 
 	// ...
 }
@@ -218,6 +257,8 @@ type SKCMConfiguration = {
 		medium?: string
 		light?: string
 	}
+	onAcceptCookies?: () => void
+	onDeclineCookies?: () => void
 }
 ```
 

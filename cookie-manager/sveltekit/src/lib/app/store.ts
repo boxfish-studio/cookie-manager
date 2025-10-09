@@ -2,9 +2,11 @@ import { type Readable, type Writable, derived, get, writable } from 'svelte/sto
 import { SupportedService } from '$core/enums'
 import type { Service, ServiceCookie } from '$core/types'
 import {
-	setNecessaryCookies,
+	applyCookieManagerNecessaryCookies,
 	clearAdditionalCookies,
-	checkAllRequiredCookies
+	checkAllRequiredCookies,
+	initializeGoogleAnalytics,
+	stopCoreServices
 } from '$core/services'
 import {
 	INITIAL_ADDITIONAL_COOKIES,
@@ -25,12 +27,28 @@ export const additionalCookies: Readable<ServiceCookie[]> = derived(
 	INITIAL_ADDITIONAL_COOKIES
 )
 
-// Check user has all needed necessary cookies already set
-export const hasAllNeededNecessaryCookies = (): boolean =>
-	checkAllRequiredCookies(get(necessaryCookies))
-
 export const submitNecessaryCookies = (value: 'true' | 'false'): void => {
-	setNecessaryCookies(value, get(configuredServices), get(necessaryCookies), configuredServices.set)
+	const _necessaryCookies = get(necessaryCookies)
+	const _configuredServices = get(configuredServices)
+	const _servicesInitialized = get(servicesInitialized)
+
+	applyCookieManagerNecessaryCookies(value, _necessaryCookies)
+
+	const updatedServices = _configuredServices.map((service) => ({
+		...service,
+		enabled: value === 'true'
+	}))
+	configuredServices.set(updatedServices)
+
+	if (value === 'true') {
+		initializeGoogleAnalytics(_servicesInitialized, updatedServices, servicesInitialized.set)
+	} else {
+		stopCoreServices(updatedServices)
+		clearAdditionalCookies(_necessaryCookies)
+		servicesInitialized.set(false)
+	}
+
+	showCookieDisclaimer.set(false)
 }
 
 export const isServiceEnabled = (serviceType: SupportedService): boolean => {

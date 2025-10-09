@@ -1,67 +1,58 @@
 import { useEffect } from 'react'
-import type { Service, ServiceCookie, SKCMConfiguration } from '@core/types'
+import type { SKCMConfiguration } from '@core/types'
 import { useCookieManagerContext } from '@lib/app/context'
 import {
 	checkAllRequiredCookies,
 	initializeConfiguredServices,
-	setNecessaryCookies
+	initializeGoogleAnalytics
 } from '@core/services'
-import { useManageServices } from '@lib/app/hooks'
 import { Disclaimer } from '..'
+import { useSubmitNecessaryCookies } from '@lib/app'
 
 interface CookieManagerProps {
 	configuration: SKCMConfiguration
 }
 
 export function CookieManager({ configuration }: CookieManagerProps): React.JSX.Element {
-	const { necessaryCookies, configuredServices, showCookieDisclaimer } = useCookieManagerContext()
-	const { initializeServices } = useManageServices()
+	const {
+		servicesInitialized,
+		setServicesInitialized,
+		showCookieDisclaimer,
+		setShowCookieDisclaimer,
+		setConfiguredServices,
+		setNecessaryCookies
+	} = useCookieManagerContext()
+	const submitNecessaryCookies = useSubmitNecessaryCookies()
+	const { onAcceptCookies, onDeclineCookies } = configuration
 
 	useEffect(() => {
-		initializeConfiguredServices({
-			services: configuration?.services,
-			onConfiguredServicesInitialized
-		})
+		const { configuredServices: services, necessaryCookies: cookies } =
+			initializeConfiguredServices(configuration?.services)
 
-		function onConfiguredServicesInitialized(services: Service[], cookies: ServiceCookie[]): void {
-			configuredServices.setValue(services)
-			necessaryCookies.setValue(cookies)
+		setConfiguredServices(services)
+		setNecessaryCookies(cookies)
+
+		const hasAllRequiredCookies = checkAllRequiredCookies(cookies)
+		if (hasAllRequiredCookies) {
+			initializeGoogleAnalytics(servicesInitialized, services, setServicesInitialized)
+		} else {
+			setShowCookieDisclaimer(true)
 		}
 	}, [])
 
-	useEffect(() => {
-		const canInitializeServices = checkAllRequiredCookies(necessaryCookies.value)
-		if (canInitializeServices) {
-			initializeServices()
-		} else {
-			showCookieDisclaimer.setValue(true)
-		}
-	}, [necessaryCookies.value, initializeServices])
-
-	function handleSubmitNecessaryCookies(value: 'true' | 'false'): void {
-		setNecessaryCookies(
-			value,
-			configuredServices.value,
-			necessaryCookies.value,
-			configuredServices.setValue
-		)
-		if (value === 'true') {
-			initializeServices()
-		}
-		showCookieDisclaimer.setValue(false)
-	}
-
 	function allowCookies(): void {
-		handleSubmitNecessaryCookies('true')
+		onAcceptCookies?.()
+		submitNecessaryCookies('true')
 	}
 
 	function declineCookies(): void {
-		handleSubmitNecessaryCookies('false')
+		onDeclineCookies?.()
+		submitNecessaryCookies('false')
 	}
 
 	return (
 		<>
-			{showCookieDisclaimer.value && (
+			{showCookieDisclaimer && (
 				<Disclaimer
 					allowCookies={allowCookies}
 					declineCookies={declineCookies}
