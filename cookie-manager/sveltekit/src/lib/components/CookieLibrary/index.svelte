@@ -7,8 +7,6 @@
 	import { information } from '$core/cookies.json'
 
 	export let configuration: SKCMConfiguration = {}
-	export let onAcceptCookies: () => void = () => {}
-	export let onDeclineCookies: () => void = () => {}
 
 	let hasAllowedCookies: 'true' | 'false'
 	let style: string = ''
@@ -19,9 +17,9 @@
 	function updatePreferences(): void {
 		if (hasAllowedCookies !== undefined) {
 			if (hasAllowedCookies === 'true') {
-				onAcceptCookies()
+				configuration.onAcceptCookies?.()
 			} else {
-				onDeclineCookies()
+				configuration.onDeclineCookies?.()
 			}
 
 			submitNecessaryCookies(hasAllowedCookies)

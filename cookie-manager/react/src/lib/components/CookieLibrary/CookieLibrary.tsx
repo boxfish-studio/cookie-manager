@@ -8,17 +8,12 @@ import './CookieLibrary.css'
 
 interface CookieLibraryProps {
 	configuration: SKCMConfiguration
-	onAcceptCookies?: () => void
-	onDeclineCookies?: () => void
 }
-export function CookieLibrary({
-	configuration,
-	onAcceptCookies,
-	onDeclineCookies
-}: CookieLibraryProps): React.JSX.Element {
+export function CookieLibrary({ configuration }: CookieLibraryProps): React.JSX.Element {
 	const submitNecessaryCookies = useSubmitNecessaryCookies()
 	const [hasAllowedCookies, setHasAllowedCookies] = useState<'true' | 'false'>('false')
 
+	const { onAcceptCookies, onDeclineCookies } = configuration
 	const themeStyles = parseThemeColors(configuration.theme)
 
 	function updatePreferences(): void {

@@ -45,6 +45,8 @@ export type SKCMConfiguration = {
 	disclaimer?: DisclaimerConfiguration
 	services?: ServicesConfiguration
 	theme?: Theme
+	onAcceptCookies?: () => void
+	onDeclineCookies?: () => void
 }
 
 export type CookieProvider = {

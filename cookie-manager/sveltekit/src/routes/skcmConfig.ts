@@ -1,7 +1,6 @@
-import { CookieManager, CookieLibrary } from '@components'
-import { SKCMConfiguration } from '@core/types'
+import type { SKCMConfiguration } from '$core/types'
 
-const configuration: SKCMConfiguration = {
+export const configuration: SKCMConfiguration = {
 	disclaimer: {
 		title: 'Custom Title',
 		body: 'Custom Body'
@@ -31,6 +30,12 @@ const configuration: SKCMConfiguration = {
 			}
 		]
 	},
+	theme: {
+		light: '#fff',
+		dark: '#131f37',
+		medium: '#b0bfd9',
+		primary: '#14cabf'
+	},
 	onAcceptCookies: () => {
 		document.cookie = '1st_Cookie_Test=true; path=/; max-age=' + 60 * 60 * 24 * 30 // 30 days
 		document.cookie = 'Cookie_2=true; path=/; max-age=' + 60 * 60 * 24 * 30 // 30 days
@@ -38,21 +43,5 @@ const configuration: SKCMConfiguration = {
 	onDeclineCookies: () => {
 		document.cookie = '1st_Cookie_Test=false; path=/; max-age=' + 60 * 60 * 24 * 30 // 30 days
 		document.cookie = 'Cookie_2=false; path=/; max-age=' + 60 * 60 * 24 * 30 // 30 days
-	},
-	theme: {
-		light: '#fff',
-		dark: '#131f37',
-		medium: '#b0bfd9',
-		primary: '#14cabf'
 	}
 }
-
-function App(): React.JSX.Element {
-	return (
-		<>
-			<CookieManager configuration={configuration} />
-			<CookieLibrary configuration={configuration} />
-		</>
-	)
-}
-export default App

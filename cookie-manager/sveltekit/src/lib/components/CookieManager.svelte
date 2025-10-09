@@ -22,8 +22,6 @@
 	import { get } from 'svelte/store'
 
 	export let configuration: SKCMConfiguration
-	export let onAcceptCookies: () => void = () => {}
-	export let onDeclineCookies: () => void = () => {}
 
 	$: ({ googleAnalyticsUniversalId, googleAnalytics4Id } = configuration?.services ?? {})
 
@@ -54,12 +52,12 @@
 	})
 
 	function allowCookies(): void {
-		onAcceptCookies()
+		configuration.onAcceptCookies?.()
 		submitNecessaryCookies('true')
 	}
 
 	function declineCookies(): void {
-		onDeclineCookies()
+		configuration.onDeclineCookies?.()
 		submitNecessaryCookies('false')
 	}
 </script>

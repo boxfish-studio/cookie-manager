@@ -72,8 +72,7 @@ export default function Disclaimer(): React.JSX.Element {
 
 ### Run custom logic on Accept / Decline
 
-You can hook into the user's choice by passing optional `onAcceptCookies` and `onDeclineCookies` props.  
-This is useful to initialize third-party services, or to run any custom tracking logic.
+If you need to initialize third-party services, or to run any custom tracking logic depending on the user choice, pass `onAcceptCookies` or `onDeclineCookies` to your `SKCMConfiguration`.
 
 ```tsx
 'use client'
@@ -96,21 +95,17 @@ export default function Disclaimer(): React.JSX.Element {
 					showDisclaimerIfMissing: true
 				}
 			]
+		},
+		onAcceptCookies: () => {
+			// Initialize third-party services here
+			console.log('User accepted cookies')
+		},
+		onDeclineCookies: () => {
+			console.log('User declined cookies')
 		}
 	}
 
-	return (
-		<CookieManager
-			configuration={configuration}
-			onAcceptCookies={() => {
-				// Initialize third-party services here
-				console.log('User accepted cookies')
-			}}
-			onDeclineCookies={() => {
-				console.log('User declined cookies')
-			}}
-		/>
-	)
+	return <CookieManager configuration={configuration} />
 }
 ```
 
@@ -176,14 +171,14 @@ export default function RootLayout({
 	children: React.ReactNode
 }>): React.JSX.Element {
 	return (
-		<ContextProviders>
-			<html lang="en">
-				<body>
+		<html lang="en">
+			<body>
+				<ContextProviders>
 					{children}
 					<Disclaimer />
-				</body>
-			</html>
-		</ContextProviders>
+				</ContextProviders>
+			</body>
+		</html>
 	)
 }
 ```
@@ -262,6 +257,8 @@ type SKCMConfiguration = {
 		medium?: string
 		light?: string
 	}
+	onAcceptCookies?: () => void
+	onDeclineCookies?: () => void
 }
 ```
 

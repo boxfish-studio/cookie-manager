@@ -11,15 +11,9 @@ import { useSubmitNecessaryCookies } from '@lib/app'
 
 interface CookieManagerProps {
 	configuration: SKCMConfiguration
-	onAcceptCookies?: () => void
-	onDeclineCookies?: () => void
 }
 
-export function CookieManager({
-	configuration,
-	onAcceptCookies,
-	onDeclineCookies
-}: CookieManagerProps): React.JSX.Element {
+export function CookieManager({ configuration }: CookieManagerProps): React.JSX.Element {
 	const {
 		servicesInitialized,
 		setServicesInitialized,
@@ -29,6 +23,7 @@ export function CookieManager({
 		setNecessaryCookies
 	} = useCookieManagerContext()
 	const submitNecessaryCookies = useSubmitNecessaryCookies()
+	const { onAcceptCookies, onDeclineCookies } = configuration
 
 	useEffect(() => {
 		const { configuredServices: services, necessaryCookies: cookies } =
