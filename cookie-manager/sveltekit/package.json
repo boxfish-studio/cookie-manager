@@ -6,6 +6,14 @@
 	"repository": "github:boxfish-studio/cookie-manager",
 	"homepage": "https://github.com/boxfish-studio/cookie-manager/tree/main/cookie-manager/sveltekit#readme",
 	"bugs": "https://github.com/boxfish-studio/cookie-manager/issues",
+	"svelte": "./index.js",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"svelte": "./index.js",
+			"default": "./index.js"
+		}
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
