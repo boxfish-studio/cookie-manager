@@ -32,11 +32,7 @@ export function Disclaimer({
 					{body}
 					{onPolicyClick ? (
 						<span id="skcm-policy-link__wrapper">
-							<Button
-								onClick={onPolicyClick}
-								id="skcm-policy-link__button"
-								className="action_button"
-							>
+							<Button onClick={onPolicyClick} id="skcm-policy-link__button">
 								{policyText}
 							</Button>
 						</span>
