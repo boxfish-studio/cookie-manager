@@ -17,10 +17,11 @@ export function Disclaimer({
 	allowCookies,
 	declineCookies
 }: DisclaimerProps): React.JSX.Element {
-	const { title, body, policyUrl, policyText, acceptButtonText, rejectButtonText } = {
-		...DEFAULT_DISCLAIMER_CONFIG,
-		...configuration
-	}
+	const { title, body, policyUrl, policyText, acceptButtonText, rejectButtonText, onPolicyClick } =
+		{
+			...DEFAULT_DISCLAIMER_CONFIG,
+			...configuration
+		}
 	const styles = parseThemeColors(theme)
 
 	return (
@@ -29,9 +30,23 @@ export function Disclaimer({
 				{title && <h6 id="skcm-title">{title}</h6>}
 				<p id="skcm-body">
 					{body}
-					<a href={policyUrl} target="_blank" rel="noopener noreferrer">
+					{onPolicyClick ? (
+						<span id="skcm-policy-link__wrapper">
+							<Button
+								onClick={onPolicyClick}
+								id="skcm-policy-link__button"
+								className="action_button"
+							>
+								{policyText}
+							</Button>
+						</span>
+					) : policyUrl ? (
+						<a href={policyUrl} target="_blank" rel="noopener noreferrer">
+							<span id="skcm-link__span">{policyText}</span>
+						</a>
+					) : (
 						<span id="skcm-link__span">{policyText}</span>
-					</a>
+					)}
 				</p>
 			</div>
 			<div id="skcm-cookie-disclaimer__buttons">
