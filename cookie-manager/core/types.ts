@@ -32,6 +32,7 @@ export type DisclaimerConfiguration = {
 	policyUrl?: string
 	acceptButtonText?: string
 	rejectButtonText?: string
+	onPolicyClick?: () => void
 }
 
 export type ServicesConfiguration = {

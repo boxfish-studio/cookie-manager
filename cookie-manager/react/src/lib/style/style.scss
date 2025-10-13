@@ -18,6 +18,15 @@
 		text-decoration: none;
 	}
 
+	#skcm-policy-link__button {
+		background-color: transparent;
+		color: inherit;
+		text-transform: none;
+		padding: 0;
+		display: inline;
+		color: var(--primary);
+	}
+
 	button {
 		text-transform: uppercase;
 		display: block;
@@ -51,6 +60,7 @@
 		border-bottom: none;
 		border-collapse: collapse;
 		text-align: left;
+
 		thead {
 			tr {
 				th {
@@ -62,6 +72,7 @@
 				}
 			}
 		}
+
 		tbody {
 			tr {
 				td {
@@ -73,6 +84,7 @@
 					&:first-child {
 						font-weight: bold;
 					}
+
 					a {
 						color: var(--primary);
 						text-decoration: none;

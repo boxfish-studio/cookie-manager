@@ -24,14 +24,26 @@
 		{/if}
 		<p id="skcm-body">
 			{body ?? DEFAULT_DISCLAIMER_CONFIG.body}
-			<a
-				href={configuration?.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				><span id="skcm-link__span"
-					>{configuration?.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}</span
-				></a
-			>
+
+			{#if configuration?.onPolicyClick}
+				<Button id="skcm-policy-link__button" on:click={configuration.onPolicyClick}>
+					{configuration.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}
+				</Button>
+			{:else if configuration?.policyUrl}
+				<a
+					href={configuration.policyUrl ?? DEFAULT_DISCLAIMER_CONFIG.policyUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<span id="skcm-link__span">
+						{configuration.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}
+					</span>
+				</a>
+			{:else}
+				<span id="skcm-link__span">
+					{configuration.policyText ?? DEFAULT_DISCLAIMER_CONFIG.policyText}
+				</span>
+			{/if}
 		</p>
 	</div>
 	<div id="skcm-cookie-disclaimer__buttons">
