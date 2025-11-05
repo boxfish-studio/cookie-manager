@@ -6,6 +6,10 @@ on:
       - 'react-cookie-manager@[0-9]+.[0-9]+.[0-9]+'
       - 'sveltekit-cookie-manager@[0-9]+.[0-9]+.[0-9]+'
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   publish-npm-package:
     outputs:
@@ -21,6 +25,10 @@ jobs:
           node-version: "20"
           cache: "pnpm"
           registry-url: https://registry.npmjs.org/
+
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Detect tag and set variable
         id: detect_tag
         run: |
@@ -41,8 +49,6 @@ jobs:
           cd cookie-manager/${{ steps.detect_tag.outputs.library_dir }} && \
           pnpm package && \
           pnpm package:publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   github_draft_release:
     needs: publish-npm-package
