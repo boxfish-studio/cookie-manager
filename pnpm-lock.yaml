@@ -35,9 +35,6 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      sass:
-        specifier: ^1.57.1
-        version: 1.79.3
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -96,9 +93,6 @@ importers:
 
   cookie-manager/sveltekit:
     dependencies:
-      sass:
-        specifier: ^1.57.1
-        version: 1.79.3
       svelte:
         specifier: ^3.55.0
         version: 3.59.2
@@ -4519,6 +4513,7 @@ snapshots:
   chokidar@4.0.0:
     dependencies:
       readdirp: 4.0.1
+    optional: true
 
   cli-cursor@4.0.0:
     dependencies:
@@ -5275,7 +5270,8 @@ snapshots:
 
   ignore@5.3.1: {}
 
-  immutable@4.3.7: {}
+  immutable@4.3.7:
+    optional: true
 
   import-fresh@3.3.0:
     dependencies:
@@ -5921,7 +5917,8 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
-  readdirp@4.0.1: {}
+  readdirp@4.0.1:
+    optional: true
 
   reflect.getprototypeof@1.0.6:
     dependencies:
@@ -6029,6 +6026,7 @@ snapshots:
       chokidar: 4.0.0
       immutable: 4.3.7
       source-map-js: 1.2.1
+    optional: true
 
   scheduler@0.23.2:
     dependencies:

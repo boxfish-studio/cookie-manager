@@ -24,7 +24,6 @@
 		"package:publish": "cd package && pnpm publish --access public --no-git-checks"
 	},
 	"dependencies": {
-		"sass": "^1.57.1",
 		"svelte": "^3.55.0"
 	},
 	"devDependencies": {
