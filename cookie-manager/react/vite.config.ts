@@ -15,12 +15,13 @@ const packageBuildConfig: BuildOptions = {
 		fileName: (format) => `index.${format}.js`
 	},
 	rollupOptions: {
-		external: ['react', 'react-dom', 'tailwindcss'],
+		external: ['react', 'react-dom', 'tailwindcss', 'react/jsx-runtime'],
 		output: {
 			globals: {
 				react: 'React',
 				'react-dom': 'ReactDOM',
-				tailwindcss: 'tailwindcss'
+				tailwindcss: 'tailwindcss',
+				'react/jsx-runtime': 'ReactJsxRuntime'
 			}
 		}
 	},
